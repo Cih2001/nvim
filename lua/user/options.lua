@@ -17,7 +17,7 @@ local options = {
   splitright = true,                       -- force all vertical splits to go to the right of current window
   swapfile = false,                        -- creates a swapfile
   termguicolors = true,                    -- set term gui colors (most terminals support this)
-  timeoutlen = 100,                        -- time to wait for a mapped sequence to complete (in milliseconds)
+  timeoutlen = 300,                        -- time to wait for a mapped sequence to complete (in milliseconds)
   undofile = true,                         -- enable persistent undo
   updatetime = 300,                        -- faster completion (4000ms default)
   writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -35,20 +35,21 @@ local options = {
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
   wildmenu = true,
   laststatus = 2,
-  nu = true,
-  rnu = true,
   autoindent = true,
   path = "**",
 }
 
 -- vim.o.showcmd = true
-vim.opt.shortmess:append "c"
+-- vim.opt.shortmess:append "c"
 
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+vim.cmd("set nu")
+vim.cmd("set rnu")
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+
+-- vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
