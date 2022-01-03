@@ -55,9 +55,7 @@ bufferline.setup {
     --     return true
     --   end
     -- end,
-    offsets = { 
-        { filetype = "NERDTree", text = "File Explorer", highlight = "Directory", text_align = "left" }
-    },
+    offsets = { { filetype = "nerdtree", text = ""} },
     show_buffer_icons = true,
     show_buffer_close_icons = true,
     show_close_icon = true,

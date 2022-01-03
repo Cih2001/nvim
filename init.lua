@@ -46,6 +46,12 @@ nmap("<C-S-Down>", ":resize +2<CR>", opts)
 nmap("<C-S-Left>", ":vertical resize -2<CR>", opts)
 nmap("<C-S-Right>", ":vertical resize +2<CR>", opts)
 
+-- Switch windows
+nmap("<C-j>", "<C-w>j", opts)
+nmap("<C-k>", "<C-w>k", opts)
+nmap("<C-l>", "<C-w>l", opts)
+nmap("<C-h>", "<C-w>h", opts)
+
 -- Navigate buffers
 nmap("<S-l>", ":bnext<CR>", opts)
 nmap("<S-h>", ":bprevious<CR>", opts)
