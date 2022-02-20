@@ -214,6 +214,10 @@ vim.g.NERDTreeShowHidden = 1
 -- go debug layout
 ----------------------------------------------
 vim.g.go_debug_windows = {vars='rightbelow 60vnew', stack='rightbelow 10new'}
+vim.cmd("cnoreabbrev gdt GoDebugTest")
+vim.cmd("cnoreabbrev gdtf GoDebugTestFunc")
+vim.cmd("cnoreabbrev gds GoDebugStop")
+vim.cmd("cnoreabbrev gd GoDebugStart")
 
 require "user.options"
 require "user.bufferline"
