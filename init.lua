@@ -225,3 +225,5 @@ require "user.lualine"
 require "user.colorscheme"
 require "user.gitsigns"
 require "user.indentline"
+
+vim.cmd("hi CursorColumn guibg=#aa0000")
