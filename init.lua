@@ -39,7 +39,7 @@ vim.cmd("au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_
 ------------------------------------------------
 -- some useful key bindings
 ------------------------------------------------
---
+
 -- Resize with arrows
 nmap("<C-S-Up>", ":resize -2<CR>", opts)
 nmap("<C-S-Down>", ":resize +2<CR>", opts)
@@ -79,7 +79,7 @@ Plug 'alvan/vim-closetag' " for painless html.
 Plug 'mg979/vim-visual-multi', {'branch': 'master'} " for having multiple cursors.
 Plug 'preservim/nerdtree'
 Plug 'rhysd/vim-clang-format', {'branch': 'master'} " for using clang-format
-
+Plug 'Raimondi/delimitMate'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
 Plug 'akinsho/bufferline.nvim'
@@ -198,6 +198,9 @@ vim.g.go_def_mapping_enabled = 0
 -- use gofumpt instead of fmt.
 vim.g.go_fmt_command = "gopls"
 vim.g.go_gopls_gofumpt = 1
+
+-- golang linters
+vim.g.go_metalinter_command = "golangci-lint"
 
 ----------------------------------------------
 -- closing tag settings
