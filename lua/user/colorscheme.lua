@@ -6,3 +6,6 @@ catch /^Vim\%((\a\+)\)\=:E185/
   set background=dark
 endtry
 ]]
+
+vim.cmd("hi CursorColumn guibg=#aa0000")
+vim.cmd("hi clear SignColumn")

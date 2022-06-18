@@ -37,10 +37,14 @@ local options = {
   laststatus = 2,
   autoindent = true,
   path = "**",
+  hidden = true,                           -- if hidden is not set, TextEdit might fail.
+  updatetime = 300,                        --  Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 }
 
 -- vim.o.showcmd = true
--- vim.opt.shortmess:append "c"
+--
+-- don't give |ins-completion-menu| messages.
+vim.o.shortmess = vim.o.shortmess.."c"
 
 for k, v in pairs(options) do
   vim.opt[k] = v
@@ -50,6 +54,8 @@ vim.cmd("set nu")
 vim.cmd("set rnu")
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
+vim.cmd("command! Wq :wq")
+vim.cmd("command! W :w")
 
 -- vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
