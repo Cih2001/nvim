@@ -45,6 +45,7 @@ vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<cr>")
 vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<cr>")
 vim.keymap.set("n", "<leader>i", [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]],
   { noremap = true, silent = true })
+vim.keymap.set("n", "<space>a", "<cmd>Telescope diagnostics<CR>", opts)
 
 vim.keymap.set('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
 vim.keymap.set('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
