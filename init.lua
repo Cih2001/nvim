@@ -1,17 +1,21 @@
 require "user.plugins"
 require "user.options"
 require "user.keybindings"
+require "user.treesitter"
 require "user.bufferline"
 require "user.lualine"
 require "user.colorscheme"
 require "user.gitsigns"
 require "user.indentline"
+require "user.cmp"
+require "user.lsp"
+require "user.telescope"
+require "user.luasnip"
 
--- use gofumpt instead of fmt.
-vim.g.go_fmt_command = "gopls"
-vim.g.go_gopls_gofumpt = 1
+local function test()
+  local ts_utils = require 'nvim-treesitter.ts_utils'
+  local tsnode = ts_utils.get_node_at_cursor()
+  print(tsnode)
+end
 
--- golang linters
-vim.g.go_metalinter_command = "golangci-lint"
-
-vim.g.NERDTreeShowHidden = 1
+vim.keymap.set("n", "<leader>t", "", { callback = test })
