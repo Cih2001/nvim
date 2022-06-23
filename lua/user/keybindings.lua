@@ -47,5 +47,17 @@ vim.keymap.set("n", "<leader>i", [[<cmd>lua require'telescope'.extensions.goimpl
   { noremap = true, silent = true })
 vim.keymap.set("n", "<space>a", "<cmd>Telescope diagnostics<CR>", opts)
 
+-- Illuminate --
 vim.keymap.set('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
 vim.keymap.set('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+
+-- Debug --
+vim.keymap.set('n', '<F1>', '<cmd>lua require"dapui".toggle()<cr>', opts)
+vim.keymap.set('n', '<F2>', '<cmd>lua require"dap".toggle_breakpoint()<cr>', opts)
+vim.keymap.set('n', '<F9>', '<cmd>lua require"dap".continue()<cr>', opts)
+vim.keymap.set('n', '<F10>', '<cmd>lua require"dap".step_over()<cr>', opts)
+vim.keymap.set('n', '<F11>', '<cmd>lua require"dap".step_into()<cr>', opts)
+vim.keymap.set('n', '<F12>', '<cmd>lua require"dap".step_out()<cr>', opts)
+vim.keymap.set('n', '<F3>', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint Condition: "))<cr>', opts)
+vim.keymap.set('n', '<leader>dt', '<cmd>lua require"dap-go".debug_test()<cr>', opts)
+

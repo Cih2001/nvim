@@ -54,7 +54,8 @@ local function lsp_highlight_document(client)
   -- end
 end
 
-function OrgImports(wait_ms)
+function Format(wait_ms)
+  vim.lsp.buf.formatting()
   local params = vim.lsp.util.make_range_params()
   params.context = { only = { "source.organizeImports" } }
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
@@ -83,7 +84,7 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "[c", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "]c", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-  vim.cmd [[ autocmd BufWritePre *.go lua OrgImports(1000) ]]
+  vim.cmd [[ autocmd BufWritePre *.go lua Format(1000) ]]
 end
 
 M.on_attach = function(client, bufnr)

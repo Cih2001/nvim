@@ -55,11 +55,3 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd("command! Wq :wq")
 vim.cmd("command! W :w")
-
--- use gofumpt instead of fmt.
-vim.g.go_fmt_command = "gopls"
-vim.g.go_gopls_gofumpt = 1
-
--- golang linters
-vim.g.go_metalinter_command = "golangci-lint"
-vim.g.NERDTreeShowHidden = 1

@@ -6,7 +6,7 @@ end
 local lspconfig = require("lspconfig")
 local handlers = require("user.lsp.handlers")
 
-local servers = {"gopls", "sumneko_lua", "golangci_lint_ls", "clangd"}
+local servers = {"gopls", "sumneko_lua", "golangci_lint_ls", "clangd", "terraformls"}
 
 lsp_installer.setup {
 	ensure_installed = servers

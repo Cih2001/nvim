@@ -46,4 +46,10 @@ return require('packer').startup(function()
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
+  -- debugging
+  use "mfussenegger/nvim-dap"
+  use "leoluz/nvim-dap-go"
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use "theHamsta/nvim-dap-virtual-text"
+  use "nvim-telescope/telescope-dap.nvim"
 end)
