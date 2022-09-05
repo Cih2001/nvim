@@ -32,6 +32,14 @@ return require('packer').startup(function()
       require 'telescope'.load_extension 'goimpl'
     end,
   }
+  use {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    }
+  }
   -- lsp tools
   use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
@@ -52,4 +60,8 @@ return require('packer').startup(function()
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use "theHamsta/nvim-dap-virtual-text"
   use "nvim-telescope/telescope-dap.nvim"
+  -- lf
+  use { 'ptzz/lf.vim', requires = {"voldikss/vim-floaterm"} }
+  -- tmux integration
+  use 'christoomey/vim-tmux-navigator'
 end)

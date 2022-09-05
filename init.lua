@@ -13,6 +13,7 @@ require "user.lsp"
 require "user.telescope"
 require "user.luasnip"
 require "user.dap"
+require "user.octo"
 
 local function test()
   local ts_utils = require 'nvim-treesitter.ts_utils'

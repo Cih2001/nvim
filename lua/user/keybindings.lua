@@ -1,13 +1,13 @@
 ------------------------------------------------
 -- some useful key bindings
 ------------------------------------------------
-local opts = { silent = true }
+local opts = { silent = true, noremap = true }
 
 -- Resize with arrows
-vim.keymap.set("n", "<C-S-Up>", ":resize -2<CR>", opts)
-vim.keymap.set("n", "<C-S-Down>", ":resize +2<CR>", opts)
-vim.keymap.set("n", "<C-S-Left>", ":vertical resize -2<CR>", opts)
-vim.keymap.set("n", "<C-S-Right>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<C-S-Up>", "<cmd>resize -2<CR>", opts)
+vim.keymap.set("n", "<C-S-Down>", "<cmd>resize +2<CR>", opts)
+vim.keymap.set("n", "<C-S-Left>", "<cmd>vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<C-S-Right>", "<cmd>vertical resize +2<CR>", opts)
 
 -- Switch windows
 vim.keymap.set("n", "<C-j>", "<C-w>j", opts)
