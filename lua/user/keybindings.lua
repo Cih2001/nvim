@@ -54,10 +54,13 @@ vim.keymap.set('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{revers
 -- Debug --
 vim.keymap.set('n', '<F1>', '<cmd>lua require"dapui".toggle()<cr>', opts)
 vim.keymap.set('n', '<F2>', '<cmd>lua require"dap".toggle_breakpoint()<cr>', opts)
-vim.keymap.set('n', '<F9>', '<cmd>lua require"dap".continue()<cr>', opts)
-vim.keymap.set('n', '<F10>', '<cmd>lua require"dap".step_over()<cr>', opts)
-vim.keymap.set('n', '<F11>', '<cmd>lua require"dap".step_into()<cr>', opts)
-vim.keymap.set('n', '<F12>', '<cmd>lua require"dap".step_out()<cr>', opts)
 vim.keymap.set('n', '<F3>', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint Condition: "))<cr>', opts)
+vim.keymap.set('n', '<F5>', '<cmd>lua require"dap".continue()<cr>', opts)
+vim.keymap.set('n', '<F6>', '<cmd>lua require"dap".step_over()<cr>', opts)
+vim.keymap.set('n', '<F7>', '<cmd>lua require"dap".step_into()<cr>', opts)
+vim.keymap.set('n', '<F8>', '<cmd>lua require"dap".step_out()<cr>', opts)
 vim.keymap.set('n', '<leader>dt', '<cmd>lua require"dap-go".debug_test()<cr>', opts)
 
+-- Jump between functions --
+vim.keymap.set('n', ']]', '<cmd>lua require"user.jumpfunction".jump_next_function()<cr>', opts)
+vim.keymap.set('n', '[[', '<cmd>lua require"user.jumpfunction".jump_prev_function()<cr>', opts)

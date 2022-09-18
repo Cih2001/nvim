@@ -1,6 +1,5 @@
 require "user.plugins"
 require "user.options"
-require "user.keybindings"
 require "user.treesitter"
 require "user.bufferline"
 require "user.nerdtree"
@@ -14,11 +13,23 @@ require "user.telescope"
 require "user.luasnip"
 require "user.dap"
 require "user.octo"
+require "user.folder"
+require "user.keybindings"
 
-local function test()
-  local ts_utils = require 'nvim-treesitter.ts_utils'
-  local tsnode = ts_utils.get_node_at_cursor()
-  print(tsnode)
+local function custom()
+  vim.ui.select({"browse pr-env"}, { prompt = "select an action" },
+    function (choice)
+      if choice == "browse pr-env" then
+        vim.fn.jobstart("gh pr view --json number --jq .number", {
+          stdout_buffered = true,
+          on_stdout = function (_, output)
+            local link = string.format("https://pr-%s.dev.esgbook.arabesque.com/", output[1])
+            vim.fn.jobstart({"open", link})
+          end
+        })
+      end
+    end
+  )
 end
 
-vim.keymap.set("n", "<leader>t", "", { callback = test })
+vim.keymap.set("n", "<leader>t", "", { callback = custom })
