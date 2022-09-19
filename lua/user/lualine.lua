@@ -37,16 +37,24 @@ local filetype = {
 	icon = nil,
 }
 
-local branch = {
-	"branch",
-	icons_enabled = true,
-	icon = "",
-}
-
 local location = {
 	"location",
 	padding = 0,
 }
+
+local function trim_branch_name()
+  local handle = io.popen("git rev-parse --abbrev-ref HEAD")
+  if handle == nil then
+    return ""
+  end
+  local branch_name = handle:read("*a")
+  handle:close()
+
+  if string.len(branch_name) > 15 then
+    branch_name = string.format("%s...", string.sub(branch_name, 0, 15))
+  end
+  return string.format(" %s", branch_name)
+end
 
 -- cool function for progress
 local progress = function()
@@ -72,7 +80,7 @@ lualine.setup({
 		always_divide_middle = true,
 	},
 	sections = {
-		lualine_a = { branch, diagnostics },
+		lualine_a = { trim_branch_name, diagnostics },
 		lualine_b = { mode },
 		lualine_c = {{ "filename", path = 1 }},
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
@@ -83,7 +91,7 @@ lualine.setup({
 	inactive_sections = {
 		lualine_a = {},
 		lualine_b = {},
-		lualine_c = { "filename" },
+		lualine_c = {{ "filename", path = 1 }},
 		lualine_x = { "location" },
 		lualine_y = {},
 		lualine_z = {},
