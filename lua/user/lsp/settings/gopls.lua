@@ -3,6 +3,7 @@ return {
     gopls = {
       usePlaceholders = true,
       gofumpt = true,
+      buildFlags = {"-tags=it"},
     },
   },
 }
