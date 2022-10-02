@@ -48,6 +48,7 @@ vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<cr>")
 vim.keymap.set("n", "<leader>i", [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]],
   { noremap = true, silent = true })
 vim.keymap.set("n", "<space>a", "<cmd>Telescope diagnostics<CR>", opts)
+vim.keymap.set("n", "<space>h", "<cmd>Telescope help_tags<CR>", opts)
 
 -- Illuminate --
 vim.keymap.set('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
@@ -66,3 +67,4 @@ vim.keymap.set('n', '<leader>dt', '<cmd>lua require"dap-go".debug_test()<cr>', o
 -- Jump between functions --
 vim.keymap.set('n', ']]', '<cmd>lua require"user.jumpfunction".jump_next_function()<cr>', opts)
 vim.keymap.set('n', '[[', '<cmd>lua require"user.jumpfunction".jump_prev_function()<cr>', opts)
+

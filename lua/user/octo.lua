@@ -3,7 +3,7 @@ if not status_ok then
   return
 end
 
-octo.setup {
+octo.setup({
   default_remote = {"upstream", "origin"}; -- order to try remotes
   ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
   reaction_viewer_hint_icon = "";         -- marker for user reactions
@@ -101,7 +101,7 @@ octo.setup {
     },
     submit_win = {
       approve_review = { lhs = "<C-a>", desc = "approve review" },
-      comment_review = { lhs = "<C-m>", desc = "comment review" },
+      comment_review = { lhs = "<C-S-m>", desc = "comment review" },
       request_changes = { lhs = "<C-r>", desc = "request changes review" },
       close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
     },
@@ -130,4 +130,4 @@ octo.setup {
       toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
     }
   }
-}
+})

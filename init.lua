@@ -17,7 +17,7 @@ require "user.folder"
 require "user.keybindings"
 
 local function custom()
-  vim.ui.select({"browse pr-env"}, { prompt = "select an action" },
+  vim.ui.select({"test","browse pr-env"}, { prompt = "select an action" },
     function (choice)
       if choice == "browse pr-env" then
         vim.fn.jobstart("gh pr view --json number --jq .number", {
@@ -27,6 +27,8 @@ local function custom()
             vim.fn.jobstart({"open", link})
           end
         })
+      elseif choice == "test" then
+        require("user.gotest").run_current_test()
       end
     end
   )
