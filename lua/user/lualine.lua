@@ -43,7 +43,7 @@ local location = {
 }
 
 local function trim_branch_name()
-  local handle = io.popen("git rev-parse --abbrev-ref HEAD")
+  local handle = io.popen("git rev-parse --abbrev-ref HEAD 2> /dev/null")
   if handle == nil then
     return ""
   end
