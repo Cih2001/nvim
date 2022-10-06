@@ -133,7 +133,7 @@ local function get_closest_test()
 end
 
 local function build_test_cmd(test)
-  local cmd = "go test "
+  local cmd = "cd ./api && go test "
   if not (test.path == "") then
     cmd = cmd .. test.path
   end
