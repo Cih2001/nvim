@@ -27,10 +27,7 @@ return require('packer').startup(function()
       { 'nvim-lua/popup.nvim' },
       { 'nvim-telescope/telescope.nvim' },
       { 'nvim-treesitter/nvim-treesitter' },
-    },
-    config = function()
-      require 'telescope'.load_extension 'goimpl'
-    end,
+    }
   }
   use {
     'pwntester/octo.nvim',
