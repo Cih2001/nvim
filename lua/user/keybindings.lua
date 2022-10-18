@@ -20,7 +20,7 @@ vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
 -- Navigate buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
-vim.keymap.set("n", "<S-q>", ":b#|bd#<CR>", opts)
+vim.keymap.set("n", "<S-q>", ":bn|bd#<CR>", opts)
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
