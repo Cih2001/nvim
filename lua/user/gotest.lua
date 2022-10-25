@@ -191,15 +191,13 @@ function M.run_current_test()
 
   local cmd = build_test_cmd(test)
   vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
-  M.state = {
-    output = {}
-  }
+  M.outputs = {}
 
   vim.fn.jobstart(cmd, {
     stdout_buffered = true,
     on_stderr = function (_, data)
       for _, line in ipairs(data) do
-        table.insert(M.state.output, line)
+        table.insert(M.outputs, line)
       end
     end,
     on_stdout = function (_, data)
@@ -212,6 +210,9 @@ function M.run_current_test()
           goto continue
         end
 
+        -- local line_output = string.gsub(line, "\n", "")
+        -- line_output = string.gsub(line_output, "\r", "")
+        -- table.insert(M.outputs, line_output)
         local decoded = vim.json.decode(line)
 
         if decoded.Action == "run" then
@@ -219,12 +220,11 @@ function M.run_current_test()
             packate = decoded.Package,
             test = test.Test,
             result = "none",
-            output = {}
           }
         elseif decoded.Action == "output" then
           local output = string.gsub(decoded.Output, "\n", "")
           output = string.gsub(output, "\r", "")
-          table.insert(M.state.output, output)
+          table.insert(M.outputs, output)
         elseif decoded.Action == "pass" or decoded.Action == "fail" then
           if M.state.result == decoded.Action then
             goto continue
@@ -261,9 +261,7 @@ local width = uis.width - 40
         noautocmd = true
       })
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, {cmd})
-      if M.state.output then
-        vim.api.nvim_buf_set_lines(buf, 1, -1, false, M.state.output)
-      end
+      vim.api.nvim_buf_set_lines(buf, 1, -1, false, M.outputs)
       -- Set mappings in the buffer to close the window easily
       local closingKeys = {'<Esc>', '<CR>', '<Leader>'}
       for _, k in ipairs(closingKeys) do

@@ -42,6 +42,7 @@ vim.keymap.set("n", "<space>f", "<cmd>Telescope find_files<cr>")
 vim.keymap.set("n", "<space>g", "<cmd>Telescope live_grep<cr>")
 vim.keymap.set("n", "<space>o", "<cmd>Telescope lsp_document_symbols<cr>")
 vim.keymap.set("n", "<space>s", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>")
+vim.keymap.set("n", "<space>p", "<cmd>Octo pr list<cr>")
 vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<cr>")
 vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<cr>")
@@ -67,4 +68,5 @@ vim.keymap.set('n', '<leader>dt', '<cmd>lua require"dap-go".debug_test()<cr>', o
 -- Jump between functions --
 vim.keymap.set('n', ']]', '<cmd>lua require"user.jumpfunction".jump_next_function()<cr>', opts)
 vim.keymap.set('n', '[[', '<cmd>lua require"user.jumpfunction".jump_prev_function()<cr>', opts)
+
 
