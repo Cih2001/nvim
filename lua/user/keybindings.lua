@@ -37,23 +37,22 @@ vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 vim.keymap.set("n", "<c-z>", ":NERDTreeToggle<cr>", opts)
 
 -- Telescope --
-vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
-vim.keymap.set("n", "<space>f", "<cmd>Telescope find_files<cr>")
-vim.keymap.set("n", "<space>g", "<cmd>Telescope live_grep<cr>")
-vim.keymap.set("n", "<space>o", "<cmd>Telescope lsp_document_symbols<cr>")
-vim.keymap.set("n", "<space>s", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>")
-vim.keymap.set("n", "<space>p", "<cmd>Octo pr list<cr>")
-vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>")
-vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<cr>")
-vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<cr>")
-vim.keymap.set("n", "<leader>i", [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]],
-  { noremap = true, silent = true })
+vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>", opts)
+vim.keymap.set("n", "<space>f", "<cmd>Telescope find_files<cr>", opts)
+vim.keymap.set("n", "<space>g", "<cmd>Telescope live_grep<cr>", opts)
+vim.keymap.set("n", "<space>o", "<cmd>Telescope lsp_document_symbols<cr>", opts)
+vim.keymap.set("n", "<space>s", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)
+vim.keymap.set("n", "<space>p", "<cmd>Octo pr list<cr>", opts)
+vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
+vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<cr>", opts)
+vim.keymap.set("n", "gy", "<cmd>Telescope lsp_type_definitions<cr>", opts)
+vim.keymap.set("n", "<leader>i", [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]], opts)
 vim.keymap.set("n", "<space>a", "<cmd>Telescope diagnostics<CR>", opts)
 vim.keymap.set("n", "<space>h", "<cmd>Telescope help_tags<CR>", opts)
 
 -- Illuminate --
-vim.keymap.set('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
-vim.keymap.set('n', '<a-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+vim.keymap.set('n', '<c-]>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
+vim.keymap.set('n', '<c-[>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 
 -- Debug --
 vim.keymap.set('n', '<F1>', '<cmd>lua require"dapui".toggle()<cr>', opts)
