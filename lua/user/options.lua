@@ -38,6 +38,7 @@ local options = {
   path = "**",
   hidden = true, -- if hidden is not set, TextEdit might fail.
   updatetime = 300, --  Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
+  mmp = 5000,
 }
 
 -- vim.o.showcmd = true
