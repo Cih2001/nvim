@@ -229,3 +229,17 @@ vim.keymap.set("i", "<c-l>", function()
 end)
 
 vim.keymap.set("i", "<c-u>", require "luasnip.extras.select_choice")
+
+function LeaveSnippet()
+  if ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+    and ls.session.current_nodes[vim.api.nvim_get_current_buf()]
+    and not ls.session.jump_active
+  then
+    ls.unlink_current()
+  end
+end
+
+-- stop snippets when you leave to normal mode
+vim.api.nvim_command([[
+    autocmd ModeChanged * lua LeaveSnippet()
+]])
