@@ -57,8 +57,6 @@ return require('packer').startup(function()
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use "theHamsta/nvim-dap-virtual-text"
   use "nvim-telescope/telescope-dap.nvim"
-  -- lf
-  use { 'ptzz/lf.vim', requires = {"voldikss/vim-floaterm"} }
   -- tmux integration
   use 'christoomey/vim-tmux-navigator'
   -- swagger
