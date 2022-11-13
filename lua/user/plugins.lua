@@ -5,7 +5,7 @@ return require('packer').startup(function()
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'mg979/vim-visual-multi', branch = 'master' } -- for having multiple cursors
   use 'preservim/nerdtree'
-  use 'Raimondi/delimitMate'
+  -- use 'Raimondi/delimitMate'
   use 'ryanoasis/vim-devicons'
   use 'kyazdani42/nvim-web-devicons'
   use 'akinsho/bufferline.nvim'
@@ -40,9 +40,12 @@ return require('packer').startup(function()
   }
   -- lsp tools
   use "neovim/nvim-lspconfig" -- enable LSP
-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+  use "williamboman/mason.nvim" -- in charge of managing lsp servers, linters & formatters
+  use "williamboman/mason-lspconfig.nvim" -- bridges gap b/w mason & lspconfig
   use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
+
   -- use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+  --
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -68,5 +71,9 @@ return require('packer').startup(function()
     setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
     ft = { "markdown" },
   }
+
+  -- auto closing
+  use("windwp/nvim-autopairs") -- autoclose parens, brackets, quotes, etc...
+  use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
   -- use{ "iamcco/markdown-preview.nvim", run = "cd app && npm install",   }
 end)
