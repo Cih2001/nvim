@@ -52,8 +52,8 @@ vim.keymap.set("n", "<space>a", "<cmd>Telescope diagnostics<CR>", opts)
 vim.keymap.set("n", "<space>h", "<cmd>Telescope help_tags<CR>", opts)
 
 -- Illuminate --
-vim.keymap.set('n', '<C-[>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
-vim.keymap.set('n', '<C-]>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+-- vim.keymap.set('n', '<C-[>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
+-- vim.keymap.set('n', '<C-]>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 
 -- Debug --
 vim.keymap.set('n', '<F1>', '<cmd>lua require"dapui".toggle()<cr>', opts)
