@@ -43,6 +43,7 @@ return require('packer').startup(function()
   use "williamboman/mason.nvim" -- in charge of managing lsp servers, linters & formatters
   use "williamboman/mason-lspconfig.nvim" -- bridges gap b/w mason & lspconfig
   use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
+  use 'simrat39/symbols-outline.nvim'
 
   -- use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
   --

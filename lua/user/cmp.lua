@@ -18,12 +18,12 @@ end
 --   פּ ﯟ   some other good icons
 local kind_icons = {
   Text = "",
-  Method = "m",
+  Method = "",
   Function = "",
   Constructor = "",
   Field = "",
   Variable = "",
-  Class = "",
+  Class = "𝓒",
   Interface = "",
   Module = "",
   Property = "",
@@ -37,11 +37,11 @@ local kind_icons = {
   Reference = "",
   Folder = "",
   EnumMember = "",
-  Constant = "",
-  Struct = "",
+  Constant = "",
+  Struct = "𝓢",
   Event = "",
   Operator = "",
-  TypeParameter = "",
+  TypeParameter = "𝙏",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 local function next(fallback)

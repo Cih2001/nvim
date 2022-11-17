@@ -69,4 +69,5 @@ vim.keymap.set('n', '<leader>dt', '<cmd>lua require"dap-go".debug_test()<cr>', o
 vim.keymap.set('n', ']]', '<cmd>lua require"user.jumpfunction".jump_next_function()<cr>', opts)
 vim.keymap.set('n', '[[', '<cmd>lua require"user.jumpfunction".jump_prev_function()<cr>', opts)
 
-
+-- Symbol Outline-- 
+vim.keymap.set('n', '<c-x>', '<cmd>SymbolsOutline<cr>', opts)
