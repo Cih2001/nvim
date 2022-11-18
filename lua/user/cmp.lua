@@ -108,8 +108,8 @@ cmp.setup {
     ["<CR>"] = cmp.mapping.confirm { select = true },
     ["<Tab>"] = cmp.mapping(next, { "i", "s"}),
     ["<S-Tab>"] = cmp.mapping(prev, { "i", "s"}),
-    ["<C-j>"] = cmp.mapping(next, { "i", "s"}),
-    ["<C-k>"] = cmp.mapping(prev, { "i", "s"}),
+    -- ["<C-j>"] = cmp.mapping(next, { "i", "s"}),
+    -- ["<C-k>"] = cmp.mapping(prev, { "i", "s"}),
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },

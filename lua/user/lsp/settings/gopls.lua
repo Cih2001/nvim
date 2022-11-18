@@ -3,7 +3,7 @@ return {
     gopls = {
       usePlaceholders = true,
       gofumpt = true,
-      buildFlags = {"-tags=it"},
+      buildFlags = {"-tags=it stress_test"},
     },
   },
 }
