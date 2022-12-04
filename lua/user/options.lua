@@ -56,3 +56,6 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd("command! Wq :wq")
 vim.cmd("command! W :w")
+
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.db_ui_execute_on_save = 0

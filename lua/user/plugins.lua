@@ -76,4 +76,8 @@ return require('packer').startup(function()
   -- auto closing
   use("windwp/nvim-autopairs") -- autoclose parens, brackets, quotes, etc...
   use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
+
+  -- db 
+  use "tpope/vim-dadbod"
+  use "kristijanhusak/vim-dadbod-ui"
 end)
