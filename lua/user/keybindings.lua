@@ -72,3 +72,6 @@ vim.keymap.set('n', '[[', '<cmd>lua require"user.jumpfunction".jump_prev_functio
 
 -- Symbol Outline-- 
 vim.keymap.set('n', '<c-x>', '<cmd>SymbolsOutline<cr>', opts)
+
+-- octo fix --
+vim.keymap.set('n', '<c-s-m>', '<cmd>lua require("octo.mappings").comment_review()<cr>', opts)
