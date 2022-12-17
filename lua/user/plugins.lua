@@ -2,20 +2,33 @@
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Packer can manage itself
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+
+  -- Treesitter
+  use { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end,
+  }
+  use { -- Additional text objects via treesitter
+    'nvim-treesitter/nvim-treesitter-textobjects',
+  }
+
+  -- Misc
   use { 'mg979/vim-visual-multi', branch = 'master' } -- for having multiple cursors
   use 'preservim/nerdtree'
-  -- use 'Raimondi/delimitMate'
   use 'ryanoasis/vim-devicons'
   use 'kyazdani42/nvim-web-devicons'
-  use 'akinsho/bufferline.nvim'
-  use 'nvim-lualine/lualine.nvim'
-  -- use 'lunarvim/darkplus.nvim'
-  use 'Cih2001/darkplus.nvim'
   use 'nvim-lua/plenary.nvim'
-  use 'lewis6991/gitsigns.nvim'
   use 'lukas-reineke/indent-blankline.nvim'
   use 'RRethy/vim-illuminate'
+  use 'lewis6991/gitsigns.nvim'
+  use 'akinsho/bufferline.nvim'
+  use 'nvim-lualine/lualine.nvim'
+  -- color themes
+  -- use 'lunarvim/darkplus.nvim'
+  use 'Cih2001/darkplus.nvim'
+
   -- telescope
   use { 'nvim-telescope/telescope-ui-select.nvim' }
   use {
@@ -30,6 +43,8 @@ return require('packer').startup(function()
       { 'nvim-treesitter/nvim-treesitter' },
     }
   }
+
+  -- code review
   use {
     'pwntester/octo.nvim',
     requires = {
@@ -38,6 +53,7 @@ return require('packer').startup(function()
       'kyazdani42/nvim-web-devicons',
     }
   }
+
   -- lsp tools
   use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/mason.nvim" -- in charge of managing lsp servers, linters & formatters

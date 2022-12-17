@@ -66,12 +66,11 @@ vim.keymap.set('n', '<F7>', '<cmd>lua require"dap".step_into()<cr>', opts)
 vim.keymap.set('n', '<F8>', '<cmd>lua require"dap".step_out()<cr>', opts)
 vim.keymap.set('n', '<leader>dt', '<cmd>lua require"dap-go".debug_test()<cr>', opts)
 
--- Jump between functions --
-vim.keymap.set('n', ']]', '<cmd>lua require"user.jumpfunction".jump_next_function()<cr>', opts)
-vim.keymap.set('n', '[[', '<cmd>lua require"user.jumpfunction".jump_prev_function()<cr>', opts)
-
 -- Symbol Outline-- 
 vim.keymap.set('n', '<c-x>', '<cmd>SymbolsOutline<cr>', opts)
 
 -- octo fix --
 vim.keymap.set('n', '<c-s-m>', '<cmd>lua require("octo.mappings").comment_review()<cr>', opts)
+
+-- treesitter key bindings
+-- take a look at treesitter.lua
