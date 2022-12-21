@@ -15,7 +15,6 @@ require "user.outline"
 require "user.autopairs"
 require "user.dap"
 require "user.octo"
-require "user.folder"
 require "user.keybindings"
 
 local function custom()

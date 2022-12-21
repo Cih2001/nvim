@@ -25,6 +25,8 @@ return require('packer').startup(function()
   use 'lewis6991/gitsigns.nvim'
   use 'akinsho/bufferline.nvim'
   use 'nvim-lualine/lualine.nvim'
+  use 'ggandor/leap.nvim'
+
   -- color themes
   -- use 'lunarvim/darkplus.nvim'
   use 'Cih2001/darkplus.nvim'
