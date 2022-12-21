@@ -74,6 +74,7 @@ vim.keymap.set('n', '<c-s-m>', '<cmd>lua require("octo.mappings").comment_review
 
 -- leap -- 
 vim.keymap.set({'n', 'x', 'o'}, 'f', '<Plug>(leap-forward-to)', opts)
+vim.keymap.set({'n', 'x', 'o'}, 'F', '<Plug>(leap-backward-to)', opts)
 
 -- treesitter key bindings
 -- take a look at treesitter.lua
