@@ -57,24 +57,24 @@ vim.keymap.set("n", "<space>h", "<cmd>Telescope help_tags<CR>", opts)
 -- vim.keymap.set('n', '<C-]>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 
 -- Debug --
-vim.keymap.set('n', '<F1>', '<cmd>lua require"dapui".toggle()<cr>', opts)
-vim.keymap.set('n', '<F2>', '<cmd>lua require"dap".toggle_breakpoint()<cr>', opts)
-vim.keymap.set('n', '<F3>', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint Condition: "))<cr>', opts)
-vim.keymap.set('n', '<F5>', '<cmd>lua require"dap".continue()<cr>', opts)
-vim.keymap.set('n', '<F6>', '<cmd>lua require"dap".step_over()<cr>', opts)
-vim.keymap.set('n', '<F7>', '<cmd>lua require"dap".step_into()<cr>', opts)
-vim.keymap.set('n', '<F8>', '<cmd>lua require"dap".step_out()<cr>', opts)
-vim.keymap.set('n', '<leader>dt', '<cmd>lua require"dap-go".debug_test()<cr>', opts)
+vim.keymap.set("n", "<F1>", '<cmd>lua require"dapui".toggle()<cr>', opts)
+vim.keymap.set("n", "<F2>", '<cmd>lua require"dap".toggle_breakpoint()<cr>', opts)
+vim.keymap.set("n", "<F3>", '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint Condition: "))<cr>', opts)
+vim.keymap.set("n", "<F5>", '<cmd>lua require"dap".continue()<cr>', opts)
+vim.keymap.set("n", "<F6>", '<cmd>lua require"dap".step_over()<cr>', opts)
+vim.keymap.set("n", "<F7>", '<cmd>lua require"dap".step_into()<cr>', opts)
+vim.keymap.set("n", "<F8>", '<cmd>lua require"dap".step_out()<cr>', opts)
+vim.keymap.set("n", "<leader>dt", '<cmd>lua require"dap-go".debug_test()<cr>', opts)
 
--- Symbol Outline-- 
-vim.keymap.set('n', '<c-x>', '<cmd>SymbolsOutline<cr>', opts)
+-- Symbol Outline--
+vim.keymap.set("n", "<c-x>", "<cmd>SymbolsOutline<cr>", opts)
 
 -- octo fix --
-vim.keymap.set('n', '<c-s-m>', '<cmd>lua require("octo.mappings").comment_review()<cr>', opts)
+vim.keymap.set("n", "<c-s-m>", '<cmd>lua require("octo.mappings").comment_review()<cr>', opts)
 
--- leap -- 
-vim.keymap.set({'n', 'x', 'o'}, 'f', '<Plug>(leap-forward-to)', opts)
-vim.keymap.set({'n', 'x', 'o'}, 'F', '<Plug>(leap-backward-to)', opts)
+-- leap --
+vim.keymap.set({ "n", "x", "o" }, "f", "<Plug>(leap-forward-to)", opts)
+vim.keymap.set({ "n", "x", "o" }, "F", "<Plug>(leap-backward-to)", opts)
 
 -- treesitter key bindings
 -- take a look at treesitter.lua

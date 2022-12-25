@@ -21,7 +21,7 @@ local diff = {
 	"diff",
 	colored = false,
 	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-  cond = hide_in_width
+	cond = hide_in_width,
 }
 
 local mode = {
@@ -43,17 +43,17 @@ local location = {
 }
 
 local function trim_branch_name()
-  local handle = io.popen("git rev-parse --abbrev-ref HEAD 2> /dev/null")
-  if handle == nil then
-    return ""
-  end
-  local branch_name = handle:read("*a")
-  handle:close()
+	local handle = io.popen("git rev-parse --abbrev-ref HEAD 2> /dev/null")
+	if handle == nil then
+		return ""
+	end
+	local branch_name = handle:read("*a")
+	handle:close()
 
-  if string.len(branch_name) > 15 then
-    branch_name = string.format("%s...", string.sub(branch_name, 0, 15))
-  end
-  return string.format(" %s", branch_name)
+	if string.len(branch_name) > 15 then
+		branch_name = string.format("%s...", string.sub(branch_name, 0, 15))
+	end
+	return string.format(" %s", branch_name)
 end
 
 -- cool function for progress
@@ -82,7 +82,7 @@ lualine.setup({
 	sections = {
 		lualine_a = { trim_branch_name, diagnostics },
 		lualine_b = { mode },
-		lualine_c = {{ "filename", path = 1 }},
+		lualine_c = { { "filename", path = 1 } },
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_x = { diff, spaces, "encoding", filetype },
 		lualine_y = { location },
@@ -91,7 +91,7 @@ lualine.setup({
 	inactive_sections = {
 		lualine_a = {},
 		lualine_b = {},
-		lualine_c = {{ "filename", path = 1 }},
+		lualine_c = { { "filename", path = 1 } },
 		lualine_x = { "location" },
 		lualine_y = {},
 		lualine_z = {},
