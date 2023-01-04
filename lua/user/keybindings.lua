@@ -34,7 +34,14 @@ vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Nerd Tree --
-vim.keymap.set("n", "<c-z>", ":NERDTreeToggle<cr>", opts)
+vim.keymap.set("n", "<c-z>", function()
+  vim.cmd("let nerdtree_open = g:NERDTree.IsOpen()")
+  if vim.g.nerdtree_open == 1 then
+    vim.cmd("NERDTreeClose")
+  else
+    vim.cmd("NERDTreeFind")
+  end
+end, opts)
 
 -- Telescope --
 vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>", opts)
@@ -78,3 +85,7 @@ vim.keymap.set({ "n", "x", "o" }, "F", "<Plug>(leap-backward-to)", opts)
 
 -- treesitter key bindings
 -- take a look at treesitter.lua
+
+-- DB
+vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
+vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
