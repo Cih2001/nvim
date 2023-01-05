@@ -35,12 +35,12 @@ vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Nerd Tree --
 vim.keymap.set("n", "<c-z>", function()
-  vim.cmd("let nerdtree_open = g:NERDTree.IsOpen()")
-  if vim.g.nerdtree_open == 1 then
-    vim.cmd("NERDTreeClose")
-  else
-    vim.cmd("NERDTreeFind")
-  end
+	vim.cmd("let g:nerdtree_open = g:NERDTree.IsOpen()")
+	if vim.g.nerdtree_open == 1 then
+		vim.cmd("NERDTreeClose")
+	else
+		vim.cmd("NERDTreeFind")
+	end
 end, opts)
 
 -- Telescope --
@@ -89,3 +89,6 @@ vim.keymap.set({ "n", "x", "o" }, "F", "<Plug>(leap-backward-to)", opts)
 -- DB
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
+
+-- custom functionalities
+vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
