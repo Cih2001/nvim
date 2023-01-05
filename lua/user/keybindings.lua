@@ -35,11 +35,13 @@ vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Nerd Tree --
 vim.keymap.set("n", "<c-z>", function()
-	vim.cmd("let g:nerdtree_open = g:NERDTree.IsOpen()")
-	if vim.g.nerdtree_open == 1 then
+	local open = vim.api.nvim_eval("g:NERDTree.IsOpen()")
+	if open == 1 then
 		vim.cmd("NERDTreeClose")
-	else
+	elseif vim.api.nvim_eval("&modifiable && strlen(expand('%')) > 0 && !&diff") == 1 then
 		vim.cmd("NERDTreeFind")
+	else
+		vim.cmd("NERDTree")
 	end
 end, opts)
 
@@ -92,3 +94,9 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)"
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
+
+vim.keymap.set("n", "<c-q>", function()
+	local keybinds = string.format("%s/.config/nvim/lua/user/keybindings.lua", os.getenv("HOME"))
+	dofile(keybinds)
+	-- print(vim.api.nvim_eval("expand('%')"))
+end, opts)
