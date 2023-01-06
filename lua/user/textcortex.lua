@@ -5,7 +5,7 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local previewers = require("telescope.previewers")
 
--- This test paragraph contains some intentional errors
+-- This test paragraph contains some intentional errors.
 --
 -- Exercise has numerous benefits for the body and the mind. It can improved cardiovascular health,
 -- increased strength and flexibility, and reduced the risk of chronic diseases such as
@@ -18,7 +18,38 @@ local previewers = require("telescope.previewers")
 -- a consistent part of your lifestyle. So if you want to feel better, both
 -- physically and mentally, start incorporating exercise into your routine today!
 --
-local selectSuggestions = function(opts, items, text)
+
+-- This test paragraph contains some intentional errors. This
+-- is the second item. And this is the third.
+
+local M = {
+	callback = function(selection)
+		vim.fn.execute("normal! vis")
+		local right = vim.fn.getpos("'>")
+		local right_row = right[2] - 1
+		local right_col = right[3] - 1
+
+		local left = vim.fn.getpos("'<")
+		local left_row = left[2] - 1
+		local left_col = left[3] - 1
+		vim.pretty_print(vim.api.nvim_buf_get_text(0, left_row, left_col, right_row, right_col, {}))
+		-- vim.pretty_print(vim.fn.getpos("'>"))
+		-- vim.pretty_print(vim.fn.getpos({ "some" }))
+		-- vim.api.nvim_put({ selection[1] }, "", false, true)
+	end,
+}
+
+local function getCurrentSentence()
+	vim.fn.execute('normal! vis"0y')
+	local sentence = vim.fn.getreg("0")
+
+	sentence = string.gsub(sentence, "%s+", " ")
+	sentence = string.gsub(sentence, "%s*%-%-%s*", " ")
+	sentence = string.gsub(sentence, "%s*$", "")
+	return sentence
+end
+
+function M.selectSuggestions(opts, items, text)
 	opts = opts or {}
 	pickers
 		.new(opts, {
@@ -40,8 +71,7 @@ local selectSuggestions = function(opts, items, text)
 			attach_mappings = function(prompt_bufnr, map)
 				actions.select_default:replace(function()
 					actions.close(prompt_bufnr)
-					local selection = action_state.get_selected_entry()
-					vim.api.nvim_put({ selection[1] }, "", false, true)
+					M.callback(action_state.get_selected_entry())
 				end)
 				return true
 			end,
@@ -49,20 +79,10 @@ local selectSuggestions = function(opts, items, text)
 		:find()
 end
 
-local function getCurrentSentence()
-	vim.fn.execute('normal! "0yis')
-	local sentence = vim.fn.getreg("0")
-
-	sentence = string.gsub(sentence, "%s+", " ")
-	sentence = string.gsub(sentence, "%s*%-%-%s*", " ")
-	sentence = string.gsub(sentence, "%s*$", "")
-	return sentence
-end
-
 -- These commands move over three kinds
 -- of text objects.
 -- vim.cmd("normal! vis") << select a sentence
-local function main(text)
+local function makeRequest(text)
 	local curl = require("plenary.curl")
 	local request = {
 		template_name = "paraphrase",
@@ -73,7 +93,7 @@ local function main(text)
 		token_count = math.floor(text:len() / 4),
 		n_gen = 3,
 		source_language = "en",
-		api_key = "gAAAAABjtxGs2XVsqQ6UqFrFcIqw8M5oL7X0_dkmdzRftFlZE8KIH_cSjeqVCxwvO2jx6EX2tFjCVY5XxBRf5V3EnsCDs9w_KfZDh352g1My8MK8UoHvDM3R1zbFlomhgcjOIgpmlzHL",
+		api_key = "gAAAAABjtsdb5TKbqPN0V6v2zrmRNkToLv7rf_1sGronwBVjWeQXJp793hhqY-S8RHzDbwoEL8bxOmdtMHnxM672J-89K_2oU7ToGb-Zygv6GcXK1cLyTxwGFzbgmM27_sCMrLn6IZv-",
 	}
 
 	local res = curl.post("https://api.textcortex.com/hemingwai/generate_text_v3/", {
@@ -99,11 +119,14 @@ local function main(text)
 		table.insert(items, obj.text)
 	end
 
-	selectSuggestions(require("telescope.themes").get_dropdown({}), items, text)
+	return items
 end
 
 local sentence = getCurrentSentence()
-print(sentence)
-main(sentence)
+-- local items = makeRequest(sentence)
+local items = { "some", "suggestions" }
+M.selectSuggestions(require("telescope.themes").get_dropdown({}), items, sentence)
 
--- print(vim.api.nvim_eval("expand('<sentence>')"))
+-- this is a test.
+--
+--
