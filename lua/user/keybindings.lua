@@ -96,7 +96,7 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)"
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
 
 vim.keymap.set("n", "<c-q>", function()
-	local keybinds = string.format("%s/.config/nvim/lua/user/keybindings.lua", os.getenv("HOME"))
+	local keybinds = string.format("%s/.config/nvim/lua/user/textcortex.lua", os.getenv("HOME"))
 	dofile(keybinds)
 	-- print(vim.api.nvim_eval("expand('%')"))
 end, opts)
