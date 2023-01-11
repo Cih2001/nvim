@@ -8,7 +8,7 @@ vim.keymap.set("n", "<C-S-Up>", "<cmd>resize -2<CR>", opts)
 vim.keymap.set("n", "<C-S-Down>", "<cmd>resize +2<CR>", opts)
 vim.keymap.set("n", "<C-S-Left>", "<cmd>vertical resize -2<CR>", opts)
 vim.keymap.set("n", "<C-S-Right>", "<cmd>vertical resize +2<CR>", opts)
-vim.keymap.set("n", "\\", "<C-w>|", opts)
+vim.keymap.set("n", "+", "<C-w>|", opts)
 vim.keymap.set("n", "=", "<C-w>=", opts)
 
 -- Switch windows
