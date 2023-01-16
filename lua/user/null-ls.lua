@@ -11,7 +11,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.gofumpt,
 		null_ls.builtins.formatting.goimports,
 		null_ls.builtins.formatting.clang_format,
-		null_ls.builtins.diagnostics.cpplint,
+		-- null_ls.builtins.diagnostics.cpplint,
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.code_actions.gitsigns,
 	},
@@ -28,3 +28,13 @@ null_ls.setup({
 		end
 	end,
 })
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
+local notify = vim.notify
+vim.notify = function(msg, ...)
+	if msg:match("warning: multiple different client offset_encodings") then
+		return
+	end
+
+	notify(msg, ...)
+end
