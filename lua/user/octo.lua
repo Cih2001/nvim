@@ -101,7 +101,7 @@ octo.setup({
 		},
 		submit_win = {
 			approve_review = { lhs = "<C-a>", desc = "approve review" },
-			comment_review = { lhs = "<C-S-m>", desc = "comment review" },
+			comment_review = { lhs = "<C-A-m>", desc = "comment review" },
 			request_changes = { lhs = "<C-r>", desc = "request changes review" },
 			close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
 		},
