@@ -24,7 +24,7 @@ mason.setup()
 
 local servers = {
 	"gopls",
-	"sumneko_lua",
+	"lua_ls",
 	"golangci_lint_ls",
 	"clangd",
 	"terraformls",
