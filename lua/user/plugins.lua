@@ -71,7 +71,9 @@ return require("packer").startup(function()
 	use("hrsh7th/cmp-path") -- path completions
 	use("hrsh7th/cmp-cmdline") -- cmdline completions
 	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-nvim-lsp-signature-help")
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
+
 	-- snippets
 	use("L3MON4D3/LuaSnip") --snippet engine
 	-- debugging
