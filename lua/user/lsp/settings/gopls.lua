@@ -3,10 +3,10 @@ return {
 		gopls = {
 			usePlaceholders = true,
 			gofumpt = true,
-			buildFlags = { "-tags=it" },
-      codelenses = {
-        test = true,
-      },
+			buildFlags = { "-tags=it unsafe" },
+			codelenses = {
+				test = true,
+			},
 		},
 	},
 }

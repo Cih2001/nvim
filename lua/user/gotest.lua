@@ -185,6 +185,12 @@ function M.run_current_test()
 		return
 	end
 
+	if test.tags == nil then
+		test.tags = { "unsafe" }
+	else
+		table.insert(test.tags, "unsafe")
+	end
+
 	local bufnr = vim.api.nvim_get_current_buf()
 	local ns = get_namespace()
 
