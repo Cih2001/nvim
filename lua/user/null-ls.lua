@@ -15,6 +15,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.prettier.with({
 			extra_args = { "--no-bracket-spacing" },
 		}),
+		null_ls.builtins.formatting.protolint,
 		null_ls.builtins.code_actions.gitsigns,
 	},
 	on_attach = function(client, bufnr)
