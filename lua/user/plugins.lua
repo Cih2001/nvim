@@ -4,7 +4,8 @@ return require("packer").startup(function()
 	use("wbthomason/packer.nvim") -- Packer can manage itself
 
 	-- Treesitter
-	use({ -- Highlight, edit, and navigate code
+	use({
+		-- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
 			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
@@ -32,19 +33,16 @@ return require("packer").startup(function()
 	-- use 'lunarvim/darkplus.nvim'
 	use("Cih2001/darkplus.nvim")
 
-	-- telescope
+	-- fuzzy finders
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	use({
-		"edolphin-ydf/goimpl.nvim",
-		requires = {
-			{ "nvim-lua/popup.nvim" },
-			{ "nvim-telescope/telescope.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" },
-		},
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		requires = { "nvim-tree/nvim-web-devicons" },
 	})
 
 	-- code review
