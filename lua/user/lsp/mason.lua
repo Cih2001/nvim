@@ -29,6 +29,7 @@ local servers = {
 	"clangd",
 	"terraformls",
 	"tsserver",
+	"rust_analyzer",
 }
 
 mason_lspconfig.setup({
