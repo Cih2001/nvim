@@ -3,6 +3,7 @@ require("fzf-lua").setup({
 	-- fzf_bin         = 'sk',            -- use skim instead of fzf?
 	-- https://github.com/lotabout/skim
 	-- can also be set to 'fzf-tmux'
+	file_ignore_patterns = { "mock_" },
 	winopts = {
 		-- split         = "belowright new",-- open in a split instead?
 		-- "belowright new"  : split below
