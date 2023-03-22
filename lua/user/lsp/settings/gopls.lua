@@ -7,6 +7,7 @@ return {
 			codelenses = {
 				test = true,
 			},
+			directoryFilters = { "-**/mock_" },
 		},
 	},
 }
