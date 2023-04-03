@@ -61,8 +61,8 @@ vim.keymap.set("n", "<space>a", "<cmd>FzfLua diagnostics_workspace<CR>", opts)
 vim.keymap.set("n", "<space>h", "<cmd>FzfLua help_tags<CR>", opts)
 
 -- Illuminate --
-vim.keymap.set("n", "<C-[>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
-vim.keymap.set("n", "<C-]>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+vim.keymap.set("n", "<C-]>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
+vim.keymap.set("n", "<C-[>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 
 -- Debug --
 vim.keymap.set("n", "<F1>", '<cmd>lua require"dapui".toggle()<cr>', opts)
