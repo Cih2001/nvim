@@ -78,18 +78,18 @@ local function match_query(q, root)
 
 	local test_tree = {}
 
-	local test_query = vim.treesitter.parse_query(ft, q)
+	local test_query = vim.treesitter.query.parse(ft, q)
 	assert(test_query, "could not parse test query")
 	for _, match, _ in test_query:iter_matches(root, 0, 0, 0) do
 		local test_match = {}
 		for id, node in pairs(match) do
 			local capture = test_query.captures[id]
 			if capture == "method.receiver.type" then
-				test_match.receiver = ts_query.get_node_text(node, 0)
+				test_match.receiver = vim.treesitter.get_node_text(node, 0)
 			elseif capture == "method.name" then
-				test_match.name = ts_query.get_node_text(node, 0)
+				test_match.name = vim.treesitter.get_node_text(node, 0)
 			elseif capture == "test.name" then
-				test_match.name = ts_query.get_node_text(node, 0)
+				test_match.name = vim.treesitter.get_node_text(node, 0)
 			elseif capture == "parent" then
 				test_match.node = node
 			end
