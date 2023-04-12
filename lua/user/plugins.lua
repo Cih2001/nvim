@@ -106,13 +106,6 @@ return require("packer").startup(function()
 	-- chat gpt
 	use({
 		"jackMort/ChatGPT.nvim",
-		config = function()
-			require("chatgpt").setup({
-				keymaps = {
-					submit = "<C-m>",
-				},
-			})
-		end,
 		requires = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
