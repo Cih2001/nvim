@@ -102,4 +102,21 @@ return require("packer").startup(function()
 	-- db
 	use("tpope/vim-dadbod")
 	use("kristijanhusak/vim-dadbod-ui")
+
+	-- chat gpt
+	use({
+		"jackMort/ChatGPT.nvim",
+		config = function()
+			require("chatgpt").setup({
+				keymaps = {
+					submit = "<C-m>",
+				},
+			})
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
 end)
