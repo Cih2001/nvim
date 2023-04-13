@@ -30,11 +30,11 @@ local M = {
 
 		vim.fn.execute("normal! <cr>")
 		local text = vim.api.nvim_buf_get_text(0, left_row, left_col, right_row, right_col, {})
-		vim.pretty_print(text)
+		vim.print(text)
 		vim.api.nvim_buf_set_text(0, left_row, left_col, right_row, right_col, { selection[1] })
 		-- vim.fn.execute("normal! vis")
-		-- vim.pretty_print(vim.fn.getpos("'>"))
-		-- vim.pretty_print(vim.fn.getpos({ "some" }))
+		-- vim.print(vim.fn.getpos("'>"))
+		-- vim.print(vim.fn.getpos({ "some" }))
 		-- vim.api.nvim_put({ selection[1] }, "", false, true)
 	end,
 }
@@ -45,7 +45,7 @@ local function trimSentence(sentence)
 	result = string.gsub(result, "%s*//%s*", " ")
 	result = string.gsub(result, "%s+$", "")
 	result = string.gsub(result, "^%s+", "")
-	vim.pretty_print(result)
+	vim.print(result)
 	return result
 end
 
