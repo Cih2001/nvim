@@ -28,6 +28,10 @@ return require("packer").startup(function()
 	use("akinsho/bufferline.nvim")
 	use("nvim-lualine/lualine.nvim")
 	use("ggandor/leap.nvim")
+	use({
+		"Cih2001/postwoman.nvim",
+		rocks = { "lua-yaml" },
+	})
 
 	-- color themes
 	-- use 'lunarvim/darkplus.nvim'
