@@ -37,7 +37,7 @@ return require("packer").startup(function()
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = { "nvim-lua/plenary.nvim" },
 	})
 	use({
 		"ibhagwan/fzf-lua",
