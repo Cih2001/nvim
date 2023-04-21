@@ -32,7 +32,7 @@ return require("packer").startup(function()
 		"Cih2001/postwoman.nvim",
 		rocks = {
 			"lyaml",
-			env = { YAML_DIR = "/opt/homebrew/Cellar/libyaml/0.2.5/" },
+			env = { YAML_DIR = "/home/linuxbrew/.linuxbrew/Cellar/libyaml/0.2.5/" },
 		},
 	})
 
