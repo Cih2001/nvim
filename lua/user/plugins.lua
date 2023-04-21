@@ -30,7 +30,10 @@ return require("packer").startup(function()
 	use("ggandor/leap.nvim")
 	use({
 		"Cih2001/postwoman.nvim",
-		rocks = { "lua-yaml" },
+		rocks = {
+			"lyaml",
+			env = { YAML_DIR = "/opt/homebrew/Cellar/libyaml/0.2.5/" },
+		},
 	})
 
 	-- color themes
