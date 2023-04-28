@@ -50,10 +50,11 @@ local function trim_branch_name()
 	local branch_name = handle:read("*a")
 	handle:close()
 
+	branch_name = string.gsub(branch_name, "\n", "") -- remove newline character
 	if string.len(branch_name) > 15 then
-		branch_name = string.format("%s...", string.sub(branch_name, 0, 15))
+		branch_name = string.format("%s...", string.sub(branch_name, 1, 15)) -- fix string format and substring
 	end
-	return string.format(" %s", branch_name)
+	return string.format(" %s", branch_name) -- fix string format
 end
 
 -- cool function for progress
