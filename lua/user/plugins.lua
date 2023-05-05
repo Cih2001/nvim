@@ -17,7 +17,6 @@ return require("packer").startup(function()
 
 	-- Misc
 	use({ "mg979/vim-visual-multi", branch = "master" }) -- for having multiple cursors
-	use("preservim/nerdtree")
 	use("ryanoasis/vim-devicons")
 	use("kyazdani42/nvim-web-devicons")
 	use("nvim-lua/plenary.nvim")
@@ -28,6 +27,23 @@ return require("packer").startup(function()
 	use("akinsho/bufferline.nvim")
 	use("nvim-lualine/lualine.nvim")
 	use("ggandor/leap.nvim")
+
+	-- neo tree
+	use({
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v2.x",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		},
+	})
+
+	-- harpoon
+	use({
+		"ThePrimeagen/harpoon",
+		requires = { "nvim-lua/plenary.nvim" },
+	})
 
 	-- color themes
 	-- use 'lunarvim/darkplus.nvim'

@@ -17,9 +17,11 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", opts)
 vim.keymap.set("n", "<C-l>", "<C-w>l", opts)
 vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
 
--- Navigate buffers
-vim.keymap.set("n", "<S-l>", ":bnext<CR>", opts)
-vim.keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
+-- Navigate buffers - harpoon
+vim.keymap.set("n", "<S-l>", ':lua require("harpoon.ui").nav_next()<CR>', opts)
+vim.keymap.set("n", "<S-h>", ':lua require("harpoon.ui").nav_prev()<CR>', opts)
+vim.keymap.set("n", "m", ':lua require("harpoon.mark").add_file()<CR>', opts)
+vim.keymap.set("n", "<space>v", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
 vim.keymap.set("n", "<S-q>", ":bn|bd#<CR>", opts)
 
 -- Stay in indent mode
@@ -35,14 +37,15 @@ vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Nerd Tree --
 vim.keymap.set("n", "<c-z>", function()
-	local open = vim.api.nvim_eval("g:NERDTree.IsOpen()")
-	if open == 1 then
-		vim.cmd("NERDTreeClose")
-	elseif vim.api.nvim_eval("&modifiable && strlen(expand('%')) > 0 && !&diff") == 1 then
-		vim.cmd("NERDTreeFind")
-	else
-		vim.cmd("NERDTree")
-	end
+	vim.cmd("Neotree toggle left")
+	-- local open = vim.api.nvim_eval("g:NERDTree.IsOpen()")
+	-- if open == 1 then
+	-- 	vim.cmd("NERDTreeClose")
+	-- elseif vim.api.nvim_eval("&modifiable && strlen(expand('%')) > 0 && !&diff") == 1 then
+	-- 	vim.cmd("NERDTreeFind")
+	-- else
+	-- 	vim.cmd("NERDTree")
+	-- end
 end, opts)
 
 -- Telescope --

@@ -58,7 +58,7 @@ bufferline.setup({
 		--     return true
 		--   end
 		-- end,
-		offsets = { { filetype = "nerdtree", text = "FILE EXPLORER" } },
+		offsets = { { filetype = "neo-tree", text = "FILE EXPLORER" } },
 		show_buffer_icons = true,
 		show_buffer_close_icons = true,
 		show_close_icon = true,
@@ -83,7 +83,6 @@ bufferline.setup({
 			fg = { attribute = "fg", highlight = "TabLine" },
 			bg = { attribute = "bg", highlight = "TabLine" },
 		},
-
 		-- buffer_selected = {
 		--   fg = {attribute='fg',highlight='#ff0000'},
 		--   bg = {attribute='bg',highlight='#0000ff'},
@@ -93,7 +92,6 @@ bufferline.setup({
 			fg = { attribute = "fg", highlight = "TabLine" },
 			bg = { attribute = "bg", highlight = "TabLine" },
 		},
-
 		close_button = {
 			fg = { attribute = "fg", highlight = "TabLine" },
 			bg = { attribute = "bg", highlight = "TabLine" },
@@ -120,7 +118,6 @@ bufferline.setup({
 			fg = { attribute = "fg", highlight = "TabLineSel" },
 			bg = { attribute = "bg", highlight = "Normal" },
 		},
-
 		duplicate_selected = {
 			fg = { attribute = "fg", highlight = "TabLineSel" },
 			bg = { attribute = "bg", highlight = "TabLineSel" },
@@ -136,7 +133,6 @@ bufferline.setup({
 			bg = { attribute = "bg", highlight = "TabLine" },
 			italic = true,
 		},
-
 		modified = {
 			fg = { attribute = "fg", highlight = "TabLine" },
 			bg = { attribute = "bg", highlight = "TabLine" },
@@ -149,7 +145,6 @@ bufferline.setup({
 			fg = { attribute = "fg", highlight = "TabLine" },
 			bg = { attribute = "bg", highlight = "TabLine" },
 		},
-
 		separator = {
 			fg = { attribute = "bg", highlight = "TabLine" },
 			bg = { attribute = "bg", highlight = "TabLine" },
