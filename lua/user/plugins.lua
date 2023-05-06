@@ -29,10 +29,10 @@ return require("packer").startup(function()
 	use("nvim-lualine/lualine.nvim")
 	use("ggandor/leap.nvim")
 	use({
-		"Cih2001/postwoman.nvim",
+		"/home/hamidreza/P/postwoman.nvim",
 		rocks = {
 			"lyaml",
-			env = { YAML_DIR = "/home/linuxbrew/.linuxbrew/Cellar/libyaml/0.2.5/" },
+			-- env = { YAML_DIR = "/home/linuxbrew/.linuxbrew/Cellar/libyaml/0.2.5/" },
 		},
 	})
 
