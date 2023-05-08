@@ -1,165 +1,92 @@
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
-	return
+local Path = require("plenary.path")
+
+local function get_marks()
+	local h = require("harpoon")
+	local config = h.get_mark_config()
+	return config.marks
 end
 
-bufferline.setup({
-	options = {
-		numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-		close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-		right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-		left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
-		middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-		-- NOTE: this plugin is designed with this icon in mind,
-		-- and so changing this is NOT recommended, this is intended
-		-- as an escape hatch for people who cannot bear it for whatever reason
-		indicator = {
-			style = "icon",
-			icon = "▎",
-		},
-		buffer_close_icon = "",
-		-- buffer_close_icon = '',
-		modified_icon = "●",
-		close_icon = "",
-		-- close_icon = '',
-		left_trunc_marker = "",
-		right_trunc_marker = "",
-		--- name_formatter can be used to change the buffer's label in the bufferline.
-		--- Please note some names can/will break the
-		--- bufferline so use this at your discretion knowing that it has
-		--- some limitations that will *NOT* be fixed.
-		-- name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
-		--   -- remove extension from markdown files for example
-		--   if buf.name:match('%.md') then
-		--     return vim.fn.fnamemodify(buf.name, ':t:r')
-		--   end
-		-- end,
-		max_name_length = 30,
-		max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
-		tab_size = 21,
-		diagnostics = false, -- | "nvim_lsp" | "coc",
-		diagnostics_update_in_insert = false,
-		-- diagnostics_indicator = function(count, level, diagnostics_dict, context)
-		--   return "("..count..")"
-		-- end,
-		-- NOTE: this will be called a lot so don't do any heavy processing here
-		-- custom_filter = function(buf_number)
-		--   -- filter out filetypes you don't want to see
-		--   if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
-		--     return true
-		--   end
-		--   -- filter out by buffer name
-		--   if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-		--     return true
-		--   end
-		--   -- filter out based on arbitrary rules
-		--   -- e.g. filter out vim wiki buffer from tabline in your work repo
-		--   if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-		--     return true
-		--   end
-		-- end,
-		offsets = { { filetype = "neo-tree", text = "FILE EXPLORER" } },
-		show_buffer_icons = true,
-		show_buffer_close_icons = true,
-		show_close_icon = true,
-		show_tab_indicators = true,
-		persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-		-- can also be a table containing 2 custom separators
-		-- [focused and unfocused]. eg: { '|', '|' }
-		separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
-		enforce_regular_tabs = true,
-		always_show_bufferline = true,
-		-- sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
-		--   -- add custom logic
-		--   return buffer_a.modified > buffer_b.modified
-		-- end
-	},
-	highlights = {
-		fill = {
-			fg = { attribute = "fg", highlight = "Tabline" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		background = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		-- buffer_selected = {
-		--   fg = {attribute='fg',highlight='#ff0000'},
-		--   bg = {attribute='bg',highlight='#0000ff'},
-		--   gui = 'none'
-		--   },
-		buffer_visible = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		close_button = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		close_button_visible = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		-- close_button_selected = {
-		--   fg = {attribute='fg',highlight='TabLineSel'},
-		--   bg ={attribute='bg',highlight='TabLineSel'}
-		--   },
+local function normalize_path(item)
+	return Path:new(item):make_relative(vim.loop.cwd())
+end
 
-		tab_selected = {
-			fg = { attribute = "fg", highlight = "Normal" },
-			bg = { attribute = "bg", highlight = "Normal" },
-		},
-		tab = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		tab_close = {
-			-- fg = {attribute='fg',highlight='LspDiagnosticsDefaultError'},
-			fg = { attribute = "fg", highlight = "TabLineSel" },
-			bg = { attribute = "bg", highlight = "Normal" },
-		},
-		duplicate_selected = {
-			fg = { attribute = "fg", highlight = "TabLineSel" },
-			bg = { attribute = "bg", highlight = "TabLineSel" },
-			italic = true,
-		},
-		duplicate_visible = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-			italic = true,
-		},
-		duplicate = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-			italic = true,
-		},
-		modified = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		modified_selected = {
-			fg = { attribute = "fg", highlight = "Normal" },
-			bg = { attribute = "bg", highlight = "Normal" },
-		},
-		modified_visible = {
-			fg = { attribute = "fg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		separator = {
-			fg = { attribute = "bg", highlight = "TabLine" },
-			bg = { attribute = "bg", highlight = "TabLine" },
-		},
-		separator_selected = {
-			fg = { attribute = "bg", highlight = "Normal" },
-			bg = { attribute = "bg", highlight = "Normal" },
-		},
-		-- separator_visible = {
-		--   fg = {attribute='bg',highlight='TabLine'},
-		--   bg = {attribute='bg',highlight='TabLine'}
-		--   },
-		indicator_selected = {
-			fg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
-			bg = { attribute = "bg", highlight = "Normal" },
-		},
-	},
+local colors = {
+	black = "#000000",
+	white = "#ffffff",
+	bg = "#181A1F",
+	bg_sel = "#282c34",
+	fg = "#696969",
+}
+
+local render = function(f)
+	f.add({ "  Radioactive ", fg = "#bb0000" })
+
+	local items = get_marks()
+	local found = false
+	for _, item in ipairs(items) do
+		f.make_tabs(function(info)
+			local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
+			local current = current_file == item.filename
+			if not found and current then
+				found = true
+			end
+
+			f.set_fg(not info.current and colors.fg or nil)
+
+			f.add({ "", fg = colors.black })
+			if item.filename then
+				f.add({
+					f.icon(item.filename) .. " ",
+					fg = current and f.icon_color(item.filename) or nil,
+				})
+				f.add({
+					vim.fn.fnamemodify(item.filename, ":t"),
+					fg = current and f.icon_color(item.filename) or nil,
+				})
+			end
+
+			f.add({
+				"",
+				fg = info.current and colors.bg_sel or colors.bg,
+				bg = colors.black,
+			})
+		end)
+	end
+
+	if not found then
+		local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
+		f.set_fg(colors.fg)
+		f.add({ "", fg = colors.black, bg = colors.bg_sel })
+		f.add({
+			f.icon(current_file) .. " ",
+			fg = f.icon_color(current_file),
+			bg = colors.bg_sel,
+		})
+		f.add({
+			vim.fn.fnamemodify(current_file, ":t"),
+			fg = f.icon_color(current_file),
+			bg = colors.bg_sel,
+		})
+		f.add({
+			"",
+			fg = colors.bg_sel,
+			bg = colors.black,
+		})
+	end
+
+	f.add_spacer()
+
+	local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+	local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+
+	f.add({ "  " .. errors, fg = "#e86671" })
+	f.add({ "  " .. warnings, fg = "#e5c07b" })
+	f.add(" ")
+end
+
+require("tabline_framework").setup({
+	render = render,
+	hl = { fg = "#abb2bf", bg = "#181A1F" },
+	hl_sel = { fg = "#abb2bf", bg = "#282c34" },
+	hl_fill = { fg = "#ffffff", bg = "#000000" },
 })

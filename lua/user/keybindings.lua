@@ -22,7 +22,7 @@ vim.keymap.set("n", "<S-l>", ':lua require("harpoon.ui").nav_next()<CR>', opts)
 vim.keymap.set("n", "<S-h>", ':lua require("harpoon.ui").nav_prev()<CR>', opts)
 vim.keymap.set("n", "m", ':lua require("harpoon.mark").add_file()<CR>', opts)
 vim.keymap.set("n", "<space>v", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
-vim.keymap.set("n", "<S-q>", ":bn|bd#<CR>", opts)
+vim.keymap.set("n", "<S-q>", ':lua require("harpoon.mark").rm_file()<CR>', opts)
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
@@ -76,9 +76,6 @@ vim.keymap.set("n", "<F6>", '<cmd>lua require"dap".step_over()<cr>', opts)
 vim.keymap.set("n", "<F7>", '<cmd>lua require"dap".step_into()<cr>', opts)
 vim.keymap.set("n", "<F8>", '<cmd>lua require"dap".step_out()<cr>', opts)
 vim.keymap.set("n", "<leader>dt", '<cmd>lua require"dap-go".debug_test()<cr>', opts)
-
--- Symbol Outline--
-vim.keymap.set("n", "<c-x>", "<cmd>SymbolsOutline<cr>", opts)
 
 -- octo fix --
 -- vim.keymap.set("n", "<C-M>", '<cmd>lua require("octo.mappings").comment_review()<cr>', opts)
