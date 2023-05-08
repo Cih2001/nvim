@@ -232,6 +232,7 @@ require("neo-tree").setup({
 				["x"] = "none",
 			},
 		},
+		follow_cursor = true,
 	},
 	source_selector = {
 		winbar = true,
