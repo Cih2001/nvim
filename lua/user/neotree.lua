@@ -219,6 +219,20 @@ require("neo-tree").setup({
 			},
 		},
 	},
+	document_symbols = {
+		window = {
+			mappings = {
+				["d"] = "none",
+				["a"] = "none",
+				["A"] = "none",
+				["p"] = "none",
+				["c"] = "none",
+				["m"] = "none",
+				["y"] = "none",
+				["x"] = "none",
+			},
+		},
+	},
 	source_selector = {
 		winbar = true,
 		statusline = false,
