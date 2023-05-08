@@ -18,8 +18,8 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", opts)
 vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
 
 -- Navigate buffers - harpoon
-vim.keymap.set("n", "<S-l>", ':lua require("harpoon.ui").nav_next()<CR>', opts)
-vim.keymap.set("n", "<S-h>", ':lua require("harpoon.ui").nav_prev()<CR>', opts)
+vim.keymap.set("n", "<S-l>", ':lua require("harpoon.ui").nav_next()<CR>', { silent = true })
+vim.keymap.set("n", "<S-h>", ':lua require("harpoon.ui").nav_prev()<CR>', { silent = true })
 vim.keymap.set("n", "m", ':lua require("harpoon.mark").add_file()<CR>', opts)
 vim.keymap.set("n", "<space>v", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
 vim.keymap.set("n", "<S-q>", ':lua require("harpoon.mark").rm_file()<CR>', opts)
@@ -35,17 +35,33 @@ vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- Nerd Tree --
+-- neo-tree --
+local is_neotree_open = function()
+	for _, source in ipairs(require("neo-tree").config.sources) do
+		-- Get each sources state
+		local state = require("neo-tree.sources.manager").get_state(source)
+		-- Check if the source has a state, if the state has a buffer and if the buffer is our current buffer
+		if state and state.bufnr then
+			return true
+		end
+	end
+
+	return false
+end
 vim.keymap.set("n", "<c-z>", function()
-	vim.cmd("Neotree toggle left")
-	-- local open = vim.api.nvim_eval("g:NERDTree.IsOpen()")
-	-- if open == 1 then
-	-- 	vim.cmd("NERDTreeClose")
-	-- elseif vim.api.nvim_eval("&modifiable && strlen(expand('%')) > 0 && !&diff") == 1 then
-	-- 	vim.cmd("NERDTreeFind")
-	-- else
-	-- 	vim.cmd("NERDTree")
-	-- end
+	if is_neotree_open() then
+		vim.cmd("Neotree close left")
+	else
+		vim.cmd("Neotree focus filesystem left")
+	end
+end, opts)
+
+vim.keymap.set("n", "<c-x>", function()
+	if is_neotree_open() then
+		vim.cmd("Neotree close left")
+	else
+		vim.cmd("Neotree focus document_symbols left")
+	end
 end, opts)
 
 -- Telescope --
