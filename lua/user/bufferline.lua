@@ -1,5 +1,3 @@
-local Path = require("plenary.path")
-
 local function get_marks()
 	local h = require("harpoon")
 	local config = h.get_mark_config()
@@ -7,6 +5,7 @@ local function get_marks()
 end
 
 local function normalize_path(item)
+	local Path = require("plenary.path")
 	return Path:new(item):make_relative(vim.loop.cwd())
 end
 
@@ -15,73 +14,52 @@ local colors = {
 	white = "#ffffff",
 	bg = "#181A1F",
 	bg_sel = "#282c34",
+	temp = "#287c34",
 	fg = "#696969",
 }
+
+local function make_row(text, opts)
+	local row = { text }
+	for k, v in pairs(opts) do
+		row[k] = v
+	end
+	return row
+end
+
+local function create_pane(f, filename, opts)
+	f.set_fg(colors.fg)
+	f.add({ "", fg = colors.black, bg = colors.bg_sel })
+	if filename then
+		f.add(make_row(f.icon(filename) .. " ", opts))
+		f.add(make_row(vim.fn.fnamemodify(filename, ":t"), opts))
+	end
+	f.add({ "", bg = colors.bg_sel, fg = colors.black })
+end
 
 local render = function(f)
 	f.add({ "  Radioactive ", fg = "#bb0000" })
 
 	local items = get_marks()
 	local found = false
+	local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
 	for _, item in ipairs(items) do
-		f.make_tabs(function(info)
-			local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
-			local current = current_file == item.filename
-			if not found and current then
-				found = true
-			end
-
-			f.set_fg(not info.current and colors.fg or nil)
-
-			f.add({ "", fg = colors.black })
-			if item.filename then
-				f.add({
-					f.icon(item.filename) .. " ",
-					fg = current and f.icon_color(item.filename) or nil,
-				})
-				f.add({
-					vim.fn.fnamemodify(item.filename, ":t"),
-					fg = current and f.icon_color(item.filename) or nil,
-				})
-			end
-
-			f.add({
-				"",
-				fg = info.current and colors.bg_sel or colors.bg,
-				bg = colors.black,
-			})
-		end)
+		local selected = current_file == item.filename
+		found = found or selected
+		local fg = selected and f.icon_color(item.filename) or nil
+		create_pane(f, item.filename, { fg = fg, bg = colors.bg_sel })
 	end
 
 	if not found then
-		local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
-		f.set_fg(colors.fg)
-		f.add({ "", fg = colors.black, bg = colors.bg_sel })
-		f.add({
-			f.icon(current_file) .. " ",
-			fg = f.icon_color(current_file),
-			bg = colors.bg_sel,
-		})
-		f.add({
-			vim.fn.fnamemodify(current_file, ":t"),
-			fg = f.icon_color(current_file),
-			bg = colors.bg_sel,
-		})
-		f.add({
-			"",
-			fg = colors.bg_sel,
-			bg = colors.black,
-		})
+		create_pane(f, current_file, { fg = colors.temp, bg = colors.bg_sel, gui = "italic" })
 	end
 
 	f.add_spacer()
 
-	local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-	local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-
-	f.add({ "  " .. errors, fg = "#e86671" })
-	f.add({ "  " .. warnings, fg = "#e5c07b" })
-	f.add(" ")
+	f.make_tabs(function(info)
+		f.add({ "", fg = colors.black, bg = colors.bg_sel })
+		f.add({ " " .. info.index .. " ", fg = info.current and colors.white or nil })
+		f.add({ "", bg = colors.bg_sel, fg = colors.black })
+	end)
 end
 
 require("tabline_framework").setup({

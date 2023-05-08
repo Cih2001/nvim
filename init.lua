@@ -1,5 +1,3 @@
-E = require("core.events")
-
 require("user.plugins")
 require("user.options")
 require("user.treesitter")
