@@ -32,8 +32,25 @@ local function create_pane(f, filename, opts)
 	if filename then
 		f.add(make_row(" " .. f.icon(filename) .. " ", opts))
 		f.add(make_row(vim.fn.fnamemodify(filename, ":t") .. " ", opts))
+		if opts.modified then
+			f.add(make_row("[M]", opts))
+		end
 	end
 	f.add({ "", bg = colors.bg_sel, fg = colors.black })
+end
+
+local function is_modified(path)
+	local bufnr = vim.fn.bufnr(path)
+	if bufnr == -1 then
+		return false
+	end
+
+	local info = vim.fn.getbufinfo(bufnr)
+	if info[1].changed == 0 then
+		return false
+	end
+
+	return true
 end
 
 local render = function(f)
@@ -46,11 +63,20 @@ local render = function(f)
 		local selected = current_file == item.filename
 		found = found or selected
 		local fg = selected and f.icon_color(item.filename) or nil
-		create_pane(f, item.filename, { fg = fg, bg = colors.bg_sel })
+
+		local opts = { fg = fg, bg = colors.bg_sel }
+		if is_modified(item.filename) then
+			opts.modified = true
+		end
+		create_pane(f, item.filename, opts)
 	end
 
 	if not found then
-		create_pane(f, current_file, { fg = colors.temp, bg = colors.bg_sel, gui = "italic" })
+		local opts = { fg = colors.temp, bg = colors.bg_sel, gui = "italic" }
+		if is_modified(vim.api.nvim_buf_get_name(0)) then
+			opts.modified = true
+		end
+		create_pane(f, current_file, opts)
 	end
 
 	f.add_spacer()
