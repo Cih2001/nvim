@@ -110,8 +110,4 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)"
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
 
-vim.keymap.set("n", "<c-q>", function()
-	local textcortex = string.format("%s/.config/nvim/lua/user/textcortex.lua", os.getenv("HOME"))
-	dofile(textcortex)
-	-- print(vim.api.nvim_eval("expand('%')"))
-end, opts)
+vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)

@@ -18,7 +18,7 @@ return require("packer").startup(function()
 	-- Misc
 	use({ "mg979/vim-visual-multi", branch = "master" }) -- for having multiple cursors
 	use("ryanoasis/vim-devicons")
-	use("kyazdani42/nvim-web-devicons")
+	use("nvim-tree/nvim-web-devicons")
 	use("nvim-lua/plenary.nvim")
 	use("lukas-reineke/indent-blankline.nvim")
 	use("RRethy/vim-illuminate")
@@ -67,7 +67,7 @@ return require("packer").startup(function()
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 		},
 	})
 
