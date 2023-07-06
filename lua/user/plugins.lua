@@ -8,9 +8,10 @@ require("lazy").setup({
 		build = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
+		lazy = true,
 	},
-
 	"nvim-treesitter/nvim-treesitter-textobjects",
+
 	-- requirements
 	"nvim-tree/nvim-web-devicons",
 	"nvim-lua/plenary.nvim",
@@ -63,9 +64,9 @@ require("lazy").setup({
 	"L3MON4D3/LuaSnip", --snippet engine
 
 	-- debugging
-	"mfussenegger/nvim-dap",
-	"rcarriga/nvim-dap-ui",
-	"theHamsta/nvim-dap-virtual-text",
+	{ "mfussenegger/nvim-dap", lazy = true },
+	{ "rcarriga/nvim-dap-ui", lazy = true },
+	{ "theHamsta/nvim-dap-virtual-text", lazy = true },
 
 	-- tmux integration
 	"christoomey/vim-tmux-navigator",
@@ -81,6 +82,7 @@ require("lazy").setup({
 		init = function()
 			vim.g.mkdp_filetypes = { "markdown" }
 		end,
+		lazy = true,
 	},
 
 	-- auto closing
@@ -90,5 +92,5 @@ require("lazy").setup({
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
 	-- chat gpt
-	"jackMort/ChatGPT.nvim",
+	{ "jackMort/ChatGPT.nvim", lazy = true },
 })
