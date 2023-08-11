@@ -56,19 +56,19 @@ end
 local render = function(f)
 	f.add({ "  Radioactive ", fg = "#bb0000" })
 
-	local items = get_marks()
+	local marks = get_marks()
 	local found = false
 	local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
-	for _, item in ipairs(items) do
-		local selected = current_file == item.filename
+	for _, mark in ipairs(marks) do
+		local selected = current_file == mark.filename
 		found = found or selected
-		local fg = selected and f.icon_color(item.filename) or nil
+		local fg = selected and f.icon_color(mark.filename) or nil
 
 		local opts = { fg = fg, bg = colors.bg_sel }
-		if is_modified(item.filename) then
+		if is_modified(mark.filename) then
 			opts.modified = true
 		end
-		create_pane(f, item.filename, opts)
+		create_pane(f, mark.filename, opts)
 	end
 
 	if not found then
