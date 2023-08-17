@@ -14,8 +14,8 @@ vim.keymap.set("n", "=", "<C-w>=", opts)
 -- Switch windows
 vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<cr>", opts)
 vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<cr>", opts)
-vim.keymap.set("n", "<C-l>", ":TmuxNavigateLeft<cr>", opts)
-vim.keymap.set("n", "<C-h>", ":TmuxNavigateRight<cr>", opts)
+vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<cr>", opts)
+vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<cr>", opts)
 
 -- Navigate buffers - harpoon
 vim.keymap.set("n", "<S-l>", ':lua require("harpoon.ui").nav_next()<CR>', { silent = true })

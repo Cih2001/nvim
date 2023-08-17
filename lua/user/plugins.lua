@@ -27,6 +27,7 @@ require("lazy").setup({
 	"rafcamlet/tabline-framework.nvim",
 	"nvim-lualine/lualine.nvim",
 	"ggandor/leap.nvim",
+	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
 
 	-- neotree
 	{
