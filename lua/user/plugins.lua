@@ -91,5 +91,10 @@ require("lazy").setup({
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
 	-- chat gpt
-	{ "jackMort/ChatGPT.nvim", lazy = true },
+	{
+		"jackMort/ChatGPT.nvim",
+		lazy = true,
+		branch = "main",
+		commit = "24bcca7f3fedfd5451d2c500d4e2cdfb9707d661",
+	},
 })
