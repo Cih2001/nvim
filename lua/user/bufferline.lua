@@ -33,7 +33,7 @@ local function create_pane(f, filename, opts)
 		f.add(make_row(" " .. f.icon(filename) .. " ", opts))
 		f.add(make_row(vim.fn.fnamemodify(filename, ":t") .. " ", opts))
 		if opts.modified then
-			f.add(make_row("[M]", opts))
+			f.add(make_row("", opts))
 		end
 	end
 	f.add({ "", bg = colors.bg_sel, fg = colors.black })
