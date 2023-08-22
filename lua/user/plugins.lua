@@ -25,7 +25,6 @@ require("lazy").setup({
 	"rafcamlet/tabline-framework.nvim",
 	"nvim-lualine/lualine.nvim",
 	"ggandor/leap.nvim",
-	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
 
 	-- neotree
 	{
@@ -38,6 +37,8 @@ require("lazy").setup({
 
 	-- color themes
 	"Cih2001/darkplus.nvim",
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
 
 	-- fuzzy finders
 	{ "nvim-telescope/telescope-ui-select.nvim", lazy = true },
