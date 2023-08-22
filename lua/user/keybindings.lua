@@ -12,17 +12,17 @@ vim.keymap.set("n", "+", "<C-w>|", opts)
 vim.keymap.set("n", "=", "<C-w>=", opts)
 
 -- Switch windows
-vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<cr>", opts)
-vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<cr>", opts)
-vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<cr>", opts)
-vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<cr>", opts)
+vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", opts)
+vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", opts)
+vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
+vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", opts)
 
 -- Navigate buffers - harpoon
-vim.keymap.set("n", "<S-l>", ':lua require("harpoon.ui").nav_next()<CR>', { silent = true })
-vim.keymap.set("n", "<S-h>", ':lua require("harpoon.ui").nav_prev()<CR>', { silent = true })
-vim.keymap.set("n", "m", ':lua require("harpoon.mark").add_file()<CR>', opts)
-vim.keymap.set("n", "<space>v", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
-vim.keymap.set("n", "<S-q>", ':lua require("harpoon.mark").rm_file()<CR>', opts)
+vim.keymap.set("n", "<S-l>", '<cmd>lua require("harpoon.ui").nav_next()<CR>', { silent = true })
+vim.keymap.set("n", "<S-h>", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { silent = true })
+vim.keymap.set("n", "m", '<cmd>lua require("harpoon.mark").add_file()<CR>', opts)
+vim.keymap.set("n", "<space>v", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
+vim.keymap.set("n", "<S-q>", '<cmd>lua require("harpoon.mark").rm_file()<CR>', opts)
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
@@ -30,10 +30,10 @@ vim.keymap.set("v", ">", ">gv", opts)
 
 -- Visual Block --
 -- Move text up and down
-vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+vim.keymap.set("x", "J", "<cmd>move '>+1<CR>gv-gv", opts)
+vim.keymap.set("x", "K", "<cmd>move '<-2<CR>gv-gv", opts)
+vim.keymap.set("x", "<A-j>", "<cmd>move '>+1<CR>gv-gv", opts)
+vim.keymap.set("x", "<A-k>", "<cmd>move '<-2<CR>gv-gv", opts)
 
 -- neo-tree --
 local is_neotree_open = function()

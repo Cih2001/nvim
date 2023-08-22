@@ -1,3 +1,6 @@
+local ver = vim.version()
+local version = string.format("  NVIM v%d.%d.%d ", ver.major, ver.minor, ver.patch)
+
 local function get_marks()
 	local h = require("harpoon")
 	local config = h.get_mark_config()
@@ -54,7 +57,7 @@ local function is_modified(path)
 end
 
 local render = function(f)
-	f.add({ "  Radioactive ", fg = "#bb0000" })
+	f.add({ version, fg = "#bb0000" })
 
 	local marks = get_marks()
 	local found = false
