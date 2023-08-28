@@ -31,15 +31,15 @@ end
 
 local function create_pane(f, filename, opts)
 	f.set_fg(colors.fg)
-	f.add({ " ", fg = colors.black, bg = colors.bg_sel })
+	f.add({ "", fg = colors.black, bg = colors.bg_sel })
 	if filename then
 		f.add(make_row(" " .. f.icon(filename) .. " ", opts))
 		f.add(make_row(vim.fn.fnamemodify(filename, ":t") .. " ", opts))
 		if opts.modified then
-			f.add(make_row("", opts))
+			f.add(make_row("", opts))
 		end
 	end
-	f.add({ " ", bg = colors.bg_sel, fg = colors.black })
+	f.add({ "", bg = colors.bg_sel, fg = colors.black })
 end
 
 local function is_modified(path)
