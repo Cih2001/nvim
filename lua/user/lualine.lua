@@ -42,6 +42,30 @@ local location = {
 	padding = 0,
 }
 
+local bitcoin_price = ""
+
+local function getBitcoinPrice()
+	local url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+	local command = "curl -s '" .. url .. "'"
+	local handle = vim.fn.jobstart(command, {
+		stdout_buffered = true,
+		stderr_buffered = true,
+		on_stdout = function(_, output)
+			local data = vim.fn.json_decode(output)
+			bitcoin_price = string.format("%.2f ", data.price)
+		end,
+	})
+	vim.fn.jobwait({ handle }, -1)
+end
+
+local interval = 60 -- 60 seconds = 1 minute
+local timer = vim.loop.new_timer()
+timer:start(0, interval * 1000, vim.schedule_wrap(getBitcoinPrice))
+
+local function bitcoin()
+	return string.format("  " .. bitcoin_price)
+end
+
 local function trim_branch_name()
 	local handle = io.popen("git rev-parse --abbrev-ref HEAD 2> /dev/null")
 	if handle == nil then
@@ -87,7 +111,7 @@ lualine.setup({
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_x = { diff, "encoding" },
 		lualine_y = { location },
-		lualine_z = { progress },
+		lualine_z = { bitcoin },
 	},
 	inactive_sections = {
 		lualine_a = {},
