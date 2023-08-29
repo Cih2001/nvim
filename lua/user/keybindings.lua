@@ -64,7 +64,7 @@ vim.keymap.set("n", "<c-x>", function()
 	end
 end, opts)
 
--- Telescope --
+-- Fzf --
 vim.keymap.set("n", "<space>b", "<cmd>FzfLua buffers<cr>", opts)
 vim.keymap.set("n", "<space>f", "<cmd>FzfLua files<cr>", opts)
 vim.keymap.set("n", "<space>g", "<cmd>FzfLua live_grep<cr>", opts)
@@ -79,9 +79,14 @@ vim.keymap.set("n", "gy", "<cmd>FzfLua lsp_typedefs<cr>", opts)
 vim.keymap.set("n", "<space>a", "<cmd>FzfLua diagnostics_workspace<CR>", opts)
 vim.keymap.set("n", "<space>h", "<cmd>FzfLua help_tags<CR>", opts)
 
+-- lsp rename --
+vim.keymap.set("n", "<leader>rn", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+
 -- Illuminate --
 vim.keymap.set("n", "<C-]>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
-vim.keymap.set("n", "<C-[>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+vim.keymap.set("n", "<A-]>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 
 -- Debug --
 vim.keymap.set("n", "<F1>", '<cmd>lua require"dapui".toggle()<cr>', opts)

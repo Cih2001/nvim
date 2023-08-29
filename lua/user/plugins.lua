@@ -63,6 +63,12 @@ require("lazy").setup({
 	"hrsh7th/cmp-nvim-lsp-signature-help",
 	"saadparwaiz1/cmp_luasnip", -- snippet completions
 	"L3MON4D3/LuaSnip", --snippet engine
+	{
+		"smjonas/inc-rename.nvim",
+		init = function()
+			require("inc_rename").setup()
+		end,
+	},
 
 	-- debugging
 	{ "mfussenegger/nvim-dap", lazy = true },
