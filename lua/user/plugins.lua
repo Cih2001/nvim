@@ -39,6 +39,7 @@ require("lazy").setup({
 	"Cih2001/darkplus.nvim",
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
+	{ "rebelot/kanagawa.nvim" },
 
 	-- fuzzy finders
 	{ "nvim-telescope/telescope-ui-select.nvim", lazy = true },

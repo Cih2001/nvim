@@ -1,40 +1,26 @@
-local tokyonight = function()
-	vim.cmd([[
-  try
-    colorscheme tokyonight-night
-  catch /^Vim\%((\a\+)\)\=:E185/
+local set_colorscheme = function(name)
+	local cmd = string.format(
+		[[
+try
+    colorscheme %s
+catch /^Vim\\%%((\a\+)\)\=:E185/
     colorscheme default
     set background=dark
-  endtry
-  ]])
-	vim.cmd("hi LineNr guifg=#6b7291")
+endtry
+]],
+		name
+	)
+	vim.cmd(cmd)
+end
+
+local scheme = "catppuccin-mocha"
+set_colorscheme(scheme)
+
+if scheme == "tokyonight-moon" then
 	vim.cmd("hi CursorLineNr guifg=#e0af68")
 end
 
-local darkplus = function()
-	vim.cmd([[
-  try
-    colorscheme darkplus
-  catch /^Vim\%((\a\+)\)\=:E185/
-    colorscheme default
-    set background=dark
-  endtry
-  ]])
-end
-
-local catppuccin = function()
-	vim.cmd([[
-  try
-    colorscheme catppuccin-mocha
-  catch /^Vim\%((\a\+)\)\=:E185/
-    colorscheme default
-    set background=dark
-  endtry
-  ]])
-	vim.cmd("hi LineNr guifg=#6b7291")
-end
-
-catppuccin()
+vim.cmd("hi LineNr guifg=#6b7291")
 vim.cmd("hi CursorColumn guibg=#aa0000")
 vim.cmd("hi CursorLine guibg=#303030")
 vim.cmd("hi VertSplit gui=NONE guibg=LineNr guifg=#aaaaaa")
