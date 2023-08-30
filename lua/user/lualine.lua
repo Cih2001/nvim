@@ -51,8 +51,10 @@ local function getBitcoinPrice()
 		stdout_buffered = true,
 		stderr_buffered = true,
 		on_stdout = function(_, output)
-			local data = vim.fn.json_decode(output)
-			bitcoin_price = string.format("%.2f ", data.price)
+			local success, data = pcall(vim.fn.json_decode, output)
+			if success and data and data.price then
+				bitcoin_price = string.format("%.2f$ ", data.price)
+			end
 		end,
 	})
 	vim.fn.jobwait({ handle }, -1)
