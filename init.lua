@@ -33,6 +33,8 @@ require("user.dap")
 -- fuzzy
 require("user.telescope")
 require("user.fzf")
+-- db
+require("user.db")
 -- productivity
 require("user.neotree")
 require("user.octo")

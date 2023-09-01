@@ -98,6 +98,8 @@ require("lazy").setup({
 	-- db
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
+	"kristijanhusak/vim-dadbod-completion",
+
 	-- chat gpt
 	{
 		"jackMort/ChatGPT.nvim",
