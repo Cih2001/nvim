@@ -85,7 +85,7 @@ require("neo-tree").setup({
 				nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
 			},
 			["l"] = "toggle_node",
-			["h"] = "toggle_node",
+			["h"] = "toggle_hidden",
 			["<2-LeftMouse>"] = "open",
 			["<cr>"] = "open",
 			["<esc>"] = "revert_preview",
