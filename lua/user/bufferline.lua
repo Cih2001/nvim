@@ -15,8 +15,7 @@ end
 local colors = {
 	black = "#000000",
 	white = "#ffffff",
-	bg = "#181A1F",
-	bg_sel = "#282c34",
+	bg_sel = "#1a1a1a",
 	temp = "#287c34",
 	fg = "#696969",
 }

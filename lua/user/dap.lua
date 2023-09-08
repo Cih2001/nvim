@@ -34,6 +34,16 @@ local function setup_dap_ui(dapui, ndvts)
 			enabled = true,
 			-- Display controls in this element
 			element = "repl",
+			icons = {
+				pause = "",
+				play = " <F5>",
+				step_over = " <F6>",
+				step_into = " <F7>",
+				step_out = " <F8>",
+				step_back = "",
+				run_last = "",
+				terminate = "",
+			},
 		},
 		windows = { indent = 1 },
 		render = {
