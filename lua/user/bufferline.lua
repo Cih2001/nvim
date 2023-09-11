@@ -85,7 +85,7 @@ local render = function(f)
 
 	f.make_tabs(function(info)
 		f.add({ "", fg = colors.black, bg = colors.bg_sel })
-		f.add({ " " .. info.index .. " ", fg = info.current and colors.white or nil })
+		f.add({ " " .. info.index .. " ", fg = info.current and colors.white or nil, bg = colors.bg_sel })
 		f.add({ "", bg = colors.bg_sel, fg = colors.black })
 	end)
 end
