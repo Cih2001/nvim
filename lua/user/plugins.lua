@@ -42,6 +42,14 @@ require("lazy").setup({
 	"rebelot/kanagawa.nvim",
 	"savq/melange-nvim",
 	"rmehri01/onenord.nvim",
+	{
+		"AlexvZyl/nordic.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("nordic").load()
+		end,
+	},
 
 	-- fuzzy finders
 	{ "nvim-telescope/telescope-ui-select.nvim", lazy = true },
