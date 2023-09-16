@@ -24,7 +24,6 @@ require("lazy").setup({
 	"sindrets/diffview.nvim",
 	"rafcamlet/tabline-framework.nvim",
 	"nvim-lualine/lualine.nvim",
-	"ggandor/leap.nvim",
 
 	-- neotree
 	{
