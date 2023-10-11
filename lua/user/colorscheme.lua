@@ -1,6 +1,6 @@
 vim.opt.background = "dark" -- set this to dark or light
 -- local scheme = "catppuccin-mocha"
-local scheme = "darkplus"
+local scheme = "onenord"
 vim.cmd.colorscheme(scheme)
 
 if scheme == "tokyonight-moon" then
@@ -45,4 +45,5 @@ else
 	vim.cmd("hi VertSplit gui=NONE guibg=LineNr guifg=#aaaaaa")
 	vim.cmd("hi clear SignColumn")
 	vim.cmd("hi GitsignsCurrentLineBlame guifg=#606060")
+	vim.cmd("hi IblIndent guifg=#404040")
 end
