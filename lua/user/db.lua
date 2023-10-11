@@ -21,7 +21,7 @@ vim.cmd([[
 vim.cmd([[
 let g:db_ui_table_helpers = {
 \   'postgresql': {
-\     'all info': "select * from {optional_schema}\"{table}\" limit 200;\n
+\     'All Info': "select * from {optional_schema}\"{table}\" limit 200;\n
 \select * from information_schema.columns where table_name='{table}' and table_schema='{schema}';\n
 \select * from pg_indexes where tablename='{table}' and schemaname='{schema}';\n
 \select tc.constraint_name as foreign_keys, tc.table_name, kcu.column_name, ccu.table_name as foreign_table_name, ccu.column_name as foreign_column_name, rc.update_rule, rc.delete_rule\n
