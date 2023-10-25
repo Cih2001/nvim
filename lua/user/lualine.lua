@@ -60,7 +60,7 @@ local function getBitcoinPrice()
 	vim.fn.jobwait({ handle }, -1)
 end
 
-local interval = 60 -- 60 seconds = 1 minute
+local interval = 60 * 3 -- 3 minute
 local timer = vim.loop.new_timer()
 timer:start(0, interval * 1000, vim.schedule_wrap(getBitcoinPrice))
 
