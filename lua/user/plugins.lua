@@ -24,16 +24,6 @@ require("lazy").setup({
 	"sindrets/diffview.nvim",
 	"rafcamlet/tabline-framework.nvim",
 	"nvim-lualine/lualine.nvim",
-	{
-		"numToStr/Comment.nvim",
-		opts = {
-			-- add any options here
-		},
-		init = function()
-			require("inc_rename").setup()
-		end,
-		lazy = false,
-	},
 
 	-- neotree
 	{
