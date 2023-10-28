@@ -63,7 +63,7 @@ require("lazy").setup({
 	"williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
 	"williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
 	"tamago324/nlsp-settings.nvim", -- language server settings defined in json for
-	"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
+	"nvimtools/none-ls.nvim", -- for formatters and linters
 	"hrsh7th/nvim-cmp", -- The completion plugin
 	"hrsh7th/cmp-buffer", -- buffer completions
 	"hrsh7th/cmp-path", -- path completions
