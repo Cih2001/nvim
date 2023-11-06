@@ -10,7 +10,9 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.gofumpt,
 		null_ls.builtins.formatting.goimports,
-		-- null_ls.builtins.formatting.clang_format,
+		null_ls.builtins.formatting.clang_format.with({
+			extra_args = { "-style=Google" },
+		}),
 		-- null_ls.builtins.diagnostics.cpplint,
 		-- null_ls.builtins.formatting.rustfmt,
 		null_ls.builtins.formatting.prettier.with({

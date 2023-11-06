@@ -30,10 +30,10 @@ vim.keymap.set("v", ">", ">gv", opts)
 
 -- Visual Block --
 -- Move text up and down
-vim.keymap.set("x", "J", "<cmd>move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "K", "<cmd>move '<-2<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-j>", "<cmd>move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-k>", "<cmd>move '<-2<CR>gv-gv", opts)
+vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
+vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
+vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
+vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- neo-tree --
 local is_neotree_open = function()
