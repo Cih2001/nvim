@@ -86,12 +86,11 @@ require("lazy").setup({
 
 	-- tmux integration
 	"christoomey/vim-tmux-navigator",
-	-- swagger
-	{ "xavierchow/vim-swagger-preview", lazy = true },
 	-- markdown-preview
 	{
 		"iamcco/markdown-preview.nvim",
 		ft = "markdown",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
