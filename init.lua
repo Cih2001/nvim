@@ -38,7 +38,7 @@ require("user.db")
 -- productivity
 require("user.neotree")
 require("user.octo")
-require("user.chatgpt")
+-- require("user.chatgpt")
 require("user.custom")
 --
 require("user.keybindings")

@@ -51,9 +51,11 @@ require("lazy").setup({
 	},
 
 	-- fuzzy finders
-	{ "nvim-telescope/telescope-ui-select.nvim", lazy = true },
-	{ "nvim-telescope/telescope.nvim", lazy = true },
 	{ "ibhagwan/fzf-lua", lazy = true },
+	{
+		"stevearc/dressing.nvim",
+		opts = {},
+	},
 
 	-- code review
 	{ "pwntester/octo.nvim", lazy = true },
@@ -107,12 +109,18 @@ require("lazy").setup({
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
 	"kristijanhusak/vim-dadbod-completion",
-
-	-- chat gpt
 	{
-		"jackMort/ChatGPT.nvim",
-		lazy = true,
-		branch = "main",
-		commit = "24bcca7f3fedfd5451d2c500d4e2cdfb9707d661",
+		"robitx/gp.nvim",
+		config = function()
+			require("gp").setup({
+				chat_model = { model = "gpt-4", temperature = 0, top_p = 1 },
+			})
+		end,
 	},
+	-- chat gpt
+	-- {
+	-- 	"jackMort/ChatGPT.nvim",
+	-- 	lazy = true,
+	-- 	branch = "main"
+	-- },
 })

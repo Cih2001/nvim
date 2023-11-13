@@ -4,6 +4,7 @@ if not status_ok then
 end
 
 octo.setup({
+	picker = "fzf-lua",
 	default_remote = { "upstream", "origin" }, -- order to try remotes
 	ssh_aliases = {}, -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
 	reaction_viewer_hint_icon = "", -- marker for user reactions
