@@ -24,19 +24,6 @@ local diff = {
 	cond = hide_in_width,
 }
 
-local mode = {
-	"mode",
-	fmt = function(str)
-		return "-- " .. str .. " --"
-	end,
-}
-
-local filetype = {
-	"filetype",
-	icons_enabled = false,
-	icon = nil,
-}
-
 local location = {
 	"location",
 	padding = 0,
@@ -83,20 +70,6 @@ local function trim_branch_name()
 	return string.format(" %s", branch_name) -- fix string format
 end
 
--- cool function for progress
-local progress = function()
-	local current_line = vim.fn.line(".")
-	local total_lines = vim.fn.line("$")
-	local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
-	local line_ratio = current_line / total_lines
-	local index = math.ceil(line_ratio * #chars)
-	return chars[index]
-end
-
-local spaces = function()
-	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
-
 lualine.setup({
 	options = {
 		icons_enabled = true,
@@ -105,6 +78,14 @@ lualine.setup({
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "alpha", "dashboard", "NERDTree", "Outline", "neo-tree", "dbui" },
 		always_divide_middle = true,
+		ignore_focus = {
+			"dapui_watches",
+			"dapui_breakpoints",
+			"dapui_scopes",
+			"dapui_console",
+			"dapui_stacks",
+			"dap-repl",
+		},
 	},
 	sections = {
 		lualine_a = { trim_branch_name },

@@ -23,9 +23,16 @@ local function setup_dap_ui(dapui, ndvts)
 			},
 			{
 				elements = {
+					"stacks",
+				},
+				size = 5,
+				position = "bottom",
+			},
+			{
+				elements = {
 					"repl",
 				},
-				size = 10,
+				size = 5,
 				position = "bottom",
 			},
 		},
@@ -135,12 +142,6 @@ local function setup_go_configuration(dap)
 		},
 		{
 			type = "go",
-			name = "Debug Package",
-			request = "launch",
-			program = "${fileDirname}",
-		},
-		{
-			type = "go",
 			name = "Attach",
 			mode = "local",
 			request = "attach",
@@ -159,6 +160,31 @@ local function setup_go_configuration(dap)
 			request = "launch",
 			mode = "test",
 			program = "./${relativeFileDirname}",
+		},
+	}
+end
+
+local function setup_cpp_configuration(dap)
+	dap.adapters.codelldb = {
+		type = "server",
+		port = "${port}",
+		executable = {
+			command = vim.fn.exepath("codelldb"),
+			args = { "--port", "${port}" },
+		},
+	}
+
+	dap.configurations.cpp = {
+		{
+			name = "LLDB: Launch",
+			type = "codelldb",
+			request = "launch",
+			program = function()
+				return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+			end,
+			cwd = "${workspaceFolder}",
+			stopOnEntry = false,
+			args = {},
 		},
 	}
 end
@@ -197,6 +223,7 @@ function M.setup()
 	local dap = load_module("dap")
 	setup_go_adapter(dap)
 	setup_go_configuration(dap)
+	setup_cpp_configuration(dap)
 	setup_highlights()
 end
 
