@@ -1,6 +1,6 @@
 vim.opt.background = "dark" -- set this to dark or light
 -- local scheme = "catppuccin-mocha"
-local scheme = "onenord"
+local scheme = "darkplus"
 vim.cmd.colorscheme(scheme)
 
 if scheme == "tokyonight-moon" then
@@ -35,7 +35,7 @@ elseif scheme == "onenord" then
 	vim.cmd("hi NeoTreeNormal guibg=#1a1a1a")
 	vim.cmd("hi NeoTreeNormalNc guibg=#1a1a1a")
 	vim.cmd("hi CursorLine guibg=#272727")
-elseif "nordic" then
+elseif scheme == "nordic" then
 	vim.cmd("hi Comment guifg=#6c7a96")
 	vim.cmd("hi LineNr guifg=#6c7a96")
 	vim.cmd("hi CursorLineNr guifg=#c8d0e0")
