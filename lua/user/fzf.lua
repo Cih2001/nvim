@@ -656,3 +656,5 @@ require("fzf-lua").setup({
 	-- 'EN SPACE' (U+2002), the below sets it to 'NBSP' (U+00A0) instead
 	-- nbsp = '\xc2\xa0',
 })
+
+vim.cmd("FzfLua register_ui_select")

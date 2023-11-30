@@ -52,10 +52,6 @@ require("lazy").setup({
 
 	-- fuzzy finders
 	{ "ibhagwan/fzf-lua", lazy = true },
-	{
-		"stevearc/dressing.nvim",
-		opts = {},
-	},
 
 	-- code review
 	{ "pwntester/octo.nvim", lazy = true },
@@ -112,9 +108,7 @@ require("lazy").setup({
 	{
 		"robitx/gp.nvim",
 		config = function()
-			require("gp").setup({
-				chat_model = { model = "gpt-4", temperature = 0, top_p = 1 },
-			})
+			require("gp").setup()
 		end,
 	},
 	-- chat gpt
