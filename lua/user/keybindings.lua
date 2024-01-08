@@ -98,8 +98,9 @@ vim.keymap.set("n", "<F7>", '<cmd>lua require"dap".step_into()<cr>', opts)
 vim.keymap.set("n", "<F8>", '<cmd>lua require"dap".step_out()<cr>', opts)
 vim.keymap.set("n", "<leader>dt", '<cmd>lua require"dap-go".debug_test()<cr>', opts)
 
--- octo fix --
--- vim.keymap.set("n", "<C-M>", '<cmd>lua require("octo.mappings").comment_review()<cr>', opts)
+-- Gitsigns --
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", opts)
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", opts)
 
 -- treesitter key bindings
 -- take a look at treesitter.lua
