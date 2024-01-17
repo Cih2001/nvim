@@ -36,8 +36,9 @@ require("lazy").setup({
 
 	-- color themes
 	"Cih2001/darkplus.nvim",
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{ "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {} },
+	{ "catppuccin/nvim", name = "catppuccin" },
+	{ "folke/tokyonight.nvim", lazy = false },
+	{ "rose-pine/neovim", name = "rose-pine" },
 	"rebelot/kanagawa.nvim",
 	"savq/melange-nvim",
 	"rmehri01/onenord.nvim",
