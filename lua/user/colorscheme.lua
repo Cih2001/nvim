@@ -1,6 +1,7 @@
 vim.opt.background = "dark" -- set this to dark or light
 -- local scheme = "catppuccin-mocha"
-local scheme = "rose-pine-moon"
+-- local scheme = "rose-pine-moon"
+local scheme = "vscode"
 vim.cmd.colorscheme(scheme)
 
 if scheme == "tokyonight-moon" then

@@ -50,6 +50,7 @@ require("lazy").setup({
 			require("nordic").load()
 		end,
 	},
+	"Mofiqul/vscode.nvim",
 
 	-- fuzzy finders
 	{ "ibhagwan/fzf-lua", lazy = true },
