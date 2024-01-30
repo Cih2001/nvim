@@ -19,7 +19,7 @@ require("user.autopairs")
 -- ui
 require("user.colorscheme")
 require("user.lualine")
-require("user.bufferline")
+require("user.harpoon")
 require("user.gitsigns")
 require("user.indentline")
 --

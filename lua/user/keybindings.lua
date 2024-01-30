@@ -18,11 +18,7 @@ vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
 vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", opts)
 
 -- Navigate buffers - harpoon
-vim.keymap.set("n", "<S-l>", '<cmd>lua require("harpoon.ui").nav_next()<CR>', { silent = true })
-vim.keymap.set("n", "<S-h>", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { silent = true })
-vim.keymap.set("n", "m", '<cmd>lua require("harpoon.mark").add_file()<CR>', opts)
-vim.keymap.set("n", "<space>v", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
-vim.keymap.set("n", "<S-q>", '<cmd>lua require("harpoon.mark").rm_file()<CR>', opts)
+-- refer to harpoon.lua
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)

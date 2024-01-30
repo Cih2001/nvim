@@ -1,16 +1,43 @@
+local harpoon = require("harpoon")
+
 local ver = vim.version()
 local version = string.format("  NVIM v%d.%d.%d ", ver.major, ver.minor, ver.patch)
-
-local function get_marks()
-	local h = require("harpoon")
-	local config = h.get_mark_config()
-	return config.marks
-end
 
 local function normalize_path(item)
 	local Path = require("plenary.path")
 	return Path:new(item):make_relative(vim.loop.cwd())
 end
+
+harpoon:setup()
+
+vim.keymap.set("n", "<S-l>", function()
+	if harpoon:list():get_by_display(normalize_path(vim.api.nvim_buf_get_name(0))) then
+		harpoon:list():next({ ui_nav_wrap = true })
+	else
+		harpoon:list():select(1)
+	end
+end)
+
+vim.keymap.set("n", "<S-h>", function()
+	if harpoon:list():get_by_display(normalize_path(vim.api.nvim_buf_get_name(0))) then
+		harpoon:list():prev({ ui_nav_wrap = true })
+	else
+		local len = harpoon:list():length()
+		harpoon:list():select(len)
+	end
+end)
+
+vim.keymap.set("n", "m", function()
+	harpoon:list():append()
+end)
+
+vim.keymap.set("n", "<space>v", function()
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+vim.keymap.set("n", "<S-q>", function()
+	harpoon:list():remove()
+end)
 
 local colors = {
 	black = "#000000",
@@ -58,19 +85,19 @@ end
 local render = function(f)
 	f.add({ version, fg = "#bb0000" })
 
-	local marks = get_marks()
+	local marks = harpoon:list().items
 	local found = false
 	local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
 	for _, mark in ipairs(marks) do
-		local selected = current_file == mark.filename
+		local selected = current_file == mark.value
 		found = found or selected
-		local fg = selected and f.icon_color(mark.filename) or nil
+		local fg = selected and f.icon_color(mark.value) or nil
 
 		local opts = { fg = fg, bg = colors.bg_sel }
-		if is_modified(mark.filename) then
+		if is_modified(mark.value) then
 			opts.modified = true
 		end
-		create_pane(f, mark.filename, opts)
+		create_pane(f, mark.value, opts)
 	end
 
 	if not found then
