@@ -85,7 +85,7 @@ require("lazy").setup({
 
 	-- debugging
 	{ "mfussenegger/nvim-dap", lazy = true },
-	{ "rcarriga/nvim-dap-ui", lazy = true },
+	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	{ "theHamsta/nvim-dap-virtual-text", lazy = true },
 
 	-- tmux integration
