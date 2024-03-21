@@ -47,12 +47,14 @@ configs.setup({
 			set_jumps = true, -- whether to set jumps in the jumplist
 			goto_next_start = {
 				["]]"] = "@function.outer",
+				["]a"] = "@parameter.inner",
 			},
 			goto_next_end = {
 				["]["] = "@function.outer",
 			},
 			goto_previous_start = {
 				["[["] = "@function.outer",
+				["[a"] = "@parameter.inner",
 			},
 			goto_previous_end = {
 				["[]"] = "@function.outer",
@@ -70,7 +72,7 @@ configs.setup({
 	},
 })
 
-vim.cmd("set foldmethod=expr")
+vim.cmd("set foldmethod=expr", "")
 vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 vim.cmd("set nofoldenable")
 
