@@ -26,6 +26,7 @@ gitsigns.setup({
 		virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
 		delay = 1,
 		ignore_whitespace = false,
+		extra_opts = { "-C", "-C", "-C" },
 	},
 	current_line_blame_formatter = "<abbrev_sha> <author>, <author_time:%Y-%m-%d> - <summary>",
 	sign_priority = 6,
