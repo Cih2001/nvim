@@ -28,7 +28,7 @@ vim.keymap.set("n", "<S-h>", function()
 end)
 
 vim.keymap.set("n", "m", function()
-	harpoon:list():append()
+	harpoon:list():add()
 end)
 
 vim.keymap.set("n", "<space>v", function()

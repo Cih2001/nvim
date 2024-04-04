@@ -30,6 +30,7 @@ local servers = {
 	"terraformls",
 	"tsserver",
 	"rust_analyzer",
+	"pylsp",
 }
 
 mason_lspconfig.setup({
