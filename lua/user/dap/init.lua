@@ -6,24 +6,13 @@ local function load_module(module_name)
 	return module
 end
 
-local function setup_dap_ui(dapui, ndvts)
+local function setup_dap_ui(dapui)
 	dapui.setup({
-		-- Layouts define sections of the screen to place windows.
-		-- The position can be "left", "right", "top" or "bottom".
-		-- The size specifies the height/width depending on position.
-		-- Elements are the elements shown in the layout (in order).
-		-- Layouts are opened in order so that earlier layouts take priority in window sizing.
+		-- basic ui. Setup more advanced in your custom configs
 		layouts = {
 			{
 				elements = {
 					"watches",
-				},
-				size = 5,
-				position = "bottom",
-			},
-			{
-				elements = {
-					"stacks",
 				},
 				size = 5,
 				position = "bottom",
@@ -57,10 +46,9 @@ local function setup_dap_ui(dapui, ndvts)
 			max_type_length = nil, -- Can be integer or nil.
 		},
 	})
-	ndvts.setup()
 end
 
-local function setup_go_adapter(dap)
+local function setup_go_configuration(dap, dapui)
 	dap.adapters.go = function(callback, config)
 		local stdout = vim.loop.new_pipe(false)
 		local handle
@@ -94,27 +82,8 @@ local function setup_go_adapter(dap)
 			callback({ type = "server", host = "127.0.0.1", port = port })
 		end, 100)
 	end
-end
-
-local function setup_go_configuration(dap)
-	dap.adapters.delve = {
-		type = "server",
-		host = "127.0.0.1",
-		port = 2345,
-	}
 
 	dap.configurations.go = {
-		{
-			name = "Okteto",
-			type = "delve",
-			request = "attach",
-			mode = "remote",
-			substitutePath = {
-				{ from = "/Users/hamidrezaebtehaj/go/src/github.com/esgbook/api", to = "/usr/src/app" },
-			},
-			port = "2345",
-			host = "127.0.0.1",
-		},
 		{
 			type = "go",
 			name = "Debug",
@@ -145,7 +114,7 @@ local function setup_go_configuration(dap)
 	}
 end
 
-local function setup_cpp_configuration(dap)
+local function setup_cpp_configuration(dap, dapui)
 	dap.adapters.codelldb = {
 		type = "server",
 		port = "${port}",
@@ -198,15 +167,30 @@ local function setup_highlights()
 	)
 end
 
+local custom_configs = {
+	esgbook = "user.dap.config.esgbook",
+	jiyan = "user.dap.config.jiyan",
+}
+
 function M.setup()
 	local dapui = load_module("dapui")
+	setup_dap_ui(dapui)
+
 	local ndvts = load_module("nvim-dap-virtual-text")
-	setup_dap_ui(dapui, ndvts)
+	ndvts.setup()
+
+	setup_highlights()
+
 	local dap = load_module("dap")
-	setup_go_adapter(dap)
 	setup_go_configuration(dap)
 	setup_cpp_configuration(dap)
-	setup_highlights()
+
+	local cwd = string.lower(vim.fn.getcwd())
+	for k, v in pairs(custom_configs) do
+		if string.find(cwd, k) then
+			require(v).setup(dap, dapui)
+		end
+	end
 end
 
 local function debug_test(testname)

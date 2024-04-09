@@ -22,7 +22,6 @@ require("user.lualine")
 require("user.harpoon")
 require("user.gitsigns")
 require("user.indentline")
---
 -- lsp
 require("user.cmp")
 require("user.lsp")
