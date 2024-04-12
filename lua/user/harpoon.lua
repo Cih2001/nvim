@@ -11,7 +11,7 @@ end
 harpoon:setup()
 
 vim.keymap.set("n", "<S-l>", function()
-	if harpoon:list():get_by_display(normalize_path(vim.api.nvim_buf_get_name(0))) then
+	if harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0))) then
 		harpoon:list():next({ ui_nav_wrap = true })
 	else
 		harpoon:list():select(1)
@@ -19,7 +19,7 @@ vim.keymap.set("n", "<S-l>", function()
 end)
 
 vim.keymap.set("n", "<S-h>", function()
-	if harpoon:list():get_by_display(normalize_path(vim.api.nvim_buf_get_name(0))) then
+	if harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0))) then
 		harpoon:list():prev({ ui_nav_wrap = true })
 	else
 		local len = harpoon:list():length()

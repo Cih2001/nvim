@@ -1,5 +1,4 @@
 -- run `go test`
-local ts_query = require("vim.treesitter.query")
 local ts_utils = require("nvim-treesitter.ts_utils")
 
 -- parse //+build integration unit
