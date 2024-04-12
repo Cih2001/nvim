@@ -21,7 +21,7 @@ require("lazy").setup({
 	"lukas-reineke/indent-blankline.nvim",
 	"RRethy/vim-illuminate",
 	"lewis6991/gitsigns.nvim",
-	"sindrets/diffview.nvim",
+	{ "sindrets/diffview.nvim", lazy = true },
 	"rafcamlet/tabline-framework.nvim",
 	"nvim-lualine/lualine.nvim",
 
@@ -110,21 +110,15 @@ require("lazy").setup({
 
 	-- auto closing
 	"windwp/nvim-autopairs", -- autoclose parens, brackets, quotes, etc...
-	"windwp/nvim-ts-autotag",
 	-- db
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
 	"kristijanhusak/vim-dadbod-completion",
+	-- chat gpt
 	{
 		"robitx/gp.nvim",
 		config = function()
 			require("gp").setup()
 		end,
 	},
-	-- chat gpt
-	-- {
-	-- 	"jackMort/ChatGPT.nvim",
-	-- 	lazy = true,
-	-- 	branch = "main"
-	-- },
 })
