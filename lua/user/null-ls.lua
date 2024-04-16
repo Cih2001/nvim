@@ -18,6 +18,7 @@ null_ls.setup({
 		}),
 		-- null_ls.builtins.formatting.protolint,
 		null_ls.builtins.code_actions.gitsigns,
+		-- null_ls.builtins.diagnostics.pylint,
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then

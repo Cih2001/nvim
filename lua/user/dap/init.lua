@@ -222,6 +222,7 @@ end
 local custom_configs = {
 	esgbook = "user.dap.config.esgbook",
 	jiyan = "user.dap.config.jiyan",
+	processing = "user.dap.config.processing",
 }
 
 function M.setup()
