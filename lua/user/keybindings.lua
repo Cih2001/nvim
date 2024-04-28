@@ -92,7 +92,7 @@ vim.keymap.set("n", "<F5>", '<cmd>lua require"dap".continue()<cr>', opts)
 vim.keymap.set("n", "<F6>", '<cmd>lua require"dap".step_over()<cr>', opts)
 vim.keymap.set("n", "<F7>", '<cmd>lua require"dap".step_into()<cr>', opts)
 vim.keymap.set("n", "<F8>", '<cmd>lua require"dap".step_out()<cr>', opts)
-vim.keymap.set("n", "<leader>dt", '<cmd>lua require"dap-go".debug_test()<cr>', opts)
+vim.keymap.set("n", "<leader>dp", '<cmd>lua require("user.dap").debug_python()<cr>', opts)
 
 -- Gitsigns --
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", opts)

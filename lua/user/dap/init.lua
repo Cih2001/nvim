@@ -140,6 +140,20 @@ local function setup_cpp_configuration(dap)
 	}
 end
 
+local function python_path()
+	-- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+	-- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+	-- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+	local cwd = vim.fn.getcwd()
+	if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+		return cwd .. "/venv/bin/python"
+	elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+		return cwd .. "/.venv/bin/python"
+	else
+		return "/usr/bin/python"
+	end
+end
+
 local function setup_python_configuration(dap)
 	dap.adapters.python = function(cb, config)
 		if config.request == "attach" then
@@ -175,19 +189,7 @@ local function setup_python_configuration(dap)
 			name = "Launch file",
 			-- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 			program = "${file}", -- This configuration will launch the current file if used.
-			pythonPath = function()
-				-- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-				-- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-				-- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-				local cwd = vim.fn.getcwd()
-				if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-					return cwd .. "/venv/bin/python"
-				elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-					return cwd .. "/.venv/bin/python"
-				else
-					return "/usr/bin/python"
-				end
-			end,
+			pythonPath = python_path,
 		},
 	}
 end
@@ -222,7 +224,6 @@ end
 local custom_configs = {
 	esgbook = "user.dap.config.esgbook",
 	jiyan = "user.dap.config.jiyan",
-	processing = "user.dap.config.processing",
 }
 
 function M.setup()
@@ -247,142 +248,51 @@ function M.setup()
 	end
 end
 
-local function debug_test(testname)
-	local dap = load_module("dap")
-	dap.run({
-		type = "go",
-		name = testname,
-		request = "launch",
-		mode = "test",
-		program = "./${relativeFileDirname}",
-		args = { "-test.run", testname },
-	})
-end
+function M.debug_python()
+	local configs = require("user.dap.config.python")
+	local menu = {}
+	for _, c in ipairs(configs) do
+		table.insert(menu, c.name)
+	end
 
-local tests_query = [[
-(function_declaration
-  name: (identifier) @testname
-  parameters: (parameter_list
-    . (parameter_declaration
-      type: (pointer_type) @type) .)
-  (#match? @type "*testing.(T|M)")
-  (#match? @testname "^Test.+$")) @parent
-]]
+	vim.ui.select(menu, { prompt = "select an action" }, function(choice)
+		-- if choice == "new" then
+		-- 	vim.ui.input({ prompt = "enter new command: " }, function(choice)
+		-- 		local module, args = choice:match("python%s%-m%s(%S+)%s(.+)")
+		-- 		if module and args then
+		-- 			local argsTable = {}
+		-- 			for arg in args:gmatch("(%S+)") do
+		-- 				table.insert(argsTable, arg)
+		-- 			end
 
-local subtests_query = [[
-(call_expression
-  function: (selector_expression
-    operand: (identifier)
-    field: (field_identifier) @run)
-  arguments: (argument_list
-    (interpreted_string_literal) @testname
-    (func_literal))
-  (#eq? @run "Run")) @parent
-]]
+		-- 			local command = {
+		-- 				name = choice,
+		-- 				module = module,
+		-- 				args = argsTable,
+		-- 			}
 
-local function get_closest_above_cursor(test_tree)
-	local result
-	for _, curr in pairs(test_tree) do
-		if not result then
-			result = curr
-		else
-			local node_row1, _, _, _ = curr.node:range()
-			local result_row1, _, _, _ = result.node:range()
-			if node_row1 > result_row1 then
-				result = curr
+		-- 			table.insert(configs, command)
+		-- 			io:open() vim.print(configs)
+		-- 		else
+		-- 			vim.print("Error: Input string does not match the expected format")
+		-- 		end
+		-- 	end)
+		-- 	return
+		-- end
+		for _, c in ipairs(configs) do
+			if c.name == choice then
+				local dap = load_module("dap")
+				dap.run({
+					type = "python",
+					name = "module",
+					request = "launch",
+					module = c.module,
+					args = c.args,
+					pythonPath = python_path,
+				})
 			end
 		end
-	end
-	if result.parent then
-		return string.format("%s/%s", result.parent, result.name)
-	else
-		return result.name
-	end
-end
-
-local function is_parent(dest, source)
-	if not (dest and source) then
-		return false
-	end
-	if dest == source then
-		return false
-	end
-
-	local current = source
-	while current ~= nil do
-		if current == dest then
-			return true
-		end
-
-		current = current:parent()
-	end
-
-	return false
-end
-
-local function get_closest_test()
-	local stop_row = vim.api.nvim_win_get_cursor(0)[1]
-	local ft = vim.api.nvim_buf_get_option(0, "filetype")
-	assert(ft == "go", "dap-go error: can only debug go files, not " .. ft)
-	local parser = vim.treesitter.get_parser(0)
-	local root = (parser:parse()[1]):root()
-
-	local test_tree = {}
-
-	local test_query = vim.treesitter.query.parse(ft, tests_query)
-	assert(test_query, "dap-go error: could not parse test query")
-	for _, match, _ in test_query:iter_matches(root, 0, 0, stop_row) do
-		local test_match = {}
-		for id, node in pairs(match) do
-			local capture = test_query.captures[id]
-			if capture == "testname" then
-				local name = vim.treesitter.get_node_text(node, 0)
-				test_match.name = name
-			end
-			if capture == "parent" then
-				test_match.node = node
-			end
-		end
-		table.insert(test_tree, test_match)
-	end
-
-	local subtest_query = vim.treesitter.query.parse(ft, subtests_query)
-	assert(subtest_query, "dap-go error: could not parse test query")
-	for _, match, _ in subtest_query:iter_matches(root, 0, 0, stop_row) do
-		local test_match = {}
-		for id, node in pairs(match) do
-			local capture = subtest_query.captures[id]
-			if capture == "testname" then
-				local name = vim.treesitter.get_node_text(node, 0)
-				test_match.name = string.gsub(string.gsub(name, " ", "_"), '"', "")
-			end
-			if capture == "parent" then
-				test_match.node = node
-			end
-		end
-		table.insert(test_tree, test_match)
-	end
-
-	table.sort(test_tree, function(a, b)
-		return is_parent(a.node, b.node)
 	end)
-
-	for _, parent in ipairs(test_tree) do
-		for _, child in ipairs(test_tree) do
-			if is_parent(parent.node, child.node) then
-				child.parent = parent.name
-			end
-		end
-	end
-
-	return get_closest_above_cursor(test_tree)
-end
-
-function M.debug_test()
-	local testname = get_closest_test()
-	local msg = string.format("starting debug session '%s'...", testname)
-	print(msg)
-	debug_test(testname)
 end
 
 M.setup()

@@ -26,10 +26,7 @@ local servers = {
 	"gopls",
 	"lua_ls",
 	"golangci_lint_ls",
-	"clangd",
 	"terraformls",
-	"tsserver",
-	"rust_analyzer",
 	"pylsp",
 }
 
