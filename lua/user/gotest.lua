@@ -132,7 +132,7 @@ local function get_closest_test()
 end
 
 local function build_test_cmd(test)
-	local cmd = "cd ./api && go test "
+	local cmd = "go test "
 	if not (test.path == "") then
 		cmd = cmd .. test.path
 	end
@@ -184,11 +184,7 @@ function M.run_current_test()
 		return
 	end
 
-	if test.tags == nil then
-		test.tags = { "unsafe" }
-	else
-		table.insert(test.tags, "unsafe")
-	end
+	-- test.tags = { "unsafe" }
 
 	local bufnr = vim.api.nvim_get_current_buf()
 	local ns = get_namespace()
