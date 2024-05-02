@@ -44,9 +44,9 @@ require("lazy").setup({
 
 	-- color themes
 	"Cih2001/darkplus.nvim",
-	{ "catppuccin/nvim", name = "catppuccin" },
-	{ "folke/tokyonight.nvim", lazy = false },
-	{ "rose-pine/neovim", name = "rose-pine" },
+	{ "catppuccin/nvim",        name = "catppuccin" },
+	{ "folke/tokyonight.nvim",  lazy = false },
+	{ "rose-pine/neovim",       name = "rose-pine" },
 	"rebelot/kanagawa.nvim",
 	"savq/melange-nvim",
 	"rmehri01/onenord.nvim",
@@ -61,25 +61,25 @@ require("lazy").setup({
 	"Mofiqul/vscode.nvim",
 
 	-- fuzzy finders
-	{ "ibhagwan/fzf-lua", lazy = true },
+	{ "ibhagwan/fzf-lua",    lazy = true },
 
 	-- code review
 	{ "pwntester/octo.nvim", lazy = true },
 
 	-- lsp tools
-	"neovim/nvim-lspconfig", -- enable LSP
-	"williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
+	"neovim/nvim-lspconfig",            -- enable LSP
+	"williamboman/mason.nvim",          -- in charge of managing lsp servers, linters & formatters
 	"williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
-	"tamago324/nlsp-settings.nvim", -- language server settings defined in json for
-	"nvimtools/none-ls.nvim", -- for formatters and linters
-	"hrsh7th/nvim-cmp", -- The completion plugin
-	"hrsh7th/cmp-buffer", -- buffer completions
-	"hrsh7th/cmp-path", -- path completions
-	"hrsh7th/cmp-cmdline", -- cmdline completions
+	"tamago324/nlsp-settings.nvim",     -- language server settings defined in json for
+	"nvimtools/none-ls.nvim",           -- for formatters and linters
+	"hrsh7th/nvim-cmp",                 -- The completion plugin
+	"hrsh7th/cmp-buffer",               -- buffer completions
+	"hrsh7th/cmp-path",                 -- path completions
+	"hrsh7th/cmp-cmdline",              -- cmdline completions
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
 	"saadparwaiz1/cmp_luasnip", -- snippet completions
-	"L3MON4D3/LuaSnip", --snippet engine
+	"L3MON4D3/LuaSnip",        --snippet engine
 	{
 		"smjonas/inc-rename.nvim",
 		init = function()
@@ -88,8 +88,8 @@ require("lazy").setup({
 	},
 
 	-- debugging
-	{ "mfussenegger/nvim-dap", lazy = true },
-	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+	{ "mfussenegger/nvim-dap",           lazy = true },
+	{ "rcarriga/nvim-dap-ui",            dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	{ "theHamsta/nvim-dap-virtual-text", lazy = true },
 
 	-- tmux integration
@@ -111,9 +111,22 @@ require("lazy").setup({
 	-- auto closing
 	"windwp/nvim-autopairs", -- autoclose parens, brackets, quotes, etc...
 	-- db
-	"tpope/vim-dadbod",
-	"kristijanhusak/vim-dadbod-ui",
-	"kristijanhusak/vim-dadbod-completion",
+	{
+		"kndndrj/nvim-dbee",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+		build = function()
+			-- Install tries to automatically detect the install method.
+			-- if it fails, try calling it with one of these parameters:
+			--    "curl", "wget", "bitsadmin", "go"
+			require("dbee").install()
+		end,
+		config = function()
+			require("dbee").setup( --[[optional config]])
+		end,
+	},
+
 	-- chat gpt
 	{
 		"robitx/gp.nvim",

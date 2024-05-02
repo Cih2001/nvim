@@ -76,7 +76,15 @@ lualine.setup({
 		theme = "auto",
 		component_separators = "",
 		section_separators = { left = "", right = "" },
-		disabled_filetypes = { "alpha", "dashboard", "NERDTree", "Outline", "neo-tree", "dbui" },
+		disabled_filetypes = {
+			"alpha",
+			"dashboard",
+			"NERDTree",
+			"Outline",
+			"neo-tree",
+			"dbui",
+			"dbee",
+		},
 		always_divide_middle = true,
 		ignore_focus = {
 			"dapui_watches",

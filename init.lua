@@ -33,7 +33,8 @@ require("user.dap")
 require("user.telescope")
 require("user.fzf")
 -- db
-require("user.db")
+-- require("user.db")
+-- we are using Dbee now
 -- productivity
 require("user.neotree")
 require("user.octo")
