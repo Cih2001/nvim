@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("user.plugins")
-require("user.options")
 -- text editing
 require("user.treesitter")
 require("user.autopairs")
@@ -41,4 +40,5 @@ require("user.octo")
 -- require("user.chatgpt")
 require("user.custom")
 --
+require("user.options")
 require("user.keybindings")

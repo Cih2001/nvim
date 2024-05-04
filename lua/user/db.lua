@@ -5,6 +5,9 @@ local function load_module(module_name)
 end
 load_module("cmp")
 
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.db_ui_execute_on_save = 0
+vim.g.db_ui_win_position = "right"
 vim.cmd([[
       autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
       " Source is automatically added, you just need to include it in the chain complete list

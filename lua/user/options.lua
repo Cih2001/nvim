@@ -4,6 +4,7 @@ local options = {
 	cmdheight = 1, -- more space in the neovim command line for displaying messages
 	completeopt = { "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel = 0, -- so that `` is visible in markdown files
+	concealcursor = "n",
 	fileencoding = "utf-8", -- the encoding written to a file
 	hlsearch = false, -- highlight all matches on previous search pattern
 	incsearch = true, -- highlight the match for the current search pattern
@@ -26,7 +27,7 @@ local options = {
 	tabstop = 2, -- insert 2 spaces for a tab
 	cursorline = true, -- highlight the current line
 	number = true, -- set numbered lines
-	relativenumber = false, -- set relative numbered lines
+	relativenumber = true, -- set relative numbered lines
 	numberwidth = 4, -- set number column width to 2 {default 4}
 	signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
 	wrap = false, -- display lines as one long line
@@ -51,13 +52,7 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.cmd("set nu")
-vim.cmd("set rnu")
 vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.cmd([[set iskeyword+=-]])
+vim.cmd("set iskeyword+=-")
 vim.cmd("command! Wq :wq")
 vim.cmd("command! W :w")
-
-vim.g.db_ui_use_nerd_fonts = 1
-vim.g.db_ui_execute_on_save = 0
-vim.g.db_ui_win_position = "right"
