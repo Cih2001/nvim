@@ -106,6 +106,9 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParame
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
 
 -- custom functionalities
-vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
+vim.keymap.set("n", "<leader>t", function()
+	vim.cmd("Neotest summary")
+	vim.cmd("Neotest output-panel")
+end, opts)
 vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)
 vim.keymap.set("n", "<leader>c", "<cmd>GpChatToggle<cr>", opts)

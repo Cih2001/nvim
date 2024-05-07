@@ -1,5 +1,5 @@
 local M = {
-	menu = { "test", "browse pr", "browse pr-env", "github link" },
+	menu = { "run test", "debug test", "test current file" },
 }
 
 local function browsePREnv()
@@ -35,14 +35,12 @@ end
 
 function M.custom()
 	vim.ui.select(M.menu, { prompt = "select an action" }, function(choice)
-		if choice == "browse pr-env" then
-			browsePREnv()
-		elseif choice == "test" then
-			require("user.gotest").run_current_test()
-		elseif choice == "browse pr" then
-			browsePROcto()
-		elseif choice == "github link" then
-			getGithubLink()
+		if choice == "run test" then
+			vim.cmd("Neotest run")
+		elseif choice == "debug test" then
+			require("neotest").run.run({ strategy = "dap" })
+		elseif choice == "test current file" then
+			require("neotest").run.run(vim.fn.expand("%"))
 		end
 	end)
 end

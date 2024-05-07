@@ -34,10 +34,12 @@ require("user.fzf")
 -- db
 -- require("user.db")
 -- we are using Dbee now
+
+-- test
+require("user.neotest")
 -- productivity
 require("user.neotree")
 require("user.octo")
--- require("user.chatgpt")
 require("user.custom")
 --
 require("user.options")
