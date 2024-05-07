@@ -14,14 +14,14 @@ local function setup_dap_ui(dapui)
 				elements = {
 					"watches",
 				},
-				size = 5,
+				size = 10,
 				position = "bottom",
 			},
 			{
 				elements = {
 					"repl",
 				},
-				size = 5,
+				size = 10,
 				position = "bottom",
 			},
 		},
