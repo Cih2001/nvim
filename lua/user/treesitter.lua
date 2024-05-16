@@ -72,10 +72,6 @@ configs.setup({
 	},
 })
 
-vim.cmd("set foldmethod=expr", "")
-vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
-vim.cmd("set nofoldenable")
-
 local api = vim.api
 -- function to create a list of commands and convert them to autocommands
 -------- This function is taken from https://github.com/norcalli/nvim_utils

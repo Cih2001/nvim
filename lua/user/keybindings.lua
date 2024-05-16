@@ -31,34 +31,8 @@ vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- neo-tree --
-local is_neotree_open = function()
-	for _, source in ipairs(require("neo-tree").config.sources) do
-		-- Get each sources state
-		local state = require("neo-tree.sources.manager").get_state(source)
-		-- Check if the source has a state, if the state has a buffer and if the buffer is our current buffer
-		if state and state.bufnr then
-			return true
-		end
-	end
-
-	return false
-end
-vim.keymap.set("n", "<c-z>", function()
-	if is_neotree_open() then
-		vim.cmd("Neotree close left")
-	else
-		vim.cmd("Neotree focus filesystem left")
-	end
-end, opts)
-
-vim.keymap.set("n", "<c-x>", function()
-	if is_neotree_open() then
-		vim.cmd("Neotree close left")
-	else
-		vim.cmd("Neotree focus document_symbols left")
-	end
-end, opts)
+-- Neotree --
+vim.keymap.set("n", "<c-z>", "<cmd>Neotree toggle left<cr>", opts)
 
 -- Fzf --
 vim.keymap.set("n", "<space>b", "<cmd>FzfLua buffers<cr>", opts)
@@ -102,13 +76,16 @@ vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", opts)
 -- take a look at treesitter.lua
 
 -- DB
-vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
-vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
+-- vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
+-- vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", function()
 	vim.cmd("Neotest summary")
 	vim.cmd("Neotest output-panel")
+end, opts)
+vim.keymap.set("n", "<leader>r", function()
+	require("user.gotest").run_current_test()
 end, opts)
 vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)
 vim.keymap.set("n", "<leader>c", "<cmd>GpChatToggle<cr>", opts)

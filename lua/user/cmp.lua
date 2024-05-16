@@ -19,38 +19,38 @@ end
 local kind_icons = {
 	Array = "",
 	Boolean = "",
-	Class = "",
-	Color = "",
-	Constant = "",
-	Constructor = "",
-	Enum = "",
-	EnumMember = "",
-	Event = "",
-	Field = "",
-	File = "",
+	Class = "󰠱",
+	Color = "󰏘",
+	Constant = "󰏿",
+	Constructor = "",
+	Enum = "",
+	EnumMember = "",
+	Event = "",
+	Field = "󰜢",
+	File = "󰈙",
 	Folder = "󰉋",
-	Function = "",
-	Interface = "",
+	Function = "󰊕",
+	Interface = "",
 	Key = "",
-	Keyword = "",
-	Method = "",
-	Module = "",
+	Keyword = "󰌋",
+	Method = "󰆧",
+	Module = "",
 	Namespace = "",
 	Null = "󰟢",
 	Number = "",
 	Object = "",
-	Operator = "",
+	Operator = "󰆕",
 	Package = "",
-	Property = "",
-	Reference = "",
-	Snippet = "",
+	Property = "󰜢",
+	Reference = "󰈇",
+	Snippet = "",
 	String = "",
-	Struct = "",
-	Text = "",
+	Struct = "󰙅",
+	Text = "󰉿",
 	TypeParameter = "",
-	Unit = "",
-	Value = "",
-	Variable = "",
+	Unit = "󰑭",
+	Value = "󰎠",
+	Variable = "󰀫",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 local function next(fallback)
@@ -87,17 +87,6 @@ cmp.setup({
 	mapping = {
 		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-		["<C-e>"] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
-		["<c-y>"] = cmp.mapping(
-			cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Insert,
-				select = true,
-			}),
-			{ "i", "c" }
-		),
 		["<c-space>"] = cmp.mapping({
 			i = cmp.mapping.complete(),
 			c = function(
@@ -125,7 +114,6 @@ cmp.setup({
 		format = function(entry, vim_item)
 			-- Kind icons
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				luasnip = "[Snippet]",
@@ -152,7 +140,9 @@ cmp.setup({
 		},
 	},
 	experimental = {
-		ghost_text = false,
-		native_menu = false,
+		ghost_text = true,
+	},
+	view = {
+		enteries = "native",
 	},
 })

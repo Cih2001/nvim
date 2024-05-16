@@ -184,7 +184,7 @@ function M.run_current_test()
 		return
 	end
 
-	-- test.tags = { "unsafe" }
+	test.tags = { "test_integration" }
 
 	local bufnr = vim.api.nvim_get_current_buf()
 	local ns = get_namespace()

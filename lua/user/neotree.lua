@@ -71,7 +71,7 @@ require("neo-tree").setup({
 	-- that will be available in all sources (if not overridden in `opts[source_name].commands`)
 	-- see `:h neo-tree-global-custom-commands`
 	commands = {},
-	sources = { "git_status", "filesystem", "document_symbols" },
+	sources = { "filesystem", "git_status", "document_symbols" },
 	window = {
 		position = "left",
 		width = 40,
@@ -241,12 +241,12 @@ require("neo-tree").setup({
 		statusline = false,
 		sources = { -- table
 			{
-				source = "git_status", -- string
-				display_name = "  Git ", -- string | nil
-			},
-			{
 				source = "filesystem", -- string
 				display_name = "  Files ", -- string | nil
+			},
+			{
+				source = "git_status", -- string
+				display_name = "  Git ", -- string | nil
 			},
 			{
 				source = "document_symbols", -- string
