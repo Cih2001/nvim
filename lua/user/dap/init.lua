@@ -26,8 +26,7 @@ local function setup_dap_ui(dapui)
 			},
 		},
 		controls = {
-			-- Requires Neovim nightly (or 0.8 when released)
-			enabled = true,
+			enabled = vim.fn.exists("+winbar") == 1,
 			-- Display controls in this element
 			element = "repl",
 			icons = {
@@ -170,6 +169,12 @@ local function setup_python_configuration(dap)
 				},
 			})
 		else
+			local venv = os.getenv("VIRTUAL_ENV")
+			if not venv then
+				vim.api.nvim_err_writeln("NOT IN A VIRTUAL ENV")
+				return
+			end
+
 			cb({
 				type = "executable",
 				command = os.getenv("VIRTUAL_ENV") .. "/bin/python",

@@ -62,10 +62,12 @@ vim.keymap.set("n", "<A-]>", '<cmd>lua require"illuminate".next_reference{revers
 vim.keymap.set("n", "<F1>", '<cmd>lua require"dapui".toggle()<cr>', opts)
 vim.keymap.set("n", "<F2>", '<cmd>lua require"dap".toggle_breakpoint()<cr>', opts)
 vim.keymap.set("n", "<F3>", '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint Condition: "))<cr>', opts)
+vim.keymap.set("n", "<F4>", '<cmd>lua require"dap".run_to_cursor()<cr>', opts)
 vim.keymap.set("n", "<F5>", '<cmd>lua require"dap".continue()<cr>', opts)
 vim.keymap.set("n", "<F6>", '<cmd>lua require"dap".step_over()<cr>', opts)
 vim.keymap.set("n", "<F7>", '<cmd>lua require"dap".step_into()<cr>', opts)
 vim.keymap.set("n", "<F8>", '<cmd>lua require"dap".step_out()<cr>', opts)
+vim.keymap.set("n", "<space>?", '<cmd>lua require"dapui".eval(nil, { enter = true })<cr>', opts)
 vim.keymap.set("n", "<leader>dp", '<cmd>lua require("user.dap").debug_python()<cr>', opts)
 
 -- Gitsigns --
