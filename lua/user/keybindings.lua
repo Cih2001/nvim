@@ -17,8 +17,41 @@ vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", opts)
 vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
 vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", opts)
 
--- Navigate buffers - harpoon
--- refer to harpoon.lua
+-- Harpoon
+local harpoon = require("harpoon")
+local function normalize_path(item)
+	local Path = require("plenary.path")
+	return Path:new(item):make_relative(vim.loop.cwd())
+end
+
+vim.keymap.set("n", "<S-l>", function()
+	if harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0))) then
+		harpoon:list():next({ ui_nav_wrap = true })
+	else
+		harpoon:list():select(1)
+	end
+end)
+
+vim.keymap.set("n", "<S-h>", function()
+	if harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0))) then
+		harpoon:list():prev({ ui_nav_wrap = true })
+	else
+		local len = harpoon:list():length()
+		harpoon:list():select(len)
+	end
+end)
+
+vim.keymap.set("n", "m", function()
+	harpoon:list():add()
+end)
+
+vim.keymap.set("n", "<space>v", function()
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+vim.keymap.set("n", "<S-q>", function()
+	harpoon:list():remove()
+end)
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
