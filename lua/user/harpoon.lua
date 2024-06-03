@@ -43,7 +43,7 @@ Colors = load_colors()
 local function draw_pane(f, text, fg, bg)
 	f.add({ "", bg = bg, fg = Colors.bg_fill })
 	f.add({ text, bg = bg, fg = fg })
-	f.add({ "", bg = bg, fg = Colors.bg_fill })
+	f.add({ "", bg = Colors.bg_fill, fg = bg })
 end
 
 local function create_pane(f, filename, selected, modified)
