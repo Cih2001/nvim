@@ -106,6 +106,7 @@ vim.keymap.set("n", "<leader>dp", '<cmd>lua require("user.dap").debug_python()<c
 -- Gitsigns --
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", opts)
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", opts)
+vim.keymap.set("n", "<leader>d", "<cmd>Gitsigns diffthis<cr>", opts)
 
 -- treesitter key bindings
 -- take a look at treesitter.lua
