@@ -112,8 +112,8 @@ vim.keymap.set("n", "<leader>d", "<cmd>Gitsigns diffthis<cr>", opts)
 -- take a look at treesitter.lua
 
 -- DB
--- vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
--- vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
+vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
+vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", function()

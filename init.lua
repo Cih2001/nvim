@@ -32,8 +32,7 @@ require("user.dap")
 require("user.telescope")
 require("user.fzf")
 -- db
--- require("user.db")
--- we are using Dbee now
+require("user.db")
 
 -- test
 require("user.neotest")
