@@ -35,7 +35,7 @@ require("user.fzf")
 require("user.db")
 
 -- test
-require("user.neotest")
+-- require("user.neotest")
 -- productivity
 require("user.neotree")
 require("user.octo")

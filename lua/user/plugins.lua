@@ -114,34 +114,7 @@ require("lazy").setup({
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
 	"kristijanhusak/vim-dadbod-completion",
-	-- {
-	-- 	"kndndrj/nvim-dbee",
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 	},
-	-- 	build = function()
-	-- 		-- Install tries to automatically detect the install method.
-	-- 		-- if it fails, try calling it with one of these parameters:
-	-- 		--    "curl", "wget", "bitsadmin", "go"
-	-- 		require("dbee").install()
-	-- 	end,
-	-- 	config = function()
-	-- 		require("dbee").setup( --[[optional config]])
-	-- 	end,
-	-- },
 
-	-- tests
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-	},
-	"nvim-neotest/neotest-python",
-	"nvim-neotest/neotest-go",
 	-- chat gpt
 	{
 		"robitx/gp.nvim",

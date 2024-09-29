@@ -117,10 +117,6 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)"
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", function()
-	vim.cmd("Neotest summary")
-	vim.cmd("Neotest output-panel")
-end, opts)
-vim.keymap.set("n", "<leader>r", function()
 	require("user.gotest").run_current_test()
 end, opts)
 vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)

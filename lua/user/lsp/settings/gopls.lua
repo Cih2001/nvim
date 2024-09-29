@@ -7,6 +7,13 @@ return {
 			codelenses = {
 				test = true,
 			},
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+			},
 		},
 	},
 }

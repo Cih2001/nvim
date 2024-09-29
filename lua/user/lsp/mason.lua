@@ -28,6 +28,7 @@ local servers = {
 	"golangci_lint_ls",
 	"terraformls",
 	"pylsp",
+	"zls",
 }
 
 mason_lspconfig.setup({
