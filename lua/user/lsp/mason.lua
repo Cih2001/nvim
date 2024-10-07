@@ -27,7 +27,6 @@ local servers = {
 	"lua_ls",
 	"golangci_lint_ls",
 	"terraformls",
-	"pylsp",
 	"zls",
 }
 

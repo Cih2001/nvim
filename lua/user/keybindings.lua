@@ -117,7 +117,7 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)"
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", function()
-	require("user.gotest").run_current_test()
+	require("user.custom").custom()
 end, opts)
 vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)
 vim.keymap.set("n", "<leader>c", "<cmd>GpChatToggle<cr>", opts)
