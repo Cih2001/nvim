@@ -29,7 +29,7 @@ function M.custom()
 			require("user.gotest").run_current_test()
 		elseif choice == M.menu[2] then
 			getGithubLink()
-		elseif choice == m.menu[3] then
+		elseif choice == M.menu[3] then
 			browsePREnv()
 		end
 	end)
