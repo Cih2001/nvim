@@ -18,40 +18,11 @@ vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
 vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", opts)
 
 -- Harpoon
-local harpoon = require("harpoon")
-local function normalize_path(item)
-	local Path = require("plenary.path")
-	return Path:new(item):make_relative(vim.loop.cwd())
-end
-
-vim.keymap.set("n", "<S-l>", function()
-	if harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0))) then
-		harpoon:list():next({ ui_nav_wrap = true })
-	else
-		harpoon:list():select(1)
-	end
-end)
-
-vim.keymap.set("n", "<S-h>", function()
-	if harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0))) then
-		harpoon:list():prev({ ui_nav_wrap = true })
-	else
-		local len = harpoon:list():length()
-		harpoon:list():select(len)
-	end
-end)
-
-vim.keymap.set("n", "m", function()
-	harpoon:list():add()
-end)
-
-vim.keymap.set("n", "<space>v", function()
-	harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
-
-vim.keymap.set("n", "<S-q>", function()
-	harpoon:list():remove()
-end)
+vim.keymap.set("n", "<S-l>", '<cmd>lua require("user.harpoon").next()<cr>')
+vim.keymap.set("n", "<S-h>", '<cmd>lua require("user.harpoon").prev()<cr>')
+vim.keymap.set("n", "m", '<cmd>lua require("user.harpoon").add()<cr>')
+vim.keymap.set("n", "<space>v", '<cmd>lua require("user.harpoon").toggle()<cr>')
+vim.keymap.set("n", "<S-q>", '<cmd>lua require("user.harpoon").remove()<cr>')
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
