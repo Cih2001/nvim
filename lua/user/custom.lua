@@ -15,10 +15,10 @@ end
 local function getGithubLink()
 	local base = "https://github.com/arabesque-sray/esgbook/blob/main/%s#L%d"
 	local path = vim.api.nvim_eval("expand('%')")
-	-- local apiIndex = string.find(path, "/api")
-	-- if apiIndex then
-	-- 	path = string.sub(path, apiIndex + 1)
-	-- end
+	local apiIndex = string.find(path, "/api")
+	if apiIndex then
+		path = string.sub(path, apiIndex + 1)
+	end
 	local line = vim.fn.line(".")
 	vim.fn.jobstart({ "open", string.format(base, path, line) })
 end
