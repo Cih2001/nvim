@@ -108,9 +108,10 @@ M.toggle = function()
 end
 
 M.next = function()
+	local current_buff = normalize_path(vim.api.nvim_buf_get_name(0))
 	local length = harpoon:list():length()
 	local idx
-	_, idx = harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0)))
+	_, idx = harpoon:list():get_by_value(current_buff)
 	if idx and idx + 1 <= length then
 		harpoon:list():select(idx + 1)
 	else
@@ -119,9 +120,10 @@ M.next = function()
 end
 
 M.prev = function()
+	local current_buff = normalize_path(vim.api.nvim_buf_get_name(0))
 	local length = harpoon:list():length()
 	local idx
-	_, idx = harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0)))
+	_, idx = harpoon:list():get_by_value(current_buff)
 	if idx and idx - 1 >= 1 then
 		harpoon:list():select(idx - 1)
 	else
@@ -130,9 +132,10 @@ M.prev = function()
 end
 
 M.remove = function()
+	local current_buff = normalize_path(vim.api.nvim_buf_get_name(0))
 	local length = harpoon:list():length()
 	local idx
-	_, idx = harpoon:list():get_by_value(normalize_path(vim.api.nvim_buf_get_name(0)))
+	_, idx = harpoon:list():get_by_value(current_buff)
 	if not idx or idx <= 0 then
 		return
 	end

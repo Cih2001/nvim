@@ -29,8 +29,7 @@ local location = {
 	padding = 0,
 }
 
-local bitcoin_price = ""
-
+local bitcoin_price = "00000.00$ "
 local function getBitcoinPrice()
 	local url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
 	local command = "curl -s '" .. url .. "'"
@@ -46,9 +45,9 @@ local function getBitcoinPrice()
 	})
 end
 
-local interval = 60 -- 1 minute
+local interval = 60 * 1000 -- 1 minute
 local timer = vim.loop.new_timer()
-timer:start(0, interval * 1000, vim.schedule_wrap(getBitcoinPrice))
+timer:start(0, interval, vim.schedule_wrap(getBitcoinPrice))
 
 local function bitcoin()
 	return string.format("  " .. bitcoin_price)
