@@ -10,12 +10,6 @@ require("lazy").setup({
 	},
 	"nvim-treesitter/nvim-treesitter-textobjects",
 
-	-- requirements
-	"nvim-tree/nvim-web-devicons",
-	"nvim-lua/plenary.nvim",
-	"ryanoasis/vim-devicons",
-	"MunifTanjim/nui.nvim",
-
 	-- misc
 	"mg979/vim-visual-multi",
 	"lukas-reineke/indent-blankline.nvim",
@@ -43,21 +37,6 @@ require("lazy").setup({
 	},
 
 	-- color themes
-	"Cih2001/darkplus.nvim",
-	{ "catppuccin/nvim", name = "catppuccin" },
-	{ "folke/tokyonight.nvim", lazy = false },
-	{ "rose-pine/neovim", name = "rose-pine" },
-	"rebelot/kanagawa.nvim",
-	"savq/melange-nvim",
-	"rmehri01/onenord.nvim",
-	{
-		"AlexvZyl/nordic.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("nordic").load()
-		end,
-	},
 	"Mofiqul/vscode.nvim",
 
 	-- fuzzy finders
@@ -94,6 +73,7 @@ require("lazy").setup({
 
 	-- tmux integration
 	"christoomey/vim-tmux-navigator",
+
 	-- markdown-preview
 	{
 		"iamcco/markdown-preview.nvim",
@@ -110,6 +90,7 @@ require("lazy").setup({
 
 	-- auto closing
 	"windwp/nvim-autopairs", -- autoclose parens, brackets, quotes, etc...
+
 	-- db
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",

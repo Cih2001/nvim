@@ -34,7 +34,7 @@ local bitcoin_price = ""
 local function getBitcoinPrice()
 	local url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
 	local command = "curl -s '" .. url .. "'"
-	local handle = vim.fn.jobstart(command, {
+	vim.fn.jobstart(command, {
 		stdout_buffered = true,
 		stderr_buffered = true,
 		on_stdout = function(_, output)
@@ -44,10 +44,9 @@ local function getBitcoinPrice()
 			end
 		end,
 	})
-	vim.fn.jobwait({ handle }, -1)
 end
 
-local interval = 60 * 5 -- 5 minute
+local interval = 60 -- 1 minute
 local timer = vim.loop.new_timer()
 timer:start(0, interval * 1000, vim.schedule_wrap(getBitcoinPrice))
 

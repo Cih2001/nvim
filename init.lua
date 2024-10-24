@@ -35,8 +35,9 @@ require("user.db")
 
 -- test
 -- require("user.neotest")
+--
 -- productivity
-require("user.neotree")
+require("user.neotree") -- consider switching to oil
 require("user.octo")
 require("user.custom")
 --

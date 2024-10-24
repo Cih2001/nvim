@@ -1,3 +1,4 @@
+-- Not used at the moment, useful for python development
 require("neotest").setup({
 	adapters = {
 		require("neotest-python")({
