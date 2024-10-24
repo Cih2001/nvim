@@ -29,7 +29,6 @@ require("user.null-ls")
 -- debugger
 require("user.dap")
 -- fuzzy
-require("user.telescope")
 require("user.fzf")
 -- db
 require("user.db")

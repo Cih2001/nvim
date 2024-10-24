@@ -35,7 +35,7 @@ require("fzf-lua").setup({
 			-- native fzf previewers (bat/cat/git/etc)
 			wrap = "nowrap", -- wrap|nowrap
 			hidden = "nohidden", -- hidden|nohidden
-			vertical = "down:75%", -- up|down:size
+			vertical = "down:70%", -- up|down:size
 			horizontal = "right:50%", -- right|left:size
 			layout = "vertical", -- horizontal|vertical|flex
 			flip_columns = 120, -- #cols to switch to horizontal on flex
