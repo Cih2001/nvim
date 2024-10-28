@@ -1,3 +1,5 @@
+-- Otherwise, open Oil in a split
+-- Otherwise, open Oil in a split
 ------------------------------------------------
 -- some useful key bindings
 ------------------------------------------------
@@ -35,8 +37,23 @@ vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- Neotree --
-vim.keymap.set("n", "<c-z>", "<cmd>Neotree toggle left<cr>", opts)
+-- vim.keymap.set("n", "<c-z>", "<cmd>Oil<cr>", opts)
+vim.keymap.set("n", "<c-z>", function()
+	if vim.bo.filetype == "oil" then
+		pcall(vim.cmd, "bdelete")
+		return
+	end
+
+	local oil_buf = vim.fn.bufnr("^oil://")
+	if oil_buf ~= -1 and vim.fn.bufwinnr(oil_buf) ~= -1 then
+		-- If Oil buffer exists and is open in a window, focus it
+		vim.cmd(vim.fn.bufwinnr(oil_buf) .. "wincmd w")
+		return
+	end
+
+	-- Otherwise, open Oil in a split
+	vim.cmd("leftabove vsplit | Oil")
+end, opts)
 
 -- Fzf --
 vim.keymap.set("n", "<space>b", "<cmd>FzfLua buffers<cr>", opts)

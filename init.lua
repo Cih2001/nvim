@@ -21,6 +21,8 @@ require("user.lualine")
 require("user.harpoon")
 require("user.gitsigns")
 require("user.indentline")
+-- oil
+require("user.oil")
 -- lsp
 require("user.cmp")
 require("user.lsp")
@@ -32,7 +34,7 @@ require("user.fzf")
 -- db
 require("user.db")
 -- productivity
-require("user.neotree") -- consider switching to oil
+-- require("user.neotree") -- consider switching to oil
 require("user.octo")
 require("user.custom")
 -- keybindings

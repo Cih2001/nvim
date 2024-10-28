@@ -91,6 +91,7 @@ lualine.setup({
 			"dapui_console",
 			"dapui_stacks",
 			"dap-repl",
+			"oil",
 		},
 	},
 	sections = {
