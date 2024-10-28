@@ -8,60 +8,9 @@ if not snip_status_ok then
 	return
 end
 
-require("luasnip/loaders/from_vscode").lazy_load()
-
-local check_backspace = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-end
-
---   פּ ﯟ   some other good icons
-local kind_icons = {
-	Array = "",
-	Boolean = "",
-	Class = "󰠱",
-	Color = "󰏘",
-	Constant = "󰏿",
-	Constructor = "",
-	Enum = "",
-	EnumMember = "",
-	Event = "",
-	Field = "󰜢",
-	File = "󰈙",
-	Folder = "󰉋",
-	Function = "󰊕",
-	Interface = "",
-	Key = "",
-	Keyword = "󰌋",
-	Method = "󰆧",
-	Module = "",
-	Namespace = "",
-	Null = "󰟢",
-	Number = "",
-	Object = "",
-	Operator = "󰆕",
-	Package = "",
-	Property = "󰜢",
-	Reference = "󰈇",
-	Snippet = "",
-	String = "",
-	Struct = "󰙅",
-	Text = "󰉿",
-	TypeParameter = "",
-	Unit = "󰑭",
-	Value = "󰎠",
-	Variable = "󰀫",
-}
--- find more here: https://www.nerdfonts.com/cheat-sheet
 local function next(fallback)
 	if cmp.visible() then
 		cmp.select_next_item()
-	elseif luasnip.expandable() then
-		luasnip.expand()
-	elseif luasnip.expand_or_jumpable() then
-		luasnip.expand_or_jump()
-	elseif check_backspace() then
-		fallback()
 	else
 		fallback()
 	end
@@ -70,8 +19,6 @@ end
 local function prev(fallback)
 	if cmp.visible() then
 		cmp.select_prev_item()
-	elseif luasnip.jumpable(-1) then
-		luasnip.jump(-1)
 	else
 		fallback()
 	end
@@ -87,33 +34,16 @@ cmp.setup({
 	mapping = {
 		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-		["<c-space>"] = cmp.mapping({
-			i = cmp.mapping.complete(),
-			c = function(
-				_ --[[fallback]]
-			)
-				if cmp.visible() then
-					if not cmp.confirm({ select = true }) then
-						return
-					end
-				else
-					cmp.complete()
-				end
-			end,
-		}),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(next, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(prev, { "i", "s" }),
-		-- ["<C-j>"] = cmp.mapping(next, { "i", "s"}),
-		-- ["<C-k>"] = cmp.mapping(prev, { "i", "s"}),
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			-- Kind icons
-			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+			vim_item.kind = string.format("%s", KindIcons[vim_item.kind])
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				luasnip = "[Snippet]",
@@ -146,3 +76,31 @@ cmp.setup({
 		enteries = "native",
 	},
 })
+
+luasnip.config.set_config({
+	-- This tells LuaSnip to remember to keep around the last snippet.
+	-- You can jump back into it even if you move outside of the selection
+	history = true,
+
+	-- This one is cool cause if you have dynamic snippets, it updates as you type!
+	updateevents = "TextChanged,TextChangedI",
+
+	-- Autosnippets:
+	enable_autosnippets = true,
+})
+
+-- <c-k> is my expansion key
+-- this will expand the current item or jump to the next item within the snippet.
+vim.keymap.set({ "i", "s" }, "<c-j>", function()
+	if luasnip.expand_or_jumpable() then
+		luasnip.expand_or_jump()
+	end
+end, { silent = true })
+
+-- <c-j> is my jump backwards key.
+-- this always moves to the previous item within the snippet
+vim.keymap.set({ "i", "s" }, "<c-k>", function()
+	if luasnip.jumpable(-1) then
+		luasnip.jump(-1)
+	end
+end, { silent = true })

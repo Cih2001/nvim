@@ -1,5 +1,45 @@
+--   פּ ﯟ   some other good icons
+KindIcons = {
+	Array = "",
+	Boolean = "",
+	Class = "󰠱",
+	Color = "󰏘",
+	Constant = "󰏿",
+	Constructor = "",
+	Enum = "",
+	EnumMember = "",
+	Event = "",
+	Field = "󰜢",
+	File = "󰈙",
+	Folder = "󰉋",
+	Function = "󰊕",
+	Interface = "",
+	Key = "",
+	Keyword = "󰌋",
+	Method = "󰆧",
+	Module = "",
+	Namespace = "",
+	Null = "󰟢",
+	Number = "",
+	Object = "",
+	Operator = "󰆕",
+	Package = "",
+	Property = "󰜢",
+	Reference = "󰈇",
+	Snippet = "",
+	String = "",
+	Struct = "󰙅",
+	Text = "󰉿",
+	TypeParameter = "",
+	Unit = "󰑭",
+	Value = "󰎠",
+	Variable = "󰀫",
+}
+
+-- find more here: https://www.nerdfonts.com/cheat-sheet
 local options = {
 	autoindent = true,
+	background = "dark", -- set this to dark or light
 	backup = false, -- creates a backup file
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
 	cmdheight = 1, -- more space in the neovim command line for displaying messages
@@ -59,3 +99,6 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd("set iskeyword+=-")
 vim.cmd("command! Wq :wq")
 vim.cmd("command! W :w")
+
+local scheme = "vscode"
+vim.cmd.colorscheme(scheme)

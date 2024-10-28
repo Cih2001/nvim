@@ -1,4 +1,5 @@
 local actions = require("fzf-lua.actions")
+
 require("fzf-lua").setup({
 	-- fzf_bin         = 'sk',            -- use skim instead of fzf?
 	-- https://github.com/lotabout/skim
@@ -541,41 +542,14 @@ require("fzf-lua").setup({
 			-- icons for symbol kind
 			-- see https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
 			-- see https://github.com/neovim/neovim/blob/829d92eca3d72a701adc6e6aa17ccd9fe2082479/runtime/lua/vim/lsp/protocol.lua#L117
-			symbol_icons = {
-				File = "",
-				Module = "",
-				Namespace = "󰦮",
-				Package = "",
-				Class = "",
-				Method = "",
-				Property = "",
-				Field = "",
-				Constructor = "",
-				Enum = "",
-				Interface = "",
-				Function = "",
-				Variable = "",
-				Constant = "",
-				String = "",
-				Number = "󰎠",
-				Boolean = "󰨙",
-				Array = "󱡠",
-				Object = "",
-				Key = "",
-				Null = "󰟢",
-				EnumMember = "",
-				Struct = "",
-				Event = "",
-				Operator = "",
-				TypeParameter = "󰗴",
-			},
+			symbol_icons = KindIcons,
 			-- colorize using Treesitter '@' highlight groups ("@function", etc).
 			-- or 'false' to disable highlighting
 			symbol_hl = function(s)
 				return "@" .. s:lower()
 			end,
 			-- additional symbol formatting, works with or without style
-			symbol_fmt = function(s, opts)
+			symbol_fmt = function(s, _)
 				return "[" .. s .. "]"
 			end,
 			-- prefix child symbols. set to any string or `false` to disable

@@ -3,3 +3,5 @@ plugin
 .netrwhist
 lazy-lock.json
 *.tmp
+misc/
+.luarc.json

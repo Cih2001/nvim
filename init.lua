@@ -16,7 +16,7 @@ require("user.plugins")
 require("user.treesitter")
 require("user.autopairs")
 -- ui
-require("user.colorscheme")
+require("user.options")
 require("user.lualine")
 require("user.harpoon")
 require("user.gitsigns")
@@ -24,7 +24,6 @@ require("user.indentline")
 -- lsp
 require("user.cmp")
 require("user.lsp")
-require("user.luasnip")
 require("user.null-ls")
 -- debugger
 require("user.dap")
@@ -32,14 +31,9 @@ require("user.dap")
 require("user.fzf")
 -- db
 require("user.db")
-
--- test
--- require("user.neotest")
---
 -- productivity
 require("user.neotree") -- consider switching to oil
 require("user.octo")
 require("user.custom")
---
-require("user.options")
+-- keybindings
 require("user.keybindings")
