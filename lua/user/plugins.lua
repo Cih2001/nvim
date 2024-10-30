@@ -18,6 +18,7 @@ require("lazy").setup({
 	{ "sindrets/diffview.nvim", lazy = true },
 	"rafcamlet/tabline-framework.nvim",
 	"nvim-lualine/lualine.nvim",
+	{ "mcauley-penney/visual-whitespace.nvim", lazy = true },
 
 	-- neotree
 	-- {
