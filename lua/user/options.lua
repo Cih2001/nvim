@@ -99,6 +99,3 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd("set iskeyword+=-")
 vim.cmd("command! Wq :wq")
 vim.cmd("command! W :w")
-
-local scheme = "vscode"
-vim.cmd.colorscheme(scheme)
