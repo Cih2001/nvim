@@ -20,18 +20,9 @@ require("lazy").setup({
 	"nvim-lualine/lualine.nvim",
 	{ "mcauley-penney/visual-whitespace.nvim", lazy = true },
 
-	-- neotree
-	-- {
-	-- 	"nvim-neo-tree/neo-tree.nvim",
-	-- 	branch = "v3.x",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-tree/nvim-web-devicons",
-	-- 		"MunifTanjim/nui.nvim",
-	-- 	},
-	-- },
+	-- nvimtree
 	{
-		"stevearc/oil.nvim",
+		"nvim-tree/nvim-tree.lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 	},
 

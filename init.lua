@@ -21,8 +21,8 @@ require("user.lualine")
 require("user.harpoon")
 require("user.gitsigns")
 require("user.indentline")
--- oil
-require("user.oil")
+-- nvimtree
+require("user.nvimtree")
 -- lsp
 require("user.cmp")
 require("user.lsp")
