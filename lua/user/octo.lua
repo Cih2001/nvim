@@ -135,3 +135,12 @@ octo.setup({
 		},
 	},
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "octo", -- Apply to files with `octo` filetype
+	callback = function()
+		-- Set keymaps for insert mode only in `octo` files
+		vim.keymap.set("i", "@", "@<C-x><C-o>", { noremap = true, silent = true, buffer = true })
+		vim.keymap.set("i", "#", "#<C-x><C-o>", { noremap = true, silent = true, buffer = true })
+	end,
+})
