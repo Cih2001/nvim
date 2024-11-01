@@ -1,5 +1,3 @@
--- Otherwise, open Oil in a split
--- Otherwise, open Oil in a split
 ------------------------------------------------
 -- some useful key bindings
 ------------------------------------------------

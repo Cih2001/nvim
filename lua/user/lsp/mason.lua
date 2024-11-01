@@ -13,12 +13,6 @@ end
 local lspconfig = require("lspconfig")
 local handlers = require("user.lsp.handlers")
 
--- import mason-null-ls plugin safely
--- local mason_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
--- if not mason_null_ls_status then
---   return
--- end
-
 -- enable mason
 mason.setup()
 
