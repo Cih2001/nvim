@@ -27,7 +27,6 @@ require("user.nvimtree")
 -- lsp
 require("user.cmp")
 require("user.lsp")
-require("user.null-ls")
 -- debugger
 require("user.dap")
 -- fuzzy
