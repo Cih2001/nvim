@@ -32,52 +32,121 @@ local function load_colors()
 	local fg = tablineSel and tablineSel.foreground and string.format("#%06x", tablineSel.foreground) or "#696969"
 
 	return {
-		bg_fill = bg_fill,
-		bg_sel = bg_sel,
+		fill = bg_fill,
+		bg = bg_sel,
 		fg = fg,
+		red = "#BB1A1F",
+		-- red = "#4ec9b0",
 	}
 end
 
 Colors = load_colors()
 
 local function draw_pane(f, text, fg, bg)
-	f.add({ "", bg = bg, fg = Colors.bg_fill })
+	f.add({ "", bg = bg, fg = Colors.fill })
 	f.add({ text, bg = bg, fg = fg })
-	f.add({ "", bg = Colors.bg_fill, fg = bg })
+	f.add({ "", bg = Colors.fill, fg = bg })
 end
 
-local function create_pane(f, filename, selected, modified)
-	local text = " " .. f.icon(filename) .. " " .. vim.fn.fnamemodify(filename, ":t") .. " "
-	text = modified and text .. "" or text
+--      
+-- local function create_panes(f, panes)
+-- 	for idx, pane in ipairs(panes) do
+-- 		local text = pane.filename
+-- 		if idx > 1 then
+-- 			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
+-- 			text = pane.modified and text .. "" or text
+-- 		end
+--
+-- 		local fg = Colors.fg
+-- 		local bg = Colors.bg
+-- 		if pane.selected then
+-- 			fg, bg = bg, fg
+-- 		end
+-- 		if idx == 1 then
+-- 			bg = Colors.fill
+-- 			fg = Colors.red
+-- 		end
+-- 		f.add({ "", bg = Colors.fill, fg = bg })
+-- 		f.add({ text, bg = bg, fg = fg })
+-- 		f.add({ "", bg = Colors.fill, fg = bg })
+-- 	end
+-- end
 
-	if selected then
-		draw_pane(f, text, Colors.bg_sel, Colors.fg)
-	else
-		draw_pane(f, text, Colors.fg, Colors.bg_sel)
+local function create_panes_old(f, panes)
+	for idx, pane in ipairs(panes) do
+		local text = pane.filename
+		if idx > 1 then
+			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
+			text = pane.modified and text .. "󰪥 " or text
+		end
+
+		local fg = Colors.fg
+		local bg = Colors.bg
+		local gui = nil
+		if pane.selected then
+			fg, bg = bg, fg
+			gui = "bold"
+		end
+		if idx == 1 then
+			bg = Colors.fill
+		end
+		f.add({ text, bg = bg, fg = fg, gui = gui })
+
+		fg = Colors.fg
+		if idx == 1 then
+			fg = Colors.fill
+		elseif not pane.selected then
+			fg = Colors.bg
+		end
+
+		bg = Colors.bg
+		if idx == #panes then
+			bg = Colors.fill
+		elseif idx < #panes and panes[idx + 1].selected then
+			bg = Colors.fg
+		end
+		f.add({ "", bg = bg, fg = fg })
 	end
 end
 
 local render = function(f)
-	f.add({ version })
-
 	local marks = harpoon:list().items
 	local found = false
 	local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
+	local panes = {
+		{
+			filename = version,
+			selected = false,
+			modified = false,
+			is_mark = true,
+		},
+	}
 	for _, mark in ipairs(marks) do
 		local selected = current_file == mark.value
 		found = found or selected
-		create_pane(f, mark.value, selected, is_modified(mark.value))
+		table.insert(panes, {
+			filename = mark.value,
+			selected = selected,
+			modified = is_modified(mark.value),
+			is_mark = true,
+		})
 	end
 
 	if not found then
-		create_pane(f, current_file, true, is_modified(vim.api.nvim_buf_get_name(0)))
+		table.insert(panes, {
+			filename = current_file,
+			selected = true,
+			is_modified(vim.api.nvim_buf_get_name(0)),
+			is_mark = false,
+		})
 	end
 
+	create_panes_old(f, panes)
 	f.add_spacer()
 
 	f.make_tabs(function(info)
-		local fg = info.current and Colors.bg_sel or Colors.fg
-		local bg = info.current and Colors.fg or Colors.bg_sel
+		local fg = info.current and Colors.bg or Colors.fg
+		local bg = info.current and Colors.fg or Colors.bg
 		draw_pane(f, " " .. info.index .. " ", fg, bg)
 	end)
 end
@@ -87,14 +156,14 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 		Colors = load_colors()
 		require("tabline_framework").setup({
 			render = render,
-			hl_fill = { fg = Colors.fg, bg = Colors.bg_fill },
+			hl_fill = { fg = Colors.fg, bg = Colors.fill },
 		})
 	end,
 })
 
 require("tabline_framework").setup({
 	render = render,
-	hl_fill = { fg = Colors.fg, bg = Colors.bg_fill },
+	hl_fill = { fg = Colors.fg, bg = Colors.fill },
 })
 
 M = {}
