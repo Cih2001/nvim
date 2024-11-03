@@ -1,5 +1,6 @@
 local M = {
 	menu = { "Run test", "Github Link", "Open PR Env" },
+	git_menu = { "Status", "Branches", "Commits", "Blame" },
 }
 
 local function browsePREnv()
@@ -31,6 +32,20 @@ function M.custom()
 			getGithubLink()
 		elseif choice == M.menu[3] then
 			browsePREnv()
+		end
+	end)
+end
+
+function M.git()
+	vim.ui.select(M.git_menu, { prompt = "select an action" }, function(choice)
+		if choice == M.git_menu[1] then
+			require("fzf-lua").git_status()
+		elseif choice == M.git_menu[2] then
+			require("fzf-lua").git_branches()
+		elseif choice == M.git_menu[3] then
+			require("fzf-lua").git_commits()
+		elseif choice == M.git_menu[4] then
+			require("fzf-lua").git_blame()
 		end
 	end)
 end

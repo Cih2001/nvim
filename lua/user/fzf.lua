@@ -280,11 +280,13 @@ require("fzf-lua").setup({
 			color_icons = true,
 			previewer = "git_diff",
 			-- uncomment if you wish to use git-delta as pager
-			--preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS",
+			preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS",
 			actions = {
 				-- actions inherit from 'actions.files' and merge
-				["right"] = { actions.git_unstage, actions.resume },
-				["left"] = { actions.git_stage, actions.resume },
+				["left"] = false,
+				["right"] = false,
+				["ctrl-l"] = { actions.git_unstage, actions.resume },
+				["Ctrl-h"] = { actions.git_stage, actions.resume },
 			},
 		},
 		commits = {
