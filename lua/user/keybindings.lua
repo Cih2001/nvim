@@ -36,9 +36,7 @@ vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- vim.keymap.set("n", "<c-z>", "<cmd>Oil<cr>", opts)
-vim.keymap.set("n", "<c-z>", function()
-	vim.cmd("NvimTreeToggle")
-end, opts)
+vim.keymap.set("n", "<c-z>", "<cmd>NvimTreeToggle<cr>", opts)
 
 -- Fzf --
 vim.keymap.set("n", "<space>b", "<cmd>FzfLua buffers<cr>", opts)
@@ -63,7 +61,7 @@ end, { expr = true })
 
 -- Illuminate --
 vim.keymap.set("n", "<C-]>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
-vim.keymap.set("n", "<A-]>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+vim.keymap.set("n", "<C-[>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 
 -- Debug --
 vim.keymap.set("n", "<F1>", '<cmd>lua require"dapui".toggle()<cr>', opts)
@@ -81,6 +79,7 @@ vim.keymap.set("n", "<leader>dp", '<cmd>lua require("user.dap").debug_python()<c
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", opts)
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", opts)
 vim.keymap.set("n", "<leader>d", "<cmd>Gitsigns diffthis<cr>", opts)
+vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)
 
 -- treesitter key bindings
 -- take a look at treesitter.lua
@@ -89,12 +88,9 @@ vim.keymap.set("n", "<leader>d", "<cmd>Gitsigns diffthis<cr>", opts)
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
 
--- custom functionalities
-vim.keymap.set("n", "<leader>t", function()
-	require("user.custom").custom()
-end, opts)
-vim.keymap.set("n", "<leader>g", function()
-	require("user.custom").git()
-end, opts)
-vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)
+-- AI
 vim.keymap.set("n", "<leader>c", "<cmd>GpChatToggle<cr>", opts)
+
+-- custom functionalities
+vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
+vim.keymap.set("n", "<leader>g", '<cmd>lua require("user.custom").git()<cr>', opts)
