@@ -74,12 +74,6 @@ end
 
 local function create_panes_old(f, panes)
 	for idx, pane in ipairs(panes) do
-		local text = pane.filename
-		if idx > 1 then
-			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
-			text = pane.modified and text .. "󰪥 " or text
-		end
-
 		local fg = Colors.fg
 		local bg = Colors.bg
 		local gui = nil
@@ -87,6 +81,14 @@ local function create_panes_old(f, panes)
 			fg, bg = bg, fg
 			gui = "bold"
 		end
+
+		local text = pane.filename
+		if idx > 1 then
+			f.add({ " " .. f.icon(pane.filename), bg = bg, fg = f.icon_color(pane.filename) })
+			text = " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
+			text = pane.modified and text .. "󰪥 " or text
+		end
+
 		if idx == 1 then
 			bg = Colors.fill
 		end
