@@ -20,7 +20,7 @@ require("lazy").setup({
 		lazy = true,
 		cmd = { "DiffviewOpen" },
 	},
-	"rafcamlet/tabline-framework.nvim",
+
 	"nvim-lualine/lualine.nvim",
 	{ "mcauley-penney/visual-whitespace.nvim", lazy = true },
 
@@ -34,7 +34,7 @@ require("lazy").setup({
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim", "rafcamlet/tabline-framework.nvim" },
 	},
 
 	-- color themes

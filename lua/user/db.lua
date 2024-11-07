@@ -1,10 +1,3 @@
-local function load_module(module_name)
-	local ok, module = pcall(require, module_name)
-	assert(ok, string.format("dependency error: %s not installed", module_name))
-	return module
-end
-load_module("cmp")
-
 vim.g.db_ui_use_nerd_fonts = 1
 vim.g.db_ui_execute_on_save = 0
 vim.g.db_ui_win_position = "right"

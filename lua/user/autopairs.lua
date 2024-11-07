@@ -1,11 +1,11 @@
 -- import nvim-autopairs safely
-local autopairs_setup, autopairs = pcall(require, "nvim-autopairs")
-if not autopairs_setup then
+local ok, npairs = pcall(require, "nvim-autopairs")
+if not ok then
 	return
 end
 
 -- configure autopairs
-autopairs.setup({
+npairs.setup({
 	check_ts = true, -- enable treesitter
 	ts_config = {
 		lua = { "string" }, -- don't add pairs in lua string treesitter nodes
@@ -13,6 +13,9 @@ autopairs.setup({
 		java = false, -- don't check treesitter on java
 	},
 })
+
+local Rule = require("nvim-autopairs.rule")
+npairs.add_rule(Rule("```", "```"))
 
 -- import nvim-autopairs completion functionality safely
 local cmp_autopairs_setup, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
