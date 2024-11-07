@@ -74,6 +74,9 @@ local query_tests = [[
 local function match_query(q, root)
 	local test_tree = {}
 
+	local ft = vim.api.nvim_buf_get_option(0, "filetype")
+	assert(ft == "go", "can only debug go files, not " .. ft)
+
 	local test_query = vim.treesitter.query.parse(ft, q)
 	assert(test_query, "could not parse test query")
 	for _, match, _ in test_query:iter_matches(root, 0, 0, 0) do
@@ -176,9 +179,6 @@ local M = {
 }
 
 function M.run_current_test()
-	local ft = vim.api.nvim_buf_get_option(0, "filetype")
-	assert(ft == "go", "can only debug go files, not " .. ft)
-
 	local test = get_closest_test()
 	if test == nil then
 		return
