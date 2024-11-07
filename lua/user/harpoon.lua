@@ -48,7 +48,7 @@ local function draw_pane(f, text, fg, bg)
 	f.add({ "", bg = Colors.fill, fg = bg })
 end
 
---      
+--      
 -- local function create_panes(f, panes)
 -- 	for idx, pane in ipairs(panes) do
 -- 		local text = pane.filename
