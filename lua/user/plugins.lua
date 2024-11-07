@@ -22,7 +22,6 @@ require("lazy").setup({
 	},
 
 	"nvim-lualine/lualine.nvim",
-	{ "mcauley-penney/visual-whitespace.nvim", lazy = true },
 
 	-- nvimtree
 	{
