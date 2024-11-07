@@ -88,9 +88,6 @@ vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
 
--- AI
-vim.keymap.set("n", "<leader>c", "<cmd>GpChatToggle<cr>", opts)
-
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
 vim.keymap.set("n", "<leader>g", '<cmd>lua require("user.custom").git()<cr>', opts)

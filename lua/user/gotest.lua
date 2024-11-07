@@ -72,9 +72,6 @@ local query_tests = [[
 ]]
 
 local function match_query(q, root)
-	local ft = vim.api.nvim_buf_get_option(0, "filetype")
-	assert(ft == "go", "can only debug go files, not " .. ft)
-
 	local test_tree = {}
 
 	local test_query = vim.treesitter.query.parse(ft, q)
@@ -159,10 +156,6 @@ local function build_test_cmd(test)
 	return cmd
 end
 
-local M = {
-	state = {},
-}
-
 local function get_namespace()
 	local ns = 0
 	for key, value in pairs(vim.api.nvim_get_namespaces()) do
@@ -178,7 +171,14 @@ local function get_namespace()
 	return ns
 end
 
+local M = {
+	state = {},
+}
+
 function M.run_current_test()
+	local ft = vim.api.nvim_buf_get_option(0, "filetype")
+	assert(ft == "go", "can only debug go files, not " .. ft)
+
 	local test = get_closest_test()
 	if test == nil then
 		return

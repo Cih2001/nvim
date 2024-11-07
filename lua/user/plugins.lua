@@ -15,7 +15,11 @@ require("lazy").setup({
 	"lukas-reineke/indent-blankline.nvim",
 	"RRethy/vim-illuminate",
 	"lewis6991/gitsigns.nvim",
-	{ "sindrets/diffview.nvim", lazy = true },
+	{
+		"sindrets/diffview.nvim",
+		lazy = true,
+		cmd = { "DiffviewOpen" },
+	},
 	"rafcamlet/tabline-framework.nvim",
 	"nvim-lualine/lualine.nvim",
 	{ "mcauley-penney/visual-whitespace.nvim", lazy = true },
@@ -40,7 +44,7 @@ require("lazy").setup({
 	{ "ibhagwan/fzf-lua", lazy = true },
 
 	-- code review
-	{ "pwntester/octo.nvim", lazy = true },
+	{ "pwntester/octo.nvim", lazy = true, cmd = "Octo" },
 
 	-- lsp tools
 	"neovim/nvim-lspconfig", -- enable LSP
@@ -89,9 +93,12 @@ require("lazy").setup({
 	"windwp/nvim-autopairs", -- autoclose parens, brackets, quotes, etc...
 
 	-- db
-	"tpope/vim-dadbod",
-	"kristijanhusak/vim-dadbod-ui",
-	"kristijanhusak/vim-dadbod-completion",
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		dependencies = { "tpope/vim-dadbod", "kristijanhusak/vim-dadbod-completion" },
+		lazy = true,
+		cmd = "DBUI",
+	},
 
 	-- chat gpt
 	{
@@ -99,5 +106,9 @@ require("lazy").setup({
 		config = function()
 			require("gp").setup()
 		end,
+		lazy = true,
+		keys = {
+			{ "<leader>c", "<cmd>GpChatToggle<cr>", desc = "Open chat gpt" },
+		},
 	},
 })
