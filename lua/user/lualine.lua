@@ -40,7 +40,7 @@ local branch = {
 	end,
 }
 
-local bitcoin_price = "00000.00$ "
+local bitcoin_price = "00000.00$"
 local function getBitcoinPrice()
 	local url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
 	local command = "curl -s '" .. url .. "'"
@@ -50,7 +50,7 @@ local function getBitcoinPrice()
 		on_stdout = function(_, output)
 			local success, data = pcall(vim.fn.json_decode, output)
 			if success and data and data.price then
-				bitcoin_price = string.format("%.2f$ ", data.price)
+				bitcoin_price = string.format("%.2f$", data.price)
 			end
 		end,
 	})
@@ -61,7 +61,7 @@ local timer = vim.loop.new_timer()
 timer:start(0, interval, vim.schedule_wrap(getBitcoinPrice))
 
 local function bitcoin()
-	return string.format("  " .. bitcoin_price)
+	return bitcoin_price
 end
 
 lualine.setup({
@@ -98,7 +98,7 @@ lualine.setup({
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_x = { diff, "encoding" },
 		lualine_y = { location },
-		lualine_z = { bitcoin },
+		lualine_z = { { bitcoin, icon = { "" } } },
 	},
 	inactive_sections = {
 		lualine_a = {},
