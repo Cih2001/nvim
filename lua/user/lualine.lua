@@ -29,6 +29,17 @@ local location = {
 	padding = 0,
 }
 
+local branch = {
+	"branch",
+	fmt = function(branch, _)
+		branch = string.gsub(branch, "\n", "") -- remove newline character
+		if string.len(branch) > 15 then
+			branch = string.format("%s...", string.sub(branch, 1, 15)) -- fix string format and substring
+		end
+		return branch
+	end,
+}
+
 local bitcoin_price = "00000.00$ "
 local function getBitcoinPrice()
 	local url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
@@ -51,21 +62,6 @@ timer:start(0, interval, vim.schedule_wrap(getBitcoinPrice))
 
 local function bitcoin()
 	return string.format("  " .. bitcoin_price)
-end
-
-local function trim_branch_name()
-	local handle = io.popen("git rev-parse --abbrev-ref HEAD 2> /dev/null")
-	if handle == nil then
-		return ""
-	end
-	local branch_name = handle:read("*a")
-	handle:close()
-
-	branch_name = string.gsub(branch_name, "\n", "") -- remove newline character
-	if string.len(branch_name) > 15 then
-		branch_name = string.format("%s...", string.sub(branch_name, 1, 15)) -- fix string format and substring
-	end
-	return string.format(" %s", branch_name) -- fix string format
 end
 
 lualine.setup({
@@ -96,7 +92,7 @@ lualine.setup({
 		},
 	},
 	sections = {
-		lualine_a = { trim_branch_name },
+		lualine_a = { branch },
 		lualine_b = { diagnostics },
 		lualine_c = { { "filetype", icon_only = true }, { "filename", path = 1 } },
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
