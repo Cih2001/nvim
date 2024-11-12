@@ -26,9 +26,9 @@ require("fzf-lua").setup({
 		-- highlights should optimally be set by the colorscheme using
 		-- FzfLuaXXX highlights. If your colorscheme doesn't set these
 		-- or you wish to override its defaults use these:
-		hl = {
-			cursorline = "CursorColumn", -- cursor line
-		},
+		-- hl = {
+		-- 	cursorline = "CursorColumn", -- cursor line
+		-- },
 		preview = {
 			-- default     = 'bat',           -- override the default previewer?
 			-- default uses the 'builtin' previewer
