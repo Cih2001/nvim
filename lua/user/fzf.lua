@@ -563,7 +563,7 @@ require("fzf-lua").setup({
 			async_or_timeout = 5000,
 			winopts = {
 				row = 0.40,
-				height = 0.35,
+				height = 0.65,
 				width = 0.60,
 			},
 		},
