@@ -4,10 +4,6 @@
 local opts = { silent = true, noremap = true }
 
 -- Resize with arrows
-vim.keymap.set("n", "<C-S-Up>", "<cmd>resize -2<CR>", opts)
-vim.keymap.set("n", "<C-S-Down>", "<cmd>resize +2<CR>", opts)
-vim.keymap.set("n", "<C-S-Left>", "<cmd>vertical resize -2<CR>", opts)
-vim.keymap.set("n", "<C-S-Right>", "<cmd>vertical resize +2<CR>", opts)
 vim.keymap.set("n", "+", "<C-w>|", opts)
 vim.keymap.set("n", "=", "<C-w>=", opts)
 
@@ -17,6 +13,14 @@ vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", opts)
 vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
 vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", opts)
 
+-- Stay in indent mode
+vim.keymap.set("v", "<", "<gv", opts)
+vim.keymap.set("v", ">", ">gv", opts)
+
+-- Move text up and down
+vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
+vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
+
 -- Harpoon
 vim.keymap.set("n", "<S-l>", '<cmd>lua require("user.harpoon").next()<cr>')
 vim.keymap.set("n", "<S-h>", '<cmd>lua require("user.harpoon").prev()<cr>')
@@ -24,18 +28,7 @@ vim.keymap.set("n", "m", '<cmd>lua require("user.harpoon").add()<cr>')
 vim.keymap.set("n", "<space>v", '<cmd>lua require("user.harpoon").toggle()<cr>')
 vim.keymap.set("n", "<S-q>", '<cmd>lua require("user.harpoon").remove()<cr>')
 
--- Stay in indent mode
-vim.keymap.set("v", "<", "<gv", opts)
-vim.keymap.set("v", ">", ">gv", opts)
-
--- Visual Block --
--- Move text up and down
-vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
-
--- vim.keymap.set("n", "<c-z>", "<cmd>Oil<cr>", opts)
+-- NvimTree
 vim.keymap.set("n", "<c-z>", "<cmd>NvimTreeToggle<cr>", opts)
 
 -- Fzf --
@@ -76,10 +69,13 @@ vim.keymap.set("n", "<space>?", '<cmd>lua require"dapui".eval(nil, { enter = tru
 vim.keymap.set("n", "<leader>dp", '<cmd>lua require("user.dap").debug_python()<cr>', opts)
 
 -- Gitsigns --
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>", opts)
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>", opts)
-vim.keymap.set("n", "<leader>d", "<cmd>Gitsigns diffthis<cr>", opts)
-vim.keymap.set("n", "<c-q>", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)
+vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr>", opts)
+vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr>", opts)
+vim.keymap.set("n", "<leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>", opts)
+vim.keymap.set("n", "<leader>gg", "<cmd>Gitsigns toggle_current_line_blame<cr>", opts)
+vim.keymap.set("n", "<leader>gs", "<cmd>FzfLua git_status<cr>", opts)
+vim.keymap.set("n", "<leader>gb", "<cmd>FzfLua git_branches<cr>", opts)
+vim.keymap.set("n", "<leader>gc", "<cmd>FzfLua git_commits<cr>", opts)
 
 -- treesitter key bindings
 -- take a look at treesitter.lua
@@ -90,4 +86,3 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)"
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
-vim.keymap.set("n", "<leader>g", '<cmd>lua require("user.custom").git()<cr>', opts)

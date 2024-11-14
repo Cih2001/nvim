@@ -75,18 +75,4 @@ function M.custom()
 	end)
 end
 
-function M.git()
-	vim.ui.select(M.git_menu, { prompt = "select an action" }, function(choice)
-		if choice == M.git_menu[1] then
-			require("fzf-lua").git_status()
-		elseif choice == M.git_menu[2] then
-			require("fzf-lua").git_branches()
-		elseif choice == M.git_menu[3] then
-			require("fzf-lua").git_commits()
-		elseif choice == M.git_menu[4] then
-			require("fzf-lua").git_blame()
-		end
-	end)
-end
-
 return M
