@@ -55,6 +55,9 @@ end, { expr = true })
 -- Illuminate --
 vim.keymap.set("n", "<C-]>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
 vim.keymap.set("n", "<C-[>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+-- c-[ has the same char code as esc. It can be remapped in neovim, if only both keys
+-- are mapped. :help <Tab>. It doesn't work in tmux yet.
+vim.keymap.set("n", "<Esc>", "", opts)
 
 -- Debug --
 vim.keymap.set("n", "<F1>", '<cmd>lua require"dapui".toggle()<cr>', opts)
