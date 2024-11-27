@@ -241,16 +241,17 @@ function M.setup()
 	setup_highlights()
 
 	local dap = load_module("dap")
-	setup_go_configuration(dap)
-	setup_cpp_configuration(dap)
-	setup_python_configuration(dap)
-
 	local cwd = string.lower(vim.fn.getcwd())
 	for k, v in pairs(custom_configs) do
 		if string.find(cwd, k) then
 			require(v).setup(dap, dapui)
+			return
 		end
 	end
+
+	setup_go_configuration(dap)
+	setup_cpp_configuration(dap)
+	setup_python_configuration(dap)
 end
 
 function M.debug_python()

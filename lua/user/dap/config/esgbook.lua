@@ -1,12 +1,6 @@
 local M = {}
 
-local function load_module(module_name)
-	local ok, module = pcall(require, module_name)
-	assert(ok, string.format("dependency error: %s not installed", module_name))
-	return module
-end
-
-function M.setup(dap, dapui)
+function M.setup(dap, _)
 	dap.adapters.delve = {
 		type = "server",
 		host = "127.0.0.1",
