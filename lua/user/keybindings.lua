@@ -54,10 +54,18 @@ end, { expr = true })
 
 -- Illuminate --
 vim.keymap.set("n", "<C-]>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
-vim.keymap.set("n", "<C-[>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
--- c-[ has the same char code as esc. It can be remapped in neovim, if only both keys
--- are mapped. :help <Tab>. It doesn't work in tmux yet.
-vim.keymap.set("n", "<Esc>", "", opts)
+-- c-[ has the same char code as esc. It can be remapped in neovim, if your terminal
+-- supports extended keys and  both keys are mapped. :help <Tab>.
+--
+-- Kitty supports extended keys but it has its own protocol that tmux doesn't support yet:
+-- https://github.com/tmux/tmux/issues/4196
+-- Therefore we need a workaround: In your kitty config (.config/kitty/kitty.conf) remap
+-- C-[ to A-j by the following command
+--
+-- map ctrl+[ send_key alt+j
+--
+-- and create a map for alt-j:
+vim.keymap.set("n", "<A-j>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 
 -- Debug --
 vim.keymap.set("n", "<F1>", '<cmd>lua require"dapui".toggle()<cr>', opts)
