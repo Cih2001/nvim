@@ -2,7 +2,7 @@ local harpoon = require("harpoon")
 harpoon:setup()
 
 local ver = vim.version()
-local version = string.format("  NVIM v%d.%d.%d ", ver.major, ver.minor, ver.patch)
+local version = string.format("  NeoVim v%d.%d.%d ", ver.major, ver.minor, ver.patch)
 
 local function normalize_path(item)
 	local path = require("plenary.path")
