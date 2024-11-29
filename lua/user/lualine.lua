@@ -32,9 +32,8 @@ local location = {
 local branch = {
 	"branch",
 	fmt = function(branch, _)
-		branch = string.gsub(branch, "\n", "") -- remove newline character
 		if string.len(branch) > 15 then
-			branch = string.format("%s...", string.sub(branch, 1, 15)) -- fix string format and substring
+			branch = string.format("%.15s...", branch) -- fix string format and substring
 		end
 		return branch
 	end,
