@@ -5,6 +5,15 @@ end
 
 octo.setup({
 	picker = "fzf-lua",
+	picker_config = {
+		use_emojis = true, -- only used by "fzf-lua" picker for now
+		mappings = { -- mappings for the pickers
+			open_in_browser = { lhs = "<C-b>", desc = "open issue in browser" },
+			copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
+			checkout_pr = { lhs = "<C-o>", desc = "checkout pull request" },
+			merge_pr = { lhs = "<C-r>", desc = "merge pull request" },
+		},
+	},
 	suppress_missing_scope = {
 		projects_v2 = true,
 	},
