@@ -4,6 +4,10 @@
 local opts = { silent = true, noremap = true }
 
 -- Resize with arrows
+vim.keymap.set("n", "<Up>", "<cmd>resize -2<CR>", opts)
+vim.keymap.set("n", "<Down>", "<cmd>resize +2<CR>", opts)
+vim.keymap.set("n", "<Left>", "<cmd>vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<Right>", "<cmd>vertical resize +2<CR>", opts)
 vim.keymap.set("n", "+", "<C-w>|", opts)
 vim.keymap.set("n", "=", "<C-w>=", opts)
 
