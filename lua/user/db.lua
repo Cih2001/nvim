@@ -19,6 +19,7 @@ vim.cmd([[
 vim.cmd([[
 let g:db_ui_table_helpers = {
 \   'postgresql': {
+\     'List': "select * from {schema}.{table} limit 2;",
 \     'Columns': "",
 \     'Primary Keys': "",
 \     'Indexes': "",
