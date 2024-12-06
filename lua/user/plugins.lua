@@ -43,18 +43,19 @@ require("lazy").setup({
 	{ "ibhagwan/fzf-lua", lazy = true },
 
 	-- code review
-	{ "pwntester/octo.nvim", lazy = true, cmd = "Octo" },
+	{
+		"pwntester/octo.nvim",
+		lazy = true,
+		cmd = "Octo",
+		config = function()
+			require("user.octo")
+		end,
+	},
 
 	-- lsp tools
 	"neovim/nvim-lspconfig", -- enable LSP
 	"williamboman/mason.nvim", -- in charge of managing lsp servers, linters & formatters
 	"williamboman/mason-lspconfig.nvim", -- bridges gap b/w mason & lspconfig
-	"tamago324/nlsp-settings.nvim", -- language server settings defined in json for
-	{
-		"nvimtools/none-ls.nvim",
-		branch = "main",
-		commit = "6be90f8",
-	}, -- for formatters and linters
 	"hrsh7th/nvim-cmp", -- The completion plugin
 	"hrsh7th/cmp-buffer", -- buffer completions
 	"hrsh7th/cmp-path", -- path completions
@@ -68,6 +69,15 @@ require("lazy").setup({
 		init = function()
 			require("inc_rename").setup()
 		end,
+	},
+	-- formatters and linters
+	{
+		"stevearc/conform.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+	},
+	{
+		"mfussenegger/nvim-lint",
+		event = { "BufReadPre", "BufNewFile" },
 	},
 
 	-- debugging

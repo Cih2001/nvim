@@ -13,6 +13,9 @@ require("user.nvimtree")
 -- lsp
 require("user.cmp")
 require("user.lsp")
+-- formatter & linters
+require("user.conform")
+require("user.linting")
 -- debugger
 require("user.dap")
 -- fuzzy
@@ -20,7 +23,6 @@ require("user.fzf")
 -- db
 require("user.db")
 -- productivity
-require("user.octo")
 require("user.custom")
 -- keybindings
 require("user.keybindings")

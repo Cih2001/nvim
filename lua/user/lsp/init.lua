@@ -5,4 +5,3 @@ end
 
 require("user.lsp.diagnostics")
 require("user.lsp.mason")
-require("user.lsp.null-ls")
