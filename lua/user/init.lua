@@ -16,8 +16,6 @@ require("user.lsp")
 -- formatter & linters
 require("user.conform")
 require("user.linting")
--- debugger
-require("user.dap")
 -- fuzzy
 require("user.fzf")
 -- db

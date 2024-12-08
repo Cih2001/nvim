@@ -40,7 +40,7 @@ require("lazy").setup({
 	"Mofiqul/vscode.nvim",
 
 	-- fuzzy finders
-	{ "ibhagwan/fzf-lua", lazy = true },
+	"ibhagwan/fzf-lua",
 
 	-- code review
 	{
@@ -59,31 +59,33 @@ require("lazy").setup({
 	"hrsh7th/nvim-cmp", -- The completion plugin
 	"hrsh7th/cmp-buffer", -- buffer completions
 	"hrsh7th/cmp-path", -- path completions
-	"hrsh7th/cmp-cmdline", -- cmdline completions
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
-	"saadparwaiz1/cmp_luasnip", -- snippet completions
-	"L3MON4D3/LuaSnip", --snippet engine
+	"L3MON4D3/LuaSnip", --snippet engine, used for snippets and parameters place holders.
 	{
 		"smjonas/inc-rename.nvim",
 		init = function()
 			require("inc_rename").setup()
 		end,
 	},
+
 	-- formatters and linters
-	{
-		"stevearc/conform.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-	},
-	{
-		"mfussenegger/nvim-lint",
-		event = { "BufReadPre", "BufNewFile" },
-	},
+	"stevearc/conform.nvim",
+	"mfussenegger/nvim-lint",
 
 	-- debugging
-	{ "mfussenegger/nvim-dap", lazy = true },
-	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-	{ "theHamsta/nvim-dap-virtual-text", lazy = true },
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio",
+			"theHamsta/nvim-dap-virtual-text",
+		},
+		lazy = true,
+		config = function()
+			require("user.dap")
+		end,
+	},
 
 	-- tmux integration
 	"christoomey/vim-tmux-navigator",

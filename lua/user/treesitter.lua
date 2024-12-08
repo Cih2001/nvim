@@ -5,16 +5,17 @@ end
 
 configs.setup({
 	sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "cpp", "python", "go", "hcl" },
 	ignore_install = { "" }, -- List of parsers to ignore installing
 	autopairs = {
 		enable = true,
 	},
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		disable = { "" }, -- list of language that will be disabled
+		disable = { "yaml" }, -- list of language that will be disabled
 		additional_vim_regex_highlighting = true,
 	},
-	indent = { enable = true, disable = { "yaml" } },
+	indent = { enable = false },
 	context_commentstring = {
 		enable = true,
 		enable_autocmd = false,
