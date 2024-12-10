@@ -75,7 +75,6 @@ lualine.setup({
 			"NERDTree",
 			"Outline",
 			"neo-tree",
-			"NvimTree",
 			"dbui",
 			"dbee",
 		},
