@@ -19,7 +19,7 @@ conform.setup({
 
 	formatters = {
 		prettier = {
-			args = { "--no-bracket-spacing" },
+			prepend_args = { "--no-bracket-spacing" },
 		},
 	},
 
