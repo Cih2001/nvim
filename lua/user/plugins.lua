@@ -20,6 +20,7 @@ require("lazy").setup({
 		lazy = true,
 		cmd = { "DiffviewOpen" },
 	},
+	"lewis6991/satellite.nvim",
 
 	"nvim-lualine/lualine.nvim",
 
