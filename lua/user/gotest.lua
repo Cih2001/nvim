@@ -1,6 +1,3 @@
--- run `go test`
-local ts_utils = require("nvim-treesitter.ts_utils")
-
 -- parse //+build integration unit
 -- //go:build ci
 local function get_build_tags(buf)
@@ -25,34 +22,20 @@ local function get_build_tags(buf)
 	end
 end
 
-local is_function = function(node)
-	local type_patterns = { "function", "method", "class" }
+local function find_parent_function(node)
+	if not node then
+		return
+	end
+
+	local type_patterns = { "function", "method" }
 	local node_type = node:type()
 	for _, rgx in ipairs(type_patterns) do
 		if node_type:find(rgx) then
-			return true
+			return node
 		end
 	end
 
-	return false
-end
-
-local function find_parent_function(node)
-	local parent = node
-	while parent do
-		if is_function(parent) then
-			break
-		end
-		parent = parent:parent()
-	end
-
-	return parent
-end
-
-local function get_closest_function()
-	local current_node = ts_utils.get_node_at_cursor()
-	local parent = find_parent_function(current_node)
-	return parent
+	return find_parent_function(node:parent())
 end
 
 local query_test_suite = [[
@@ -106,7 +89,7 @@ local function getPath(str)
 end
 
 local function get_closest_test()
-	local root = get_closest_function()
+	local root = find_parent_function(vim.treesitter.get_node())
 	if root == nil then
 		return nil
 	end
