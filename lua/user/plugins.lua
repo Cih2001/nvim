@@ -20,7 +20,22 @@ require("lazy").setup({
 		lazy = true,
 		cmd = { "DiffviewOpen" },
 	},
-	"lewis6991/satellite.nvim",
+	{
+		"lewis6991/satellite.nvim",
+		config = function()
+			require("satellite").setup({
+				handlers = {
+					gitsigns = {
+						enable = false,
+					},
+				},
+			})
+		end,
+	},
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {},
+	},
 
 	"nvim-lualine/lualine.nvim",
 
