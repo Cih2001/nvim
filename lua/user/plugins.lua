@@ -77,7 +77,6 @@ require("lazy").setup({
 	"hrsh7th/cmp-path", -- path completions
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-nvim-lsp-signature-help",
-	"L3MON4D3/LuaSnip", --snippet engine, used for snippets and parameters place holders.
 	{
 		"smjonas/inc-rename.nvim",
 		init = function()

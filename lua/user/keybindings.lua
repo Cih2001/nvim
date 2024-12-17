@@ -118,3 +118,21 @@ vim.api.nvim_create_autocmd("FileType", {
 		end, { buffer = true, noremap = true, silent = true })
 	end,
 })
+
+--snippets
+--
+-- <c-k> is my expansion key
+-- this will expand the current item or jump to the next item within the snippet.
+vim.keymap.set({ "i", "s" }, "<c-j>", function()
+	if vim.snippet.active({ direction = 1 }) then
+		vim.snippet.jump(1)
+	end
+end, { silent = true })
+
+-- <c-j> is my jump backwards key.
+-- this always moves to the previous item within the snippet
+vim.keymap.set({ "i", "s" }, "<c-k>", function()
+	if vim.snippet.active({ direction = -1 }) then
+		vim.snippet.jump(-1)
+	end
+end, { silent = true })
