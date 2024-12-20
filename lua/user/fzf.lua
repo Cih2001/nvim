@@ -42,7 +42,7 @@ require("fzf-lua").setup({
 			flip_columns = 120, -- #cols to switch to horizontal on flex
 			-- Only used with the builtin previewer:
 			title = true, -- preview border title (file/buf)?
-			title_align = "left", -- left|center|right, title alignment
+			title_pos = "left", -- left|center|right, title alignment
 			scrollbar = "float", -- `false` or string:'float|border'
 			-- float:  in-window floating border
 			-- border: in-border chars (see below)
@@ -202,10 +202,10 @@ require("fzf-lua").setup({
 			syntax_limit_b = 1024 * 1024, -- syntax limit (bytes), 0=nolimit
 			limit_b = 1024 * 1024 * 10, -- preview limit (bytes), 0=nolimit
 			-- previewer treesitter options:
-			-- enable specific filetypes with: `{ enable = { "lua" } }
-			-- exclude specific filetypes with: `{ disable = { "lua" } }
+			-- enable specific filetypes with: `{ enabled = { "lua" } }
+			-- exclude specific filetypes with: `{ disabled = { "lua" } }
 			-- disable fully with: `{ enable = false }`
-			treesitter = { enable = true, disable = {} },
+			treesitter = { enabled = true, disabled = {} },
 			-- preview extensions using a custom shell command:
 			-- for example, use `viu` for image previews
 			-- will do nothing if `viu` isn't executable
