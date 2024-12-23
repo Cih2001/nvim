@@ -136,3 +136,7 @@ vim.keymap.set({ "i", "s" }, "<c-k>", function()
 		vim.snippet.jump(-1)
 	end
 end, { silent = true })
+
+-- terminal
+--
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", opts)

@@ -120,7 +120,7 @@ local function build_test_cmd(test)
 	if not (test.path == "") then
 		cmd = cmd .. test.path
 	end
-	cmd = cmd .. " -v -p 1 -count=1 -json "
+	cmd = cmd .. " -v -p 1 -count=1 "
 
 	local tags = ""
 	if test.tags then
@@ -158,9 +158,36 @@ local function get_namespace()
 	return ns
 end
 
-local M = {
-	state = {},
-}
+local function create_floating_window(opts)
+	opts = opts or {}
+	local width = opts.width or math.floor(vim.o.columns * 0.8)
+	local height = opts.height or math.floor(vim.o.lines * 0.8)
+
+	-- Calculate the position to center the window
+	local col = math.floor((vim.o.columns - width) / 2)
+	local row = math.floor((vim.o.lines - height) / 2)
+
+	local buf = vim.api.nvim_create_buf(false, true) -- No file, scratch buffer
+
+	-- Define window configuration
+	local win_config = {
+		relative = "editor",
+		width = width,
+		height = height,
+		col = col,
+		row = row,
+		style = "minimal", -- No borders or extra UI elements
+		border = "rounded",
+		noautocmd = true,
+	}
+
+	-- Create the floating window
+	local win = vim.api.nvim_open_win(buf, true, win_config)
+
+	return { buf = buf, win = win }
+end
+
+local M = {}
 
 function M.run_current_test()
 	local test = get_closest_test()
@@ -175,84 +202,14 @@ function M.run_current_test()
 
 	local cmd = build_test_cmd(test)
 	vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
-	M.outputs = {}
 
-	vim.fn.jobstart(cmd, {
-		stdout_buffered = true,
-		on_stderr = function(_, data)
-			for _, line in ipairs(data) do
-				table.insert(M.outputs, line)
-			end
-		end,
-		on_stdout = function(_, data)
-			if not data then
-				return
-			end
+	local win = create_floating_window()
+	if vim.bo[win.buf].buftype ~= "terminal" then
+		vim.cmd.terminal()
+	end
 
-			for _, line in ipairs(data) do
-				if not line or line == "" then
-					goto continue
-				end
-
-				-- local line_output = string.gsub(line, "\n", "")
-				-- line_output = string.gsub(line_output, "\r", "")
-				-- table.insert(M.outputs, line_output)
-				local decoded = vim.json.decode(line)
-
-				if decoded.Action == "run" then
-					M.state = {
-						packate = decoded.Package,
-						test = test.Test,
-						result = "none",
-					}
-				elseif decoded.Action == "output" then
-					local output = string.gsub(decoded.Output, "\n", "")
-					output = string.gsub(output, "\r", "")
-					table.insert(M.outputs, output)
-				elseif decoded.Action == "pass" or decoded.Action == "fail" then
-					if M.state.result == decoded.Action then
-						goto continue
-					end
-
-					M.state.result = decoded.Action
-					local text = ""
-					if decoded.Action == "fail" then
-						text = ""
-					end
-
-					local opts = {
-						virt_text = { { text } },
-						virt_text_pos = "eol",
-					}
-					vim.api.nvim_buf_set_extmark(bufnr, ns, test.line, 0, opts)
-				end
-				::continue::
-			end
-		end,
-		on_exit = function()
-			local buf = vim.api.nvim_create_buf(false, true)
-			local uis = vim.api.nvim_list_uis()[1]
-			local width = uis.width - 40
-			local height = uis.height - 20
-			vim.api.nvim_open_win(buf, true, {
-				relative = "win",
-				row = (uis.height / 2) - (height / 2),
-				col = (uis.width / 2) - (width / 2),
-				width = width,
-				height = height,
-				style = "minimal",
-				border = "single",
-				noautocmd = true,
-			})
-			vim.api.nvim_buf_set_lines(buf, 0, -1, false, { cmd })
-			vim.api.nvim_buf_set_lines(buf, 1, -1, false, M.outputs)
-			-- Set mappings in the buffer to close the window easily
-			local closingKeys = { "<Esc>", "<CR>", "<Leader>" }
-			for _, k in ipairs(closingKeys) do
-				vim.api.nvim_buf_set_keymap(buf, "n", k, ":close<CR>", { silent = true, nowait = true, noremap = true })
-			end
-		end,
-	})
+	local job_id = vim.bo[win.buf].channel
+	vim.fn.chansend(job_id, { cmd .. "\r\n" })
 end
 
 return M
