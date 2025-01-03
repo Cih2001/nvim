@@ -1,5 +1,3 @@
-local M = {}
-
 local function load_module(module_name)
 	local ok, module = pcall(require, module_name)
 	assert(ok, string.format("dependency error: %s not installed", module_name))
@@ -139,7 +137,7 @@ local function setup_cpp_configuration(dap)
 	}
 end
 
-local function python_path()
+local python_path = function()
 	-- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
 	-- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
 	-- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
@@ -151,52 +149,6 @@ local function python_path()
 	else
 		return "/usr/bin/python"
 	end
-end
-
-local function setup_python_configuration(dap)
-	dap.adapters.python = function(cb, config)
-		if config.request == "attach" then
-			---@diagnostic disable-next-line: undefined-field
-			local port = (config.connect or config).port
-			---@diagnostic disable-next-line: undefined-field
-			local host = (config.connect or config).host or "127.0.0.1"
-			cb({
-				type = "server",
-				port = assert(port, "`connect.port` is required for a python `attach` configuration"),
-				host = host,
-				options = {
-					source_filetype = "python",
-				},
-			})
-		else
-			local venv = os.getenv("VIRTUAL_ENV")
-			if not venv then
-				vim.api.nvim_err_writeln("NOT IN A VIRTUAL ENV")
-				return
-			end
-
-			cb({
-				type = "executable",
-				command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
-				args = { "-m", "debugpy.adapter" },
-				options = {
-					source_filetype = "python",
-				},
-			})
-		end
-	end
-
-	dap.configurations.python = {
-		{
-			-- The first three options are required by nvim-dap
-			type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
-			request = "launch",
-			name = "Launch file",
-			-- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-			program = "${file}", -- This configuration will launch the current file if used.
-			pythonPath = python_path,
-		},
-	}
 end
 
 local function setup_highlights()
@@ -227,80 +179,37 @@ local function setup_highlights()
 end
 
 local custom_configs = {
-	esgbook = "user.dap.config.esgbook",
-	jiyan = "user.dap.config.jiyan",
+	esgbook = "dap.config.esgbook",
+	jiyan = "dap.config.jiyan",
 }
 
-function M.setup()
-	local dapui = load_module("dapui")
-	setup_dap_ui(dapui)
+return {
+	"rcarriga/nvim-dap-ui",
+	dependencies = {
+		"mfussenegger/nvim-dap",
+		"nvim-neotest/nvim-nio",
+		"theHamsta/nvim-dap-virtual-text",
+	},
+	lazy = true,
+	config = function()
+		local dapui = load_module("dapui")
+		setup_dap_ui(dapui)
 
-	local ndvts = load_module("nvim-dap-virtual-text")
-	ndvts.setup()
+		local ndvts = load_module("nvim-dap-virtual-text")
+		ndvts.setup()
 
-	setup_highlights()
+		setup_highlights()
 
-	local dap = load_module("dap")
-	local cwd = string.lower(vim.fn.getcwd())
-	for k, v in pairs(custom_configs) do
-		if string.find(cwd, k) then
-			require(v).setup(dap, dapui)
-			return
-		end
-	end
-
-	setup_go_configuration(dap)
-	setup_cpp_configuration(dap)
-	setup_python_configuration(dap)
-end
-
-function M.debug_python()
-	local configs = require("user.dap.config.python")
-	local menu = {}
-	for _, c in ipairs(configs) do
-		table.insert(menu, c.name)
-	end
-
-	vim.ui.select(menu, { prompt = "select an action" }, function(choice)
-		-- if choice == "new" then
-		-- 	vim.ui.input({ prompt = "enter new command: " }, function(choice)
-		-- 		local module, args = choice:match("python%s%-m%s(%S+)%s(.+)")
-		-- 		if module and args then
-		-- 			local argsTable = {}
-		-- 			for arg in args:gmatch("(%S+)") do
-		-- 				table.insert(argsTable, arg)
-		-- 			end
-
-		-- 			local command = {
-		-- 				name = choice,
-		-- 				module = module,
-		-- 				args = argsTable,
-		-- 			}
-
-		-- 			table.insert(configs, command)
-		-- 			io:open() vim.print(configs)
-		-- 		else
-		-- 			vim.print("Error: Input string does not match the expected format")
-		-- 		end
-		-- 	end)
-		-- 	return
-		-- end
-		for _, c in ipairs(configs) do
-			if c.name == choice then
-				local dap = load_module("dap")
-				dap.run({
-					type = "python",
-					name = "module",
-					request = "launch",
-					module = c.module,
-					args = c.args,
-					pythonPath = python_path,
-				})
+		local dap = load_module("dap")
+		local cwd = string.lower(vim.fn.getcwd())
+		for k, v in pairs(custom_configs) do
+			if string.find(cwd, k) then
+				require(v).setup(dap, dapui)
+				return
 			end
 		end
-	end)
-end
 
-M.setup()
-
-return M
+		setup_go_configuration(dap)
+		setup_cpp_configuration(dap)
+	end,
+}

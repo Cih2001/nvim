@@ -66,7 +66,7 @@ end
 function M.custom()
 	vim.ui.select(M.menu, { prompt = "select an action" }, function(choice)
 		if choice == M.menu[1] then
-			require("user.gotest").run_current_test()
+			require("gotest").run_current_test()
 		elseif choice == M.menu[2] then
 			getGithubLink()
 		elseif choice == M.menu[3] then

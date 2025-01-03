@@ -42,3 +42,10 @@ let g:db_ui_icons = {
     \ 'collapsed': '',
     \ }
 ]])
+
+return {
+	"kristijanhusak/vim-dadbod-ui",
+	dependencies = { "tpope/vim-dadbod", "kristijanhusak/vim-dadbod-completion" },
+	lazy = true,
+	cmd = "DBUI",
+}

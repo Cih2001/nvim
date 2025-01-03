@@ -26,11 +26,11 @@ vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
 
 -- Harpoon
-vim.keymap.set("n", "<S-l>", '<cmd>lua require("user.harpoon").next()<cr>')
-vim.keymap.set("n", "<S-h>", '<cmd>lua require("user.harpoon").prev()<cr>')
-vim.keymap.set("n", "m", '<cmd>lua require("user.harpoon").add()<cr>')
-vim.keymap.set("n", "<space>v", '<cmd>lua require("user.harpoon").toggle()<cr>')
-vim.keymap.set("n", "<S-q>", '<cmd>lua require("user.harpoon").remove()<cr>')
+-- vim.keymap.set("n", "<S-l>", '<cmd>lua require("user.harpoon").next()<cr>')
+-- vim.keymap.set("n", "<S-h>", '<cmd>lua require("user.harpoon").prev()<cr>')
+-- vim.keymap.set("n", "m", '<cmd>lua require("user.harpoon").add()<cr>')
+-- vim.keymap.set("n", "<space>v", '<cmd>lua require("user.harpoon").toggle()<cr>')
+-- vim.keymap.set("n", "<S-q>", '<cmd>lua require("user.harpoon").remove()<cr>')
 
 -- NvimTree
 vim.keymap.set("n", "<c-z>", "<cmd>NvimTreeToggle<cr>", opts)
@@ -100,7 +100,7 @@ vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParame
 vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
 
 -- custom functionalities
-vim.keymap.set("n", "<leader>t", '<cmd>lua require("user.custom").custom()<cr>', opts)
+vim.keymap.set("n", "<leader>t", '<cmd>lua require("custom").custom()<cr>', opts)
 
 -- quick fix
 --
