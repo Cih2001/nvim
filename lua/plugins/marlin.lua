@@ -44,31 +44,31 @@ local function draw_pane(f, text, fg, bg)
 	f.add({ text, bg = bg, fg = fg })
 	f.add({ "", bg = Colors.fill, fg = bg })
 end
-
---            
--- local function create_panes(f, panes)
--- 	for idx, pane in ipairs(panes) do
--- 		local text = pane.filename
--- 		if idx > 1 then
--- 			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
--- 			text = pane.modified and text .. "" or text
--- 		end
 --
--- 		local fg = Colors.fg
--- 		local bg = Colors.bg
--- 		if pane.selected then
--- 			fg, bg = bg, fg
--- 		end
--- 		if idx == 1 then
--- 			bg = Colors.fill
--- 			fg = Colors.red
--- 		end
--- 		f.add({ "", bg = Colors.fill, fg = bg })
--- 		f.add({ text, bg = bg, fg = fg })
--- 		f.add({ "", bg = Colors.fill, fg = bg })
--- 	end
--- end
-
+-- --            
+-- -- local function create_panes(f, panes)
+-- -- 	for idx, pane in ipairs(panes) do
+-- -- 		local text = pane.filename
+-- -- 		if idx > 1 then
+-- -- 			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
+-- -- 			text = pane.modified and text .. "" or text
+-- -- 		end
+-- --
+-- -- 		local fg = Colors.fg
+-- -- 		local bg = Colors.bg
+-- -- 		if pane.selected then
+-- -- 			fg, bg = bg, fg
+-- -- 		end
+-- -- 		if idx == 1 then
+-- -- 			bg = Colors.fill
+-- -- 			fg = Colors.red
+-- -- 		end
+-- -- 		f.add({ "", bg = Colors.fill, fg = bg })
+-- -- 		f.add({ text, bg = bg, fg = fg })
+-- -- 		f.add({ "", bg = Colors.fill, fg = bg })
+-- -- 	end
+-- -- end
+--
 local function create_panes_old(f, panes)
 	for idx, pane in ipairs(panes) do
 		local fg = Colors.fg
@@ -109,8 +109,8 @@ local function create_panes_old(f, panes)
 end
 
 local function render(f)
-	local harpoon = require("harpoon")
-	local marks = harpoon:list().items
+	local marlin = require("marlin")
+	local marks = marlin.get_indexes()
 	local found = false
 	local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
 	local panes = {
@@ -122,12 +122,13 @@ local function render(f)
 		},
 	}
 	for _, mark in ipairs(marks) do
-		local selected = current_file == mark.value
+		local markpath = normalize_path(mark.filename)
+		local selected = current_file == markpath
 		found = found or selected
 		table.insert(panes, {
-			filename = mark.value,
+			filename = markpath,
 			selected = selected,
-			modified = is_modified(mark.value),
+			modified = is_modified(mark.filename),
 			is_mark = true,
 		})
 	end
@@ -151,77 +152,81 @@ local function render(f)
 	end)
 end
 
-local function next()
-	local harpoon = require("harpoon")
-	local current_buff = normalize_path(vim.api.nvim_buf_get_name(0))
-	local length = harpoon:list():length()
-	local idx
-	_, idx = harpoon:list():get_by_value(current_buff)
-	if idx and idx + 1 <= length then
-		harpoon:list():select(idx + 1)
-	else
-		harpoon:list():select(1)
-	end
-end
-
-local function prev()
-	local harpoon = require("harpoon")
-	local current_buff = normalize_path(vim.api.nvim_buf_get_name(0))
-	local length = harpoon:list():length()
-	local idx
-	_, idx = harpoon:list():get_by_value(current_buff)
-	if idx and idx - 1 >= 1 then
-		harpoon:list():select(idx - 1)
-	else
-		harpoon:list():select(length)
-	end
-end
-
-local function add()
-	local harpoon = require("harpoon")
-	harpoon:list():add()
-end
-
-local function remove()
-	local harpoon = require("harpoon")
-	local current_buff = normalize_path(vim.api.nvim_buf_get_name(0))
-	local length = harpoon:list():length()
-	local idx
-	_, idx = harpoon:list():get_by_value(current_buff)
-	if not idx or idx <= 0 then
-		return
-	end
-
-	local old_idx = idx
-	while idx < length do
-		harpoon:list():replace_at(idx, harpoon:list():get(idx + 1))
-		idx = idx + 1
-	end
-
-	harpoon:list():remove_at(idx)
-
-	if old_idx == length then
-		harpoon:list():select(old_idx - 1)
-	else
-		harpoon:list():select(old_idx)
-	end
-end
-
 local function list()
-	local harpoon = require("harpoon")
-	harpoon.ui:toggle_quick_menu(harpoon:list())
+	local results = require("marlin").get_indexes()
+	local content = {}
+
+	local fzf_lua = require("fzf-lua")
+	local builtin = require("fzf-lua.previewer.builtin")
+	local fzfpreview = builtin.buffer_or_file:extend()
+
+	function fzfpreview:new(o, opts, fzf_win)
+		fzfpreview.super.new(self, o, opts, fzf_win)
+		setmetatable(self, fzfpreview)
+		return self
+	end
+
+	function fzfpreview.parse_entry(_, entry_str)
+		if entry_str == "" then
+			return {}
+		end
+
+		local entry = content[entry_str]
+		return {
+			path = entry.filename,
+			line = entry.row or 1,
+			col = 1,
+		}
+	end
+
+	fzf_lua.fzf_exec(function(fzf_cb)
+		for i, b in ipairs(results) do
+			local entry = i .. ":" .. b.filename .. ":" .. b.row
+
+			content[entry] = b
+			fzf_cb(entry)
+		end
+		fzf_cb()
+	end, {
+		previewer = fzfpreview,
+		prompt = "Marlin(navigate: <Up>, <Down> remove: Ctrl-x)> ",
+		actions = {
+			["ctrl-x"] = {
+				fn = function(selected)
+					require("marlin").remove(content[selected[1]].filename)
+				end,
+				reload = true,
+				silent = true,
+			},
+			["Up"] = {
+				fn = function(selected)
+					require("marlin").move_up(content[selected[1]].filename)
+				end,
+				reload = true,
+				silent = true,
+			},
+			["Down"] = {
+				fn = function(selected)
+					require("marlin").move_down(content[selected[1]].filename)
+				end,
+				reload = true,
+				silent = true,
+			},
+		},
+	})
 end
 
 return {
-	"ThePrimeagen/harpoon",
-	branch = "harpoon2",
+	"desdic/marlin.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"rafcamlet/tabline-framework.nvim",
 	},
 	lazy = false,
-	config = function()
-		require("harpoon").setup()
+	opts = {},
+	config = function(_, opts)
+		local marlin = require("marlin")
+		marlin.setup(opts)
 
 		local function reload()
 			Colors = load_colors()
@@ -237,10 +242,32 @@ return {
 		})
 	end,
 	keys = {
-		{ "<S-l>", next },
-		{ "<S-h>", prev },
-		{ "m", add },
-		{ "<S-q>", remove },
+		{
+			"<S-l>",
+			function()
+				require("marlin").next()
+			end,
+		},
+		{
+			"<S-h>",
+			function()
+				require("marlin").prev()
+			end,
+		},
+		{
+			"m",
+			function()
+				require("marlin").add()
+			end,
+		},
+		{
+			"<S-q>",
+			function()
+				local marlin = require("marlin")
+				marlin.remove()
+				marlin.prev()
+			end,
+		},
 		{ "<space>v", list },
 	},
 }
