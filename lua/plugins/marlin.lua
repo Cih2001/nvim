@@ -242,24 +242,9 @@ return {
 		})
 	end,
 	keys = {
-		{
-			"<S-l>",
-			function()
-				require("marlin").next()
-			end,
-		},
-		{
-			"<S-h>",
-			function()
-				require("marlin").prev()
-			end,
-		},
-		{
-			"m",
-			function()
-				require("marlin").add()
-			end,
-		},
+		{ "<S-l>", '<cmd>lua require("marlin").next()<cr>' },
+		{ "<S-h>", '<cmd>lua require("marlin").prev()<cr>' },
+		{ "m", '<cmd>lua require("marlin").add()<cr>' },
 		{
 			"<S-q>",
 			function()

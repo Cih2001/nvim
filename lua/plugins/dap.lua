@@ -1,44 +1,3 @@
-local function setup_dap_ui(dapui)
-	dapui.setup({
-		-- basic ui. Setup more advanced in your custom configs
-		layouts = {
-			{
-				elements = {
-					"watches",
-				},
-				size = 10,
-				position = "bottom",
-			},
-			{
-				elements = {
-					"repl",
-				},
-				size = 10,
-				position = "bottom",
-			},
-		},
-		controls = {
-			enabled = vim.fn.exists("+winbar") == 1,
-			-- Display controls in this element
-			element = "repl",
-			icons = {
-				pause = "",
-				play = " <F5>",
-				step_over = " <F6>",
-				step_into = " <F7>",
-				step_out = " <F8>",
-				step_back = "",
-				run_last = "",
-				terminate = "",
-			},
-		},
-		windows = { indent = 1 },
-		render = {
-			max_type_length = nil, -- Can be integer or nil.
-		},
-	})
-end
-
 local function setup_go_configuration(dap)
 	dap.adapters.go = function(callback, config)
 		local stdout = vim.loop.new_pipe(false)
@@ -176,9 +135,9 @@ return {
 			"theHamsta/nvim-dap-virtual-text",
 		},
 		lazy = true,
-		config = function()
+		config = function(_, opts)
 			local dapui = require("dapui")
-			setup_dap_ui(dapui)
+			dapui.setup(opts)
 
 			local ndvts = require("nvim-dap-virtual-text")
 			ndvts.setup()
@@ -197,6 +156,30 @@ return {
 			setup_go_configuration(dap)
 			setup_cpp_configuration(dap)
 		end,
+		opts = {
+			-- basic ui. Setup more advanced in your custom configs
+			layouts = {
+				{ elements = { "watches" }, size = 10, position = "bottom" },
+				{ elements = { "repl" }, size = 10, position = "bottom" },
+			},
+			controls = {
+				enabled = vim.fn.exists("+winbar") == 1,
+				-- Display controls in this element
+				element = "repl",
+				icons = {
+					pause = "",
+					play = " <F5>",
+					step_over = " <F6>",
+					step_into = " <F7>",
+					step_out = " <F8>",
+					step_back = "",
+					run_last = "",
+					terminate = "",
+				},
+			},
+			windows = { indent = 1 },
+			render = { max_type_length = nil },
+		},
 	},
 	{
 		"mfussenegger/nvim-dap",

@@ -5,33 +5,34 @@ vim.g.loaded_netrwPlugin = 1
 return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-	config = function()
-		require("nvim-tree").setup({
-			sort = {
-				sorter = "case_sensitive",
-			},
-			view = {
-				width = 30,
-			},
-			renderer = {
-				group_empty = true,
-			},
-			filters = {
-				dotfiles = true,
-			},
-			update_focused_file = {
-				enable = true,
-			},
-			diagnostics = {
-				enable = true,
-			},
-			modified = {
-				enable = true,
-			},
-		})
+	config = function(_, opts)
+		require("nvim-tree").setup(opts)
 	end,
 	keys = {
 		{ "<c-z>", "<cmd>NvimTreeToggle<cr>" },
 	},
 	lazy = true,
+	opts = {
+		sort = {
+			sorter = "case_sensitive",
+		},
+		view = {
+			width = 30,
+		},
+		renderer = {
+			group_empty = true,
+		},
+		filters = {
+			dotfiles = true,
+		},
+		update_focused_file = {
+			enable = true,
+		},
+		diagnostics = {
+			enable = true,
+		},
+		modified = {
+			enable = true,
+		},
+	},
 }
