@@ -43,6 +43,9 @@ let g:db_ui_icons = {
     \ }
 ]])
 
+vim.cmd("autocmd FileType sql nmap <buffer> <Leader>e <Plug>(DBUI_EditBindParameters)")
+vim.cmd("autocmd FileType sql nmap <buffer> <Leader>s <Plug>(DBUI_ExecuteQuery)")
+
 return {
 	"kristijanhusak/vim-dadbod-ui",
 	dependencies = { "tpope/vim-dadbod", "kristijanhusak/vim-dadbod-completion" },

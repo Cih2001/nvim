@@ -9,7 +9,7 @@ return {
 	config = function()
 		local cmp = require("cmp")
 
-		local next = function(fallback)
+		local function next(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 			else
@@ -17,7 +17,7 @@ return {
 			end
 		end
 
-		local prev = function(fallback)
+		local function prev(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
 			else

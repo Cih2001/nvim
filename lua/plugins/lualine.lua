@@ -1,4 +1,4 @@
-local hide_in_width = function()
+local function hide_in_width()
 	return vim.fn.winwidth(0) > 80
 end
 
@@ -35,7 +35,6 @@ local branch = {
 }
 
 local bitcoin = require("bitcoin")
-bitcoin.start()
 
 return {
 	"nvim-lualine/lualine.nvim",

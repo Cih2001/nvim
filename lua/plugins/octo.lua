@@ -2,6 +2,9 @@ return {
 	"pwntester/octo.nvim",
 	lazy = true,
 	cmd = "Octo",
+	keys = {
+		{ "<space>p", "<cmd>Octo pr list<cr>" },
+	},
 	config = function()
 		require("octo").setup({
 			picker = "fzf-lua",

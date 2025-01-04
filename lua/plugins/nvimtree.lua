@@ -5,7 +5,7 @@ vim.g.loaded_netrwPlugin = 1
 return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-	config = function(_, opts)
+	config = function()
 		require("nvim-tree").setup({
 			sort = {
 				sorter = "case_sensitive",
@@ -30,4 +30,8 @@ return {
 			},
 		})
 	end,
+	keys = {
+		{ "<c-z>", "<cmd>NvimTreeToggle<cr>" },
+	},
+	lazy = true,
 }

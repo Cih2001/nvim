@@ -1,5 +1,11 @@
 return {
 	"lewis6991/gitsigns.nvim",
+	keys = {
+		{ "]g", "<cmd>Gitsigns next_hunk<cr>" },
+		{ "[g", "<cmd>Gitsigns prev_hunk<cr>" },
+		{ "<leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>" },
+		{ "<leader>gg", "<cmd>Gitsigns toggle_current_line_blame<cr>" },
+	},
 	config = function()
 		require("gitsigns").setup({
 			signs = {

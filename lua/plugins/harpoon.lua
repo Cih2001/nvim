@@ -108,7 +108,7 @@ local function create_panes_old(f, panes)
 	end
 end
 
-local render = function(f)
+local function render(f)
 	local harpoon = require("harpoon")
 	local marks = harpoon:list().items
 	local found = false

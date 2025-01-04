@@ -1,8 +1,25 @@
 return {
 	"ibhagwan/fzf-lua",
+	keys = {
+		{ "<space>b", "<cmd>FzfLua buffers<cr>" },
+		{ "<space>f", "<cmd>FzfLua files<cr>" },
+		{ "<space>g", "<cmd>FzfLua live_grep<cr>" },
+		{ "<space>o", "<cmd>FzfLua lsp_document_symbols<cr>" },
+		{ "<space>s", "<cmd>FzfLua lsp_live_workspace_symbols<cr>" },
+		{ "<space>j", "<cmd>FzfLua jumplist<cr>" },
+		{ "<space>c", "<cmd>FzfLua grep_curbuf<cr>" },
+		{ "<space>r", "<cmd>FzfLua registers<cr>" },
+		{ "gr", "<cmd>FzfLua lsp_references<cr>" },
+		{ "gi", "<cmd>FzfLua lsp_implementations<cr>" },
+		{ "gy", "<cmd>FzfLua lsp_typedefs<cr>" },
+		{ "<space>a", "<cmd>FzfLua diagnostics_workspace<CR>" },
+		{ "<space>h", "<cmd>FzfLua help_tags<CR>" },
+		{ "<leader>gs", "<cmd>FzfLua git_status<cr>" },
+		{ "<leader>gb", "<cmd>FzfLua git_branches<cr>" },
+		{ "<leader>gc", "<cmd>FzfLua git_commits<cr>" },
+	},
 	config = function()
 		local actions = require("fzf-lua.actions")
-
 		require("fzf-lua").setup({
 			-- fzf_bin         = 'sk',            -- use skim instead of fzf?
 			-- https://github.com/lotabout/skim

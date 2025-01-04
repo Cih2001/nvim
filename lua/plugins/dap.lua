@@ -1,9 +1,3 @@
-local function load_module(module_name)
-	local ok, module = pcall(require, module_name)
-	assert(ok, string.format("dependency error: %s not installed", module_name))
-	return module
-end
-
 local function setup_dap_ui(dapui)
 	dapui.setup({
 		-- basic ui. Setup more advanced in your custom configs
@@ -137,20 +131,6 @@ local function setup_cpp_configuration(dap)
 	}
 end
 
-local python_path = function()
-	-- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-	-- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-	-- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-	local cwd = vim.fn.getcwd()
-	if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-		return cwd .. "/venv/bin/python"
-	elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-		return cwd .. "/.venv/bin/python"
-	else
-		return "/usr/bin/python"
-	end
-end
-
 local function setup_highlights()
 	vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg = 0, fg = "#993939", bg = "#31353f" })
 	vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg = 0, fg = "#61afef", bg = "#31353f" })
@@ -179,37 +159,56 @@ local function setup_highlights()
 end
 
 local custom_configs = {
-	esgbook = "dap.config.esgbook",
-	jiyan = "dap.config.jiyan",
+	esgbook = "dap_configs.esgbook",
+	jiyan = "dap_configs.jiyan",
 }
 
 return {
-	"rcarriga/nvim-dap-ui",
-	dependencies = {
-		"mfussenegger/nvim-dap",
-		"nvim-neotest/nvim-nio",
-		"theHamsta/nvim-dap-virtual-text",
-	},
-	lazy = true,
-	config = function()
-		local dapui = load_module("dapui")
-		setup_dap_ui(dapui)
+	{
+		"rcarriga/nvim-dap-ui",
+		keys = {
+			{ "<F1>", '<cmd>lua require"dapui".toggle()<cr>' },
+			{ "<C-q>", '<cmd>lua require"dapui".eval(nil, { enter = true })<cr>' },
+		},
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio",
+			"theHamsta/nvim-dap-virtual-text",
+		},
+		lazy = true,
+		config = function()
+			local dapui = require("dapui")
+			setup_dap_ui(dapui)
 
-		local ndvts = load_module("nvim-dap-virtual-text")
-		ndvts.setup()
+			local ndvts = require("nvim-dap-virtual-text")
+			ndvts.setup()
 
-		setup_highlights()
+			setup_highlights()
 
-		local dap = load_module("dap")
-		local cwd = string.lower(vim.fn.getcwd())
-		for k, v in pairs(custom_configs) do
-			if string.find(cwd, k) then
-				require(v).setup(dap, dapui)
-				return
+			local dap = require("dap")
+			local cwd = string.lower(vim.fn.getcwd())
+			for k, v in pairs(custom_configs) do
+				if string.find(cwd, k) then
+					require(v).setup(dap, dapui)
+					return
+				end
 			end
-		end
 
-		setup_go_configuration(dap)
-		setup_cpp_configuration(dap)
-	end,
+			setup_go_configuration(dap)
+			setup_cpp_configuration(dap)
+		end,
+	},
+	{
+		"mfussenegger/nvim-dap",
+		keys = {
+			{ "<F2>", '<cmd>lua require"dap".toggle_breakpoint()<cr>' },
+			{ "<F3>", '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint Condition: "))<cr>' },
+			{ "<F4>", '<cmd>lua require"dap".run_to_cursor()<cr>' },
+			{ "<F5>", '<cmd>lua require"dap".continue()<cr>' },
+			{ "<F6>", '<cmd>lua require"dap".step_over()<cr>' },
+			{ "<F7>", '<cmd>lua require"dap".step_into()<cr>' },
+			{ "<F8>", '<cmd>lua require"dap".step_out()<cr>' },
+		},
+		lazy = true,
+	},
 }
