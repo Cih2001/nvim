@@ -18,6 +18,7 @@ return {
 		{ "<leader>gb", "<cmd>FzfLua git_branches<cr>" },
 		{ "<leader>gc", "<cmd>FzfLua git_commits<cr>" },
 	},
+	cmd = "FzfLua",
 	config = function()
 		local actions = require("fzf-lua.actions")
 		require("fzf-lua").setup({

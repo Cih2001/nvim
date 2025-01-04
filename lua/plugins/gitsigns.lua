@@ -6,6 +6,7 @@ return {
 		{ "<leader>gp", "<cmd>Gitsigns preview_hunk_inline<cr>" },
 		{ "<leader>gg", "<cmd>Gitsigns toggle_current_line_blame<cr>" },
 	},
+	lazy = false,
 	config = function()
 		require("gitsigns").setup({
 			signs = {

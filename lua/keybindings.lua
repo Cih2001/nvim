@@ -1,6 +1,7 @@
-------------------------------------------------
--- some useful key bindings
-------------------------------------------------
+-- This file contains the keybindings for nvim vanilla features.
+-- For the plugin keybindings, take a look at the respected file
+-- where the plugin is defined. For example, to find fzf
+-- keybindings, take a look at fzf.lua.
 local opts = { silent = true, noremap = true }
 
 -- Resize with arrows

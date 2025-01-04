@@ -151,16 +151,6 @@ local function render(f)
 	end)
 end
 
-vim.api.nvim_create_autocmd({ "ColorScheme" }, {
-	callback = function()
-		Colors = load_colors()
-		require("tabline_framework").setup({
-			render = render,
-			hl_fill = { fg = Colors.fg, bg = Colors.fill },
-		})
-	end,
-})
-
 local function next()
 	local harpoon = require("harpoon")
 	local current_buff = normalize_path(vim.api.nvim_buf_get_name(0))
@@ -229,11 +219,21 @@ return {
 		"nvim-lua/plenary.nvim",
 		"rafcamlet/tabline-framework.nvim",
 	},
+	lazy = false,
 	config = function()
 		require("harpoon").setup()
-		require("tabline_framework").setup({
-			render = render,
-			hl_fill = { fg = Colors.fg, bg = Colors.fill },
+
+		local function reload()
+			Colors = load_colors()
+			require("tabline_framework").setup({
+				render = render,
+				hl_fill = { fg = Colors.fg, bg = Colors.fill },
+			})
+		end
+
+		reload()
+		vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+			callback = reload,
 		})
 	end,
 	keys = {
