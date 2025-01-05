@@ -137,7 +137,7 @@ local function render(f)
 		table.insert(panes, {
 			filename = current_file,
 			selected = true,
-			is_modified(vim.api.nvim_buf_get_name(0)),
+			modified = is_modified(current_file),
 			is_mark = false,
 		})
 	end
