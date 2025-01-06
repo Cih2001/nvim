@@ -84,6 +84,7 @@ local function create_panes_old(f, panes)
 			f.add({ " " .. f.icon(pane.filename), bg = bg, fg = f.icon_color(pane.filename) })
 			text = " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
 			text = pane.modified and text .. "󰪥 " or text
+			text = pane.is_mark and text or text .. " "
 		end
 
 		if idx == 1 then
