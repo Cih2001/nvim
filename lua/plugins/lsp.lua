@@ -123,8 +123,20 @@ return {
 			-- map ctrl+[ send_key alt+j
 			--
 			-- and create a map for alt-j:
-			{ "<C-]>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>' },
-			{ "<A-j>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>' },
+			{
+				"<C-]>",
+				function()
+					require("illuminate").next_reference({ wrap = true })
+					vim.cmd(":normal! zz")
+				end,
+			},
+			{
+				"<A-j>",
+				function()
+					require("illuminate").next_reference({ reverse = true, wrap = true })
+					vim.cmd(":normal! zz")
+				end,
+			},
 		},
 	},
 }

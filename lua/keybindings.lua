@@ -20,6 +20,18 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
 vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
 
+-- Down is really the next line
+-- Enables moving down in wraped texts
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+
+-- keep it on the center when jumping to next item
+vim.keymap.set("n", "n", "nzz")
+vim.keymap.set("n", "N", "Nzz")
+
+-- Save all
+vim.keymap.set("", "<c-s>", ":wa<CR>", { remap = true, silent = true })
+
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("custom").custom()<cr>', opts)
 
