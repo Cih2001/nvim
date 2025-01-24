@@ -124,66 +124,13 @@ local custom_configs = {
 
 return {
 	{
-		"rcarriga/nvim-dap-ui",
-		keys = {
-			{ "<F1>", '<cmd>lua require"dapui".toggle()<cr>' },
-			{ "<C-q>", '<cmd>lua require"dapui".eval(nil, { enter = true })<cr>' },
-		},
+		"mfussenegger/nvim-dap",
 		dependencies = {
-			"mfussenegger/nvim-dap",
-			"nvim-neotest/nvim-nio",
+			"igorlfs/nvim-dap-view",
 			"theHamsta/nvim-dap-virtual-text",
 		},
-		lazy = true,
-		config = function(_, opts)
-			local dapui = require("dapui")
-			dapui.setup(opts)
-
-			local ndvts = require("nvim-dap-virtual-text")
-			ndvts.setup()
-
-			setup_highlights()
-
-			local dap = require("dap")
-			local cwd = string.lower(vim.fn.getcwd())
-			for k, v in pairs(custom_configs) do
-				if string.find(cwd, k) then
-					require(v).setup(dap, dapui)
-					return
-				end
-			end
-
-			setup_go_configuration(dap)
-			setup_cpp_configuration(dap)
-		end,
-		opts = {
-			-- basic ui. Setup more advanced in your custom configs
-			layouts = {
-				{ elements = { "watches" }, size = 10, position = "bottom" },
-				{ elements = { "repl" }, size = 10, position = "bottom" },
-			},
-			controls = {
-				enabled = vim.fn.exists("+winbar") == 1,
-				-- Display controls in this element
-				element = "repl",
-				icons = {
-					pause = "",
-					play = " <F5>",
-					step_over = " <F6>",
-					step_into = " <F7>",
-					step_out = " <F8>",
-					step_back = "",
-					run_last = "",
-					terminate = "",
-				},
-			},
-			windows = { indent = 1 },
-			render = { max_type_length = nil },
-		},
-	},
-	{
-		"mfussenegger/nvim-dap",
 		keys = {
+			{ "<F1>", "<cmd>DapViewToggle<cr>" },
 			{ "<F2>", '<cmd>lua require"dap".toggle_breakpoint()<cr>' },
 			{ "<F3>", '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint Condition: "))<cr>' },
 			{ "<F4>", '<cmd>lua require"dap".run_to_cursor()<cr>' },
@@ -193,5 +140,23 @@ return {
 			{ "<F8>", '<cmd>lua require"dap".step_out()<cr>' },
 		},
 		lazy = true,
+		config = function()
+			local ndvts = require("nvim-dap-virtual-text")
+			ndvts.setup()
+
+			setup_highlights()
+
+			local dap = require("dap")
+			local cwd = string.lower(vim.fn.getcwd())
+			for k, v in pairs(custom_configs) do
+				if string.find(cwd, k) then
+					require(v).setup(dap)
+					return
+				end
+			end
+
+			setup_go_configuration(dap)
+			setup_cpp_configuration(dap)
+		end,
 	},
 }

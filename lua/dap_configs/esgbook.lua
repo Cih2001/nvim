@@ -14,7 +14,10 @@ function M.setup(dap, _)
 			request = "attach",
 			mode = "remote",
 			substitutePath = {
-				{ from = "/Users/hamidrezaebtehaj/go/src/github.com/esgbook/api", to = "/usr/src/app" },
+				{
+					from = "/Users/hamidrezaebtehaj/go/src/github.com/esgbook/api",
+					to = "/usr/src/app",
+				},
 			},
 			port = "2345",
 			host = "127.0.0.1",
