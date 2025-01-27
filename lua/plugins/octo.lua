@@ -2,6 +2,7 @@ return {
 	"pwntester/octo.nvim",
 	lazy = true,
 	cmd = "Octo",
+	commit = "da764ce2f79645d2c624a5b9e843d1484ceea847",
 	keys = {
 		{ "<space>p", "<cmd>Octo pr list<cr>" },
 	},
