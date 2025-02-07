@@ -66,7 +66,11 @@ local function match_query(q, root)
 		local test_match = {}
 		for id, node in pairs(nodes) do
 			local capture = test_query.captures[id]
-			local tsnode = node[1]
+			local tsnode = node
+			-- there is an api change in 0.11.0
+			if vim.version.ge(vim.version(), { 0, 11, 0 }) then
+				tsnode = node[1]
+			end
 			if capture == "method.receiver.type" then
 				test_match.receiver = vim.treesitter.get_node_text(tsnode, 0)
 			elseif capture == "method.name" then
