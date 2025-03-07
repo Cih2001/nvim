@@ -60,14 +60,12 @@ return {
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
-			-- "hrsh7th/cmp-nvim-lsp",
 			"RRethy/vim-illuminate",
 		},
 		config = function()
 			local mason = require("mason")
 			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
-			-- local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 			-- enable mason
 			mason.setup()
@@ -86,13 +84,8 @@ return {
 				automatic_installation = true, -- not the same as ensure_installed
 			})
 
-			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 			for _, server in pairs(servers) do
-				local opts = {
-					on_attach = on_attach,
-					-- capabilities = cmp_nvim_lsp.default_capabilities(capabilities),
-				}
+				local opts = { on_attach = on_attach }
 				local has_custom_opts, server_custom_opts = pcall(require, "lsp_configs." .. server)
 				if has_custom_opts then
 					opts = vim.tbl_deep_extend("force", server_custom_opts, opts)
