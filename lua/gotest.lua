@@ -108,11 +108,15 @@ local function get_closest_test()
 		return nil
 	end
 
+	local tags = get_build_tags()
+	if tags == nil then
+		tags = {}
+	end
 	local result = {
 		name = test[1].name,
 		receiver = test[1].receiver,
 		path = getPath(vim.api.nvim_buf_get_name(0)),
-		tags = get_build_tags(),
+		tags = tags,
 		line = tonumber(root:start(), 10),
 	}
 
@@ -198,8 +202,6 @@ function M.run_current_test()
 	if test == nil then
 		return
 	end
-
-	test.tags = { "test_integration" }
 
 	local bufnr = vim.api.nvim_get_current_buf()
 	local ns = get_namespace()

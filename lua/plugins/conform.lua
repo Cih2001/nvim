@@ -11,7 +11,7 @@ return {
 				yaml = { "prettier" },
 				json = { "prettier" },
 				-- Conform will run multiple formatters sequentially
-				go = { "goimports", "gofumpt" },
+				go = { "gofumpt", "goimports" },
 				terraform = { "terraform_fmt" },
 			},
 
@@ -22,7 +22,7 @@ return {
 			},
 
 			format_on_save = {
-				timeout_ms = 500,
+				timeout_ms = 1000,
 				lsp_format = "fallback",
 				async = false,
 			},
