@@ -60,6 +60,13 @@ return {
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
 			default = { "lsp", "path", "buffer" },
+			per_filetype = {
+				sql = { "snippets", "dadbod", "buffer" },
+			},
+			-- add vim-dadbod-completion to your completion providers
+			providers = {
+				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+			},
 		},
 
 		-- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
