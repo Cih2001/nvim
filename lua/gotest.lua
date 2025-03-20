@@ -68,7 +68,7 @@ local function match_query(q, root)
 			local capture = test_query.captures[id]
 			local tsnode = node
 			-- there is an api change in 0.11.0
-			if vim.version.ge(vim.version(), { 0, 11, 0 }) then
+			if vim.version.ge(vim.version(), { 0, 10, 9 }) then
 				tsnode = node[1]
 			end
 			if capture == "method.receiver.type" then
