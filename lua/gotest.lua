@@ -1,5 +1,4 @@
--- parse //+build integration unit
--- //go:build ci
+-- parse //+buildkintegration unit
 local function get_build_tags(buf)
 	local tags = {}
 	buf = buf or "%"
@@ -17,9 +16,8 @@ local function get_build_tags(buf)
 			table.insert(tags, t)
 		end
 	end
-	if #tags > 0 then
-		return tags
-	end
+
+	return tags
 end
 
 local function find_parent_function(node)
@@ -87,11 +85,6 @@ local function match_query(q, root)
 	return test_tree
 end
 
-local function getPath(str)
-	local sep = "/"
-	return str:match("(.*" .. sep .. ")")
-end
-
 local function get_closest_test()
 	local root = find_parent_function(vim.treesitter.get_node())
 	if root == nil then
@@ -108,15 +101,11 @@ local function get_closest_test()
 		return nil
 	end
 
-	local tags = get_build_tags()
-	if tags == nil then
-		tags = {}
-	end
 	local result = {
 		name = test[1].name,
 		receiver = test[1].receiver,
-		path = getPath(vim.api.nvim_buf_get_name(0)),
-		tags = tags,
+		path = vim.api.nvim_buf_get_name(0):match("(.*/)"),
+		tags = get_build_tags(),
 		line = tonumber(root:start(), 10),
 	}
 
@@ -124,46 +113,24 @@ local function get_closest_test()
 end
 
 local function build_test_cmd(test)
-	local cmd = "go test "
-	if not (test.path == "") then
-		cmd = cmd .. test.path
-	end
-	cmd = cmd .. " -v -p 1 -count=1 "
+	local cmd = { "go test" }
+	table.insert(cmd, test.path)
+	table.insert(cmd, "-v -p 1 -count=1")
 
-	local tags = ""
-	if test.tags then
-		for _, tag in ipairs(test.tags) do
-			tags = tags .. tag .. " "
+	local tags = table.concat(test.tags, " ")
+	if not (tags == "") then
+		table.insert(cmd, '-tags="' .. tags .. '"')
+	end
+
+	if test.name then
+		table.insert(cmd, "-run")
+		if test.receiver then
+			table.insert(cmd, test.receiver .. "/")
 		end
-	end
-	if not (tags == nil) and not (tags == "") then
-		cmd = cmd .. '-tags="' .. tags .. '" '
+		table.insert(cmd, test.name)
 	end
 
-	if not (test.name == nil) then
-		cmd = cmd .. "-run "
-		if not (test.receiver == nil) then
-			cmd = cmd .. test.receiver .. "/"
-		end
-		cmd = cmd .. test.name
-	end
-
-	return cmd
-end
-
-local function get_namespace()
-	local ns = 0
-	for key, value in pairs(vim.api.nvim_get_namespaces()) do
-		if key == "gotest" then
-			ns = value
-		end
-	end
-
-	if ns == 0 then
-		ns = vim.api.nvim_create_namespace("gotest")
-	end
-
-	return ns
+	return table.concat(cmd, " ")
 end
 
 local function create_floating_window(opts)
@@ -204,7 +171,7 @@ function M.run_current_test()
 	end
 
 	local bufnr = vim.api.nvim_get_current_buf()
-	local ns = get_namespace()
+	local ns = vim.api.nvim_create_namespace("gotest")
 
 	local cmd = build_test_cmd(test)
 	vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)

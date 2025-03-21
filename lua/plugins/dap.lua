@@ -15,7 +15,7 @@ local function setup_go_configuration(dap)
 			stdout:close()
 			handle:close()
 			if code ~= 0 then
-				print("dlv exited with code", code)
+				vim.print("dlv exited with code", code)
 			end
 		end)
 		assert(handle, "Error running dlv: " .. tostring(pid_or_err))

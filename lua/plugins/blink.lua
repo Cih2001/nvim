@@ -38,9 +38,7 @@ return {
 			-- Show documentation when selecting a completion item
 			documentation = {
 				auto_show = true,
-				window = {
-					border = "rounded",
-				},
+				window = { border = "rounded" },
 			},
 
 			-- Display a preview of the selected item on the current line

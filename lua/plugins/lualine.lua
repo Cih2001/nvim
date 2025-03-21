@@ -14,14 +14,9 @@ local diagnostics = {
 
 local diff = {
 	"diff",
-	colored = false,
+	-- colored = false,
 	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
 	cond = hide_in_width,
-}
-
-local location = {
-	"location",
-	padding = 0,
 }
 
 local branch = {
@@ -73,7 +68,7 @@ return {
 				lualine_c = { { "filetype", icon_only = true }, { "filename", path = 1 } },
 				-- lualine_x = { "encoding", "fileformat", "filetype" },
 				lualine_x = { diff, "encoding" },
-				lualine_y = { location },
+				lualine_y = { { "location", padding = 0 } },
 				lualine_z = { { bitcoin.price, icon = { "" } } },
 			},
 			inactive_sections = {

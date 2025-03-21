@@ -78,7 +78,9 @@ local function create_panes_old(f, panes)
 			fg, bg = bg, fg
 			gui = "bold"
 		end
-
+		if f.buf_name then
+			vim.print(f.buf_name)
+		end
 		local text = pane.filename
 		if idx > 1 then
 			f.add({ " " .. f.icon(pane.filename), bg = bg, fg = f.icon_color(pane.filename) })
@@ -109,8 +111,8 @@ local function create_panes_old(f, panes)
 	end
 end
 
+local marlin
 local function render(f)
-	local marlin = require("marlin")
 	local marks = marlin.get_indexes()
 	local found = false
 	local current_file = normalize_path(vim.api.nvim_buf_get_name(0))
@@ -154,8 +156,7 @@ local function render(f)
 end
 
 local function list()
-	local results = require("marlin").get_indexes()
-	local content = {}
+	local results = marlin.get_indexes()
 
 	local fzf_lua = require("fzf-lua")
 	local builtin = require("fzf-lua.previewer.builtin")
@@ -167,6 +168,7 @@ local function list()
 		return self
 	end
 
+	local content = {}
 	function fzfpreview.parse_entry(_, entry_str)
 		if entry_str == "" then
 			return {}
@@ -194,21 +196,21 @@ local function list()
 		actions = {
 			["ctrl-x"] = {
 				fn = function(selected)
-					require("marlin").remove(content[selected[1]].filename)
+					marlin.remove(content[selected[1]].filename)
 				end,
 				reload = true,
 				silent = true,
 			},
 			["Up"] = {
 				fn = function(selected)
-					require("marlin").move_up(content[selected[1]].filename)
+					marlin.move_up(content[selected[1]].filename)
 				end,
 				reload = true,
 				silent = true,
 			},
 			["Down"] = {
 				fn = function(selected)
-					require("marlin").move_down(content[selected[1]].filename)
+					marlin.move_down(content[selected[1]].filename)
 				end,
 				reload = true,
 				silent = true,
@@ -222,11 +224,12 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"rafcamlet/tabline-framework.nvim",
+		"ibhagwan/fzf-lua",
 	},
 	lazy = false,
 	opts = {},
 	config = function(_, opts)
-		local marlin = require("marlin")
+		marlin = require("marlin")
 		marlin.setup(opts)
 
 		local function reload()
@@ -243,13 +246,27 @@ return {
 		})
 	end,
 	keys = {
-		{ "<S-l>", '<cmd>lua require("marlin").next()<cr>' },
-		{ "<S-h>", '<cmd>lua require("marlin").prev()<cr>' },
-		{ "m", '<cmd>lua require("marlin").add()<cr>' },
+		{
+			"<S-l>",
+			function()
+				marlin.next()
+			end,
+		},
+		{
+			"<S-h>",
+			function()
+				marlin.prev()
+			end,
+		},
+		{
+			"m",
+			function()
+				marlin.add()
+			end,
+		},
 		{
 			"<S-q>",
 			function()
-				local marlin = require("marlin")
 				marlin.remove()
 				marlin.prev()
 			end,
