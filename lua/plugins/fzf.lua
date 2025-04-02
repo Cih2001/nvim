@@ -10,7 +10,7 @@ return {
 		{ "<space>c", "<cmd>FzfLua grep_curbuf<cr>" },
 		{ "<space>r", "<cmd>FzfLua registers<cr>" },
 		{ "gr", "<cmd>FzfLua lsp_references<cr>" },
-		{ "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>" },
+		{ "gi", "<cmd>FzfLua lsp_implementations<cr>" },
 		{ "gf", "<cmd>FzfLua lsp_finder<cr>" },
 		{ "gy", "<cmd>FzfLua lsp_typedefs<cr>" },
 		{ "<space>a", "<cmd>FzfLua diagnostics_workspace<CR>" },

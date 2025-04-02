@@ -14,8 +14,24 @@ return {
 			["<CR>"] = { "select_and_accept", "fallback" },
 			["<Tab>"] = { "select_next", "fallback" },
 			["<S-Tab>"] = { "select_prev", "fallback" },
-			["<C-j>"] = { "select_next", "fallback" },
-			["<C-k>"] = { "select_prev", "fallback" },
+			["<C-j>"] = {
+				function(cmp)
+					if cmp.snippet_active() then
+						return cmp.snippet_forward()
+					end
+				end,
+				"select_next",
+				"fallback",
+			},
+			["<C-k>"] = {
+				function(cmp)
+					if cmp.snippet_active() then
+						return cmp.snippet_backward()
+					end
+				end,
+				"select_prev",
+				"fallback",
+			},
 		},
 		cmdline = {
 			enabled = false,

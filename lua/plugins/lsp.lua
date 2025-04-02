@@ -74,7 +74,7 @@ return {
 				"gopls",
 				"lua_ls",
 				"terraformls",
-				"zls",
+				"buf_ls",
 			}
 
 			mason_lspconfig.setup({
