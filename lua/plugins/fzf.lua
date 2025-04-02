@@ -18,6 +18,7 @@ return {
 		{ "<leader>gs", "<cmd>FzfLua git_status<cr>" },
 		{ "<leader>gb", "<cmd>FzfLua git_branches<cr>" },
 		{ "<leader>gc", "<cmd>FzfLua git_commits<cr>" },
+		{ "z=", "<cmd>FzfLua spell_suggest<cr>" },
 	},
 	lazy = false,
 	cmd = "FzfLua",

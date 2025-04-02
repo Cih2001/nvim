@@ -5,3 +5,4 @@ lazy-lock.json
 *.tmp
 misc/
 .luarc.json
+spell/

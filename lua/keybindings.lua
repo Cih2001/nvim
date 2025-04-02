@@ -29,9 +29,6 @@ vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 
--- Save all
-vim.keymap.set("", "<c-s>", ":wa<CR>", { remap = true, silent = true })
-
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("custom").custom()<cr>', opts)
 
@@ -51,22 +48,5 @@ vim.api.nvim_create_autocmd("FileType", {
 		end, { buffer = true, noremap = true, silent = true })
 	end,
 })
-
---snippets
--- <c-j> is my jump backwards key.
--- this always moves to the previous item within the snippet
-vim.keymap.set({ "i", "s" }, "<c-j>", function()
-	if vim.snippet.active({ direction = 1 }) then
-		vim.snippet.jump(1)
-	end
-end, { silent = true })
-
--- <c-k> is my expansion key
--- this will expand the current item or jump to the next item within the snippet.
-vim.keymap.set({ "i", "s" }, "<c-k>", function()
-	if vim.snippet.active({ direction = -1 }) then
-		vim.snippet.jump(-1)
-	end
-end, { silent = true })
 
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", opts)
