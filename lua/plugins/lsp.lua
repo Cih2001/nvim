@@ -2,12 +2,10 @@ local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 	vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.keymap.set("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.keymap.set("v", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.keymap.set("x", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.keymap.set("n", "[c", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-	vim.keymap.set("n", "]c", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+	vim.keymap.set("n", "K", '<cmd>lua vim.lsp.buf.hover({ border = "rounded"})<CR>', opts)
+	vim.keymap.set({ "n", "v", "x" }, "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	vim.keymap.set("n", "[c", "<cmd>lua vim.diagnostic.jump({count=-1})<CR>", opts)
+	vim.keymap.set("n", "]c", "<cmd>lua vim.diagnostic.jump({count=1})<CR>", opts)
 end
 
 local function on_attach(client, bufnr)
@@ -20,9 +18,8 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local config = {
-				-- disable virtual text
-				virtual_text = false,
+			vim.diagnostic.config({
+				virtual_lines = { current_line = true },
 				-- show signs
 				signs = {
 					text = {
@@ -35,23 +32,7 @@ return {
 				update_in_insert = true,
 				underline = true,
 				severity_sort = true,
-				float = {
-					focusable = false,
-					border = "rounded",
-					source = "always",
-					header = "",
-					prefix = "",
-				},
-			}
-
-			vim.diagnostic.config(config)
-
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				border = "rounded",
-			})
-
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-				border = "rounded",
+				float = false,
 			})
 		end,
 	},

@@ -1,7 +1,17 @@
+local function get_golangci_lint_path()
+	local cwd = vim.fn.getcwd()
+	if vim.fn.filereadable(cwd .. "/api/.golangci.yml") == 1 then
+		return cwd .. "/api"
+	end
+
+	return cwd
+end
+
 return {
 	"mfussenegger/nvim-lint",
 	config = function()
 		local lint = require("lint")
+		lint.linters.golangcilint.cwd = get_golangci_lint_path()
 		lint.linters_by_ft = {
 			go = { "golangcilint" },
 		}
