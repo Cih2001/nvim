@@ -1,6 +1,7 @@
 return {
 	"kristijanhusak/vim-dadbod-ui",
 	dependencies = {
+		{ "davesavic/dadbod-ui-yank" },
 		{ "tpope/vim-dadbod", lazy = true },
 		{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
 	},
@@ -38,6 +39,8 @@ where confrelid::regclass::text = '{schema}.{table}' order by contype desc;
 				vim.api.nvim_buf_set_keymap(0, "n", "<Leader>s", "<Plug>(DBUI_ExecuteQuery)", opts)
 			end,
 		})
+
+		require("dadbod-ui-yank").setup()
 	end,
 	lazy = true,
 	cmd = "DBUI",
