@@ -19,7 +19,8 @@ return {
 		"neovim/nvim-lspconfig",
 		config = function()
 			vim.diagnostic.config({
-				virtual_lines = { current_line = true },
+				--virtual_lines = { current_line = true },
+				virtual_text = true,
 				-- show signs
 				signs = {
 					text = {
