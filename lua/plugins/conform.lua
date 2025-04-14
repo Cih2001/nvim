@@ -19,13 +19,19 @@ return {
 				prettier = {
 					prepend_args = { "--no-bracket-spacing" },
 				},
+
+				goimports = {
+					args = { "$FILENAME" },
+				},
 			},
 
-			format_on_save = {
-				timeout_ms = 1000,
+			-- go imports takes a long time to finish sometimes,
+			-- it's better to run after save then
+			format_after_save = {
 				lsp_format = "fallback",
-				async = false,
 			},
+
+			log_level = vim.log.levels.DEBUG,
 		})
 	end,
 }
