@@ -14,13 +14,49 @@ local function on_attach(client, bufnr)
 	ill.on_attach(client)
 end
 
+local orig_virt_lines = vim.diagnostic.handlers.virtual_lines
+
+local function build_key(tbl)
+	return tbl.lnum .. ":" .. tbl.bufnr
+end
+
+local function diagnostics_map(diagnostics)
+	local memo = {}
+	for index, value in ipairs(diagnostics) do
+		if memo[build_key(value)] == nil then
+			memo[build_key(value)] = { index }
+		else
+			table.insert(memo[build_key(value)], index)
+		end
+	end
+	return memo
+end
+
 return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
+			vim.diagnostic.handlers.virtual_lines = {
+				show = function(namespace, bufnr, diagnostics, opts)
+					local memo = diagnostics_map(diagnostics)
+					local new_list = {}
+					for _, value in pairs(memo) do
+						if #value > 1 then
+							for _, idx in ipairs(value) do
+								table.insert(new_list, diagnostics[idx])
+							end
+						end
+					end
+					orig_virt_lines.show(namespace, bufnr, new_list, opts)
+				end,
+				hide = function(ns, bufnr)
+					orig_virt_lines.hide(ns, bufnr)
+				end,
+			}
+
 			vim.diagnostic.config({
-				--virtual_lines = { current_line = true },
 				virtual_text = true,
+				virtual_lines = { current_line = true },
 				-- show signs
 				signs = {
 					text = {
