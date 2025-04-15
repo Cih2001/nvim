@@ -37,6 +37,7 @@ where confrelid::regclass::text = '{schema}.{table}' order by contype desc;
 				local opts = { noremap = true, silent = true }
 				vim.api.nvim_buf_set_keymap(0, "n", "<Leader>e", "<Plug>(DBUI_EditBindParameters)", opts)
 				vim.api.nvim_buf_set_keymap(0, "n", "<Leader>s", "<Plug>(DBUI_ExecuteQuery)", opts)
+				vim.api.nvim_buf_set_keymap(0, "n", "<Leader>w", "<Plug>(DBUI_SaveQuery)", opts)
 			end,
 		})
 
