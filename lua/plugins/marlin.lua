@@ -259,7 +259,7 @@ return {
 			end,
 		},
 		{
-			"m",
+			",",
 			function()
 				marlin.add()
 			end,

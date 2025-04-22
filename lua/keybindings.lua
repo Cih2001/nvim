@@ -25,9 +25,11 @@ vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
--- keep it on the center when jumping to next item
+-- keep it on the center
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("custom").custom()<cr>', opts)
