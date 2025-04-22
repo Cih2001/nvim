@@ -16,6 +16,7 @@ return {
 				-- Set keymaps for insert mode only in `octo` files
 				vim.keymap.set("i", "@", "@<C-x><C-o>", { noremap = true, silent = true, buffer = true })
 				vim.keymap.set("i", "#", "#<C-x><C-o>", { noremap = true, silent = true, buffer = true })
+				vim.bo.expandtab = false
 			end,
 		})
 	end,
