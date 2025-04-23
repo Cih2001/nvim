@@ -1,9 +1,23 @@
 return {
 	{
 		"Mofiqul/vscode.nvim",
+	},
+	{
+		"bluz71/vim-moonfly-colors",
+		name = "moonfly",
+		lazy = false,
+		priority = 1000,
 		init = function()
-			local scheme = "vscode"
-			vim.cmd.colorscheme(scheme)
+			-- Lua initialization file
+			local custom_highlight = vim.api.nvim_create_augroup("CustomHighlight", {})
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				pattern = "moonfly",
+				callback = function()
+					vim.api.nvim_set_hl(0, "FzfLuaBorder", { fg = "#6e6e6e" })
+				end,
+				group = custom_highlight,
+			})
+			vim.cmd.colorscheme("moonfly")
 		end,
 	},
 	{
@@ -21,6 +35,7 @@ return {
 				overrides = {}, -- A dictionary of group names, can be a function returning a dictionary or a table.
 				palette_overrides = {},
 			})
+			-- vim.cmd.colorscheme("vesper")
 		end,
 	},
 }

@@ -13,7 +13,7 @@ return {
 				-- Make the server aware of Neovim runtime files
 				library = vim.api.nvim_get_runtime_file("", true),
 				-- Optional: disable third-party check if unnecessary
-				checkThirdParty = true,
+				checkThirdParty = false,
 			},
 			telemetry = {
 				enable = false,
