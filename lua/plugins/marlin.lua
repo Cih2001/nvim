@@ -21,12 +21,12 @@ local function is_modified(path)
 end
 
 local function load_colors()
-	local tabline = vim.api.nvim_get_hl_by_name("TabLine", true)
-	local tablineSel = vim.api.nvim_get_hl_by_name("TabLineSel", true)
+	local tabline = vim.api.nvim_get_hl(0, { name = "TabLine" })
+	local tablineSel = vim.api.nvim_get_hl(0, { name = "TabLineSel" })
 
-	local bg_fill = tabline and tabline.background and string.format("#%06x", tabline.background) or "#181A1F"
-	local bg_sel = tablineSel and tablineSel.background and string.format("#%06x", tablineSel.background) or "#282c34"
-	local fg = tablineSel and tablineSel.foreground and string.format("#%06x", tablineSel.foreground) or "#696969"
+	local bg_fill = tabline and tabline.bg and string.format("#%06x", tabline.bg) or "#181A1F"
+	local bg_sel = tablineSel and tablineSel.bg and string.format("#%06x", tablineSel.bg) or "#282c34"
+	local fg = tablineSel and tablineSel.fg and string.format("#%06x", tablineSel.fg) or "#696969"
 
 	return {
 		fill = bg_fill,
@@ -44,31 +44,31 @@ local function draw_pane(f, text, fg, bg)
 	f.add({ text, bg = bg, fg = fg })
 	f.add({ "", bg = Colors.fill, fg = bg })
 end
+
+--            
+-- local function create_panes(f, panes)
+-- 	for idx, pane in ipairs(panes) do
+-- 		local text = pane.filename
+-- 		if idx > 1 then
+-- 			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
+-- 			text = pane.modified and text .. "" or text
+-- 		end
 --
--- --            
--- -- local function create_panes(f, panes)
--- -- 	for idx, pane in ipairs(panes) do
--- -- 		local text = pane.filename
--- -- 		if idx > 1 then
--- -- 			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
--- -- 			text = pane.modified and text .. "" or text
--- -- 		end
--- --
--- -- 		local fg = Colors.fg
--- -- 		local bg = Colors.bg
--- -- 		if pane.selected then
--- -- 			fg, bg = bg, fg
--- -- 		end
--- -- 		if idx == 1 then
--- -- 			bg = Colors.fill
--- -- 			fg = Colors.red
--- -- 		end
--- -- 		f.add({ "", bg = Colors.fill, fg = bg })
--- -- 		f.add({ text, bg = bg, fg = fg })
--- -- 		f.add({ "", bg = Colors.fill, fg = bg })
--- -- 	end
--- -- end
---
+-- 		local fg = Colors.fg
+-- 		local bg = Colors.bg
+-- 		if pane.selected then
+-- 			fg, bg = bg, fg
+-- 		end
+-- 		if idx == 1 then
+-- 			bg = Colors.fill
+-- 			fg = Colors.red
+-- 		end
+-- 		f.add({ "", bg = Colors.fill, fg = bg })
+-- 		f.add({ text, bg = bg, fg = fg })
+-- 		f.add({ "", bg = Colors.fill, fg = bg })
+-- 	end
+-- end
+
 local function create_panes_old(f, panes)
 	for idx, pane in ipairs(panes) do
 		local fg = Colors.fg
@@ -157,7 +157,6 @@ end
 
 local function list()
 	local results = marlin.get_indexes()
-
 	local fzf_lua = require("fzf-lua")
 	local builtin = require("fzf-lua.previewer.builtin")
 	local fzfpreview = builtin.buffer_or_file:extend()

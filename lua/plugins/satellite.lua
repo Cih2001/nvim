@@ -1,4 +1,5 @@
 return {
+	lazy = true,
 	"lewis6991/satellite.nvim",
 	config = function(_, opts)
 		require("satellite").setup(opts)
