@@ -124,9 +124,10 @@ local function build_test_cmd(test)
 	if test.name then
 		table.insert(cmd, "-run")
 		if test.receiver then
-			table.insert(cmd, test.receiver .. "/")
+			table.insert(cmd, test.receiver .. "/" .. test.name)
+		else
+			table.insert(cmd, test.name)
 		end
-		table.insert(cmd, test.name)
 	end
 
 	return table.concat(cmd, " ")
