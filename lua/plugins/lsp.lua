@@ -75,34 +75,24 @@ return {
 	{
 		"williamboman/mason.nvim",
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 			"RRethy/vim-illuminate",
 		},
 		config = function()
 			local mason = require("mason")
-			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
 
 			setup_diagnostics()
 			-- enable mason
 			mason.setup()
 
-			local servers = {
+			local server_configs = {
 				"gopls",
 				"lua_ls",
-				"terraformls",
 				"buf_ls",
 			}
 
-			mason_lspconfig.setup({
-				-- list of servers for mason to install
-				ensure_installed = servers,
-				-- auto-install configured servers (with lspconfig)
-				automatic_installation = true, -- not the same as ensure_installed
-			})
-
-			for _, server in pairs(servers) do
+			for _, server in pairs(server_configs) do
 				local opts = { on_attach = on_attach }
 				local has_custom_opts, server_custom_opts = pcall(require, "lsp_configs." .. server)
 				if has_custom_opts then
