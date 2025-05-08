@@ -45,6 +45,8 @@ local options = {
 	undofile = true, -- enable persistent undo
 	updatetime = 300, --  Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 	wildmenu = true,
+	winbl = 15,
+	winborder = "rounded",
 	wrap = false, -- display lines as one long line
 	writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 	listchars = {

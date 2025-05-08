@@ -14,6 +14,7 @@ return {
 			["<CR>"] = { "select_and_accept", "fallback" },
 			["<Tab>"] = { "select_next", "fallback" },
 			["<S-Tab>"] = { "select_prev", "fallback" },
+			["<S-k>"] = { "show_signature", "hide_signature", "fallback" }, -- press K again to jump into the window and scroll
 			["<C-j>"] = {
 				function(cmp)
 					if cmp.snippet_active() then
@@ -54,7 +55,6 @@ return {
 			-- Show documentation when selecting a completion item
 			documentation = {
 				auto_show = true,
-				window = { border = "rounded" },
 			},
 
 			-- Display a preview of the selected item on the current line

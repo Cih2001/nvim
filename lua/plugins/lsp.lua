@@ -2,7 +2,7 @@ local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 	vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	vim.keymap.set("n", "K", '<cmd>lua vim.lsp.buf.hover({ border = "rounded"})<CR>', opts)
+	-- vim.keymap.set("n", "K", '<cmd>lua vim.lsp.buf.hover({ border = "rounded"})<CR>', opts)
 	vim.keymap.set({ "n", "v", "x" }, "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	vim.keymap.set("n", "[c", "<cmd>lua vim.diagnostic.jump({count=-1})<CR>", opts)
 	vim.keymap.set("n", "]c", "<cmd>lua vim.diagnostic.jump({count=1})<CR>", opts)
