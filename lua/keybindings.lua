@@ -3,7 +3,6 @@
 -- where the plugin is defined. For example, to find fzf
 -- keybindings, take a look at fzf.lua.
 local opts = { silent = true, noremap = true }
-
 -- Resize with arrows
 vim.keymap.set("n", "<Up>", "<cmd>resize -2<CR>", opts)
 vim.keymap.set("n", "<Down>", "<cmd>resize +2<CR>", opts)
@@ -51,4 +50,42 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", opts)
+-- vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", opts)
+--
+-- function yank(count, direction, quote)
+-- 	if count == 0 then
+-- 		return
+-- 	end
+--
+-- 	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+-- 	local cmd = string.format("keepjumps normal! %d%syi%s", count, direction, quote)
+-- 	vim.cmd(cmd)
+-- 	vim.api.nvim_win_set_cursor(0, { current_line, 0 })
+-- end
+--
+-- vim.keymap.set("n", '"', function()
+-- 	yank(vim.v.count, "j", '"')
+-- end, opts)
+--
+-- vim.keymap.set("n", 'g"', function()
+-- 	yank(vim.v.count, "k", '"')
+-- end, opts)
+
+local function reletive_norm(count, direction, cmd)
+	local current_pos = vim.api.nvim_win_get_cursor(0)
+	local c = string.format("keepjumps normal! %d%s%s", count, direction, cmd)
+	vim.cmd(c)
+	vim.api.nvim_win_set_cursor(0, current_pos)
+end
+
+vim.api.nvim_create_user_command("J", function(arg)
+	---@diagnostic disable-next-line: undefined-field
+	---@diagnostic disable-next-line: undefined-field
+	reletive_norm(arg.count, "j", arg.args)
+end, { range = true, nargs = "+", complete = nil })
+
+vim.api.nvim_create_user_command("K", function(arg)
+	---@diagnostic disable-next-line: undefined-field
+	---@diagnostic disable-next-line: undefined-field
+	reletive_norm(arg.count, "k", arg.args)
+end, { range = true, nargs = "+", complete = nil })
