@@ -50,27 +50,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", opts)
---
--- function yank(count, direction, quote)
--- 	if count == 0 then
--- 		return
--- 	end
---
--- 	local current_line = vim.api.nvim_win_get_cursor(0)[1]
--- 	local cmd = string.format("keepjumps normal! %d%syi%s", count, direction, quote)
--- 	vim.cmd(cmd)
--- 	vim.api.nvim_win_set_cursor(0, { current_line, 0 })
--- end
---
--- vim.keymap.set("n", '"', function()
--- 	yank(vim.v.count, "j", '"')
--- end, opts)
---
--- vim.keymap.set("n", 'g"', function()
--- 	yank(vim.v.count, "k", '"')
--- end, opts)
-
 local function reletive_norm(count, direction, cmd)
 	local current_pos = vim.api.nvim_win_get_cursor(0)
 	local c = string.format("keepjumps normal! %d%s%s", count, direction, cmd)
