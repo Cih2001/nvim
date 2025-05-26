@@ -18,6 +18,7 @@ return {
 				group = custom_highlight,
 			})
 			vim.cmd.colorscheme("moonfly")
+			vim.cmd("highlight VertSplit guifg=#444444 guibg=#080808")
 		end,
 	},
 	{

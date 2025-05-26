@@ -90,6 +90,7 @@ return {
 				"gopls",
 				"lua_ls",
 				"buf_ls",
+				"ts_ls",
 			}
 
 			for _, server in pairs(server_configs) do
