@@ -4,11 +4,21 @@ local M = {
 }
 
 local function browsePREnv()
-	vim.fn.jobstart("gh pr view --json number --jq .number", {
-		stdout_buffered = true,
-		on_stdout = function(_, output)
-			local link = string.format("https://pr-%s.app.dev.esgbook.com/", output[1])
-			vim.fn.jobstart({ "open", link })
+	vim.system({ "gh", "pr", "view", "--json", "number", "--jq", ".number" }, {
+		stdout = function(err, data)
+			if err then
+				vim.print(err)
+				return
+			end
+
+			if data == nil then
+				return
+			end
+
+			data = string.gsub(data, "%s+", "")
+			local link = string.format("https://pr-%s.app.dev.esgbook.com/", data)
+			vim.print(link)
+			vim.system({ "open", link })
 		end,
 	})
 end
