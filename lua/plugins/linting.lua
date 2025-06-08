@@ -11,9 +11,15 @@ return {
 	"mfussenegger/nvim-lint",
 	config = function()
 		local lint = require("lint")
+		local eslint = { "eslint_d" }
+
 		lint.linters.golangcilint.cwd = get_golangci_lint_path()
 		lint.linters_by_ft = {
 			go = { "golangcilint" },
+			javascript = eslint,
+			typescript = eslint,
+			javascriptreact = eslint,
+			typescriptreact = eslint,
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
