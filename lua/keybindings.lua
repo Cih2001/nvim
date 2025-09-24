@@ -32,6 +32,12 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- custom functionalities
 vim.keymap.set("n", "<leader>t", '<cmd>lua require("custom").custom()<cr>', opts)
+-- to go back to normal mode with escape in terminal
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+
+vim.keymap.set("n", "<leader>w", function()
+	vim.o.wrap = not vim.o.wrap
+end, opts)
 
 -- quick fix
 --

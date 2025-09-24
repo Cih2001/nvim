@@ -115,6 +115,7 @@ local function build_test_cmd(test)
 	local cmd = { "go test" }
 	table.insert(cmd, test.path)
 	table.insert(cmd, "-v -p 1 -count=1")
+	table.insert(test.tags, "unsafe")
 
 	local tags = table.concat(test.tags, " ")
 	if not (tags == "") then

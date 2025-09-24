@@ -8,12 +8,6 @@ local function lsp_keymaps(bufnr)
 	vim.keymap.set("n", "]c", "<cmd>lua vim.diagnostic.jump({count=1})<CR>", opts)
 end
 
-local function on_attach(client, bufnr)
-	lsp_keymaps(bufnr)
-	local ill = require("illuminate")
-	ill.on_attach(client)
-end
-
 local function build_key(tbl)
 	return tbl.lnum .. ":" .. tbl.bufnr
 end
@@ -71,6 +65,16 @@ local function setup_diagnostics()
 	})
 end
 
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("my.lsp", {}),
+	callback = function(args)
+		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+		lsp_keymaps(args.buf)
+		local ill = require("illuminate")
+		ill.on_attach(client)
+	end,
+})
+
 return {
 	{
 		"williamboman/mason.nvim",
@@ -79,12 +83,10 @@ return {
 			"RRethy/vim-illuminate",
 		},
 		config = function()
-			local mason = require("mason")
-			local lspconfig = require("lspconfig")
-
 			setup_diagnostics()
+			--
 			-- enable mason
-			mason.setup()
+			require("mason").setup()
 
 			local server_configs = {
 				"gopls",
@@ -92,14 +94,8 @@ return {
 				"buf_ls",
 				"ts_ls",
 			}
-
 			for _, server in pairs(server_configs) do
-				local opts = { on_attach = on_attach }
-				local has_custom_opts, server_custom_opts = pcall(require, "lsp_configs." .. server)
-				if has_custom_opts then
-					opts = vim.tbl_deep_extend("force", server_custom_opts, opts)
-				end
-				lspconfig[server].setup(opts)
+				vim.lsp.enable(server)
 			end
 		end,
 	},

@@ -21,7 +21,7 @@ return {
 				},
 
 				goimports = {
-					args = { "$FILENAME" },
+					args = { "-local", "github.com/arabesque-sray", "$FILENAME" },
 				},
 			},
 
