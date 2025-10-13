@@ -101,8 +101,13 @@ return {
 	},
 	{
 		"smjonas/inc-rename.nvim",
+		dependencies = {
+			{ "folke/snacks.nvim", opts = { input = { enabled = true } } },
+		},
 		config = function()
-			require("inc_rename").setup()
+			require("inc_rename").setup({
+				input_buffer_type = "snacks",
+			})
 		end,
 		keys = { { "<leader>rn", ":IncRename " } },
 	},
