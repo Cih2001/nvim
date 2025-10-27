@@ -93,6 +93,7 @@ return {
 				"lua_ls",
 				"buf_ls",
 				"ts_ls",
+				"terraform-ls",
 			}
 			for _, server in pairs(server_configs) do
 				vim.lsp.enable(server)
