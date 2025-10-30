@@ -3,7 +3,7 @@ return {
 	lazy = true,
 	dependencies = {
 		-- Recommended for better prompt input, and required to use `opencode.nvim`'s embedded terminal — otherwise optional
-		{ "folke/snacks.nvim", opts = { input = { enabled = true } } },
+		{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
 	},
 	keys = {
 		{ "<leader>ot", '<cmd>lua require("opencode").toggle()<cr>', desc = "Toggle embedded" },
