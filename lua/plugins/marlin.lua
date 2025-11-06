@@ -69,6 +69,64 @@ end
 -- 	end
 -- end
 
+local function get_display_name(filename, panes, idx)
+	-- Get just the filename
+	local basename = vim.fn.fnamemodify(filename, ":t")
+	-- Check if there are other panes with the same basename (excluding the version pane at idx 1)
+	local duplicates = {}
+	for i, other_pane in ipairs(panes) do
+		if i > 1 and i ~= idx then
+			local other_basename = vim.fn.fnamemodify(other_pane.filename, ":t")
+			if basename == other_basename then
+				table.insert(duplicates, other_pane.filename)
+			end
+		end
+	end
+
+	-- No duplicates, return just the basename
+	if #duplicates == 0 then
+		return basename
+	end
+
+	-- Found duplicates, need to include parent directories
+	-- Start with 1 parent directory and increase until unique
+	local max_depth = 10 -- safety limit
+	for depth = 1, max_depth do
+		-- Build display name with 'depth' parent directories
+		local parts = vim.split(filename, "/")
+		local display_parts = {}
+		local start_idx = math.max(1, #parts - depth)
+		for i = start_idx, #parts do
+			table.insert(display_parts, parts[i])
+		end
+		local display_name = table.concat(display_parts, "/")
+
+		-- Check if this display name is unique among duplicates
+		local is_unique = true
+		for _, dup_filename in ipairs(duplicates) do
+			local dup_parts = vim.split(dup_filename, "/")
+			local dup_display_parts = {}
+			local dup_start_idx = math.max(1, #dup_parts - depth)
+			for i = dup_start_idx, #dup_parts do
+				table.insert(dup_display_parts, dup_parts[i])
+			end
+			local dup_display_name = table.concat(dup_display_parts, "/")
+
+			if display_name == dup_display_name then
+				is_unique = false
+				break
+			end
+		end
+
+		if is_unique then
+			return display_name
+		end
+	end
+
+	-- Fallback: return full path if we couldn't make it unique
+	return filename
+end
+
 local function create_panes_old(f, panes)
 	for idx, pane in ipairs(panes) do
 		local fg = Colors.fg
@@ -84,7 +142,8 @@ local function create_panes_old(f, panes)
 		local text = pane.filename
 		if idx > 1 then
 			f.add({ " " .. f.icon(pane.filename), bg = bg, fg = f.icon_color(pane.filename) })
-			text = " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
+			local display_name = get_display_name(pane.filename, panes, idx)
+			text = " " .. display_name .. " "
 			text = pane.modified and text .. "󰪥 " or text
 			text = pane.is_mark and text or text .. " "
 		end
