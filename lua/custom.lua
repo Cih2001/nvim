@@ -1,6 +1,5 @@
 local M = {
 	menu = { "Run test", "Github Link", "Open PR Env" },
-	git_menu = { "Status", "Branches", "Commits", "Blame" },
 }
 
 local function browsePREnv()
@@ -18,7 +17,7 @@ local function browsePREnv()
 			data = string.gsub(data, "%s+", "")
 			local link = string.format("https://pr-%s.app.dev.esgbook.com/", data)
 			vim.print(link)
-			vim.system({ "open", link })
+			vim.ui.open(link)
 		end,
 	})
 end
@@ -70,11 +69,13 @@ local function getGithubLink()
 	local line = vim.fn.line(".")
 
 	local githubLink = string.format("%s/blob/%s/%s#L%d", gitInfo.remote_url, gitInfo.branch, relativePath, line)
-	vim.fn.jobstart({ "open", githubLink })
+	vim.ui.open(githubLink)
 end
 
 function M.custom()
-	vim.ui.select(M.menu, { prompt = "select an action" }, function(choice)
+	vim.ui.select(M.menu, {
+		prompt = "select an action",
+	}, function(choice)
 		if choice == M.menu[1] then
 			require("gotest").run_current_test()
 		elseif choice == M.menu[2] then
