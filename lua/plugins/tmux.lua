@@ -7,7 +7,7 @@ return {
 		{ "<C-l>", "<cmd>TmuxNavigateRight<cr>" },
 	},
 	init = function()
-		-- Keep plugin's mappings minimal; add terminal support
+		---@diagnostic disable-next-line: inject-field
 		vim.g.tmux_navigator_no_mappings = 1
 	end,
 }
