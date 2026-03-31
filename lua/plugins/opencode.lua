@@ -9,7 +9,7 @@ return {
 		{ "<leader>ot", '<cmd>lua require("opencode").toggle()<cr>', mode = { "n", "v" }, desc = "Toggle embedded" },
 		{
 			"<leader>oa",
-			'<cmd>lua require("opencode").ask("@this: ")<cr>',
+			'<cmd>lua require("opencode").ask()<cr>',
 			mode = { "n", "x" },
 			desc = "Ask about this",
 		},
@@ -18,7 +18,6 @@ return {
 			'<cmd>lua require("opencode").prompt("@buffer", { append = true })<cr>',
 			desc = "Add buffer to prompt",
 		},
-		{ "<leader>on", '<cmd>lua require("opencode").command("session_new")<cr>', desc = "New session" },
 		{ "<leader>os", '<cmd>lua require("opencode").select()<cr>', mode = { "n", "v" }, desc = "Select prompt" },
 	},
 	config = function()

@@ -13,6 +13,7 @@ return {
 				-- Conform will run multiple formatters sequentially
 				go = { "gofumpt", "goimports" },
 				terraform = { "terraform_fmt" },
+				c = { "clang-format" },
 			},
 
 			formatters = {

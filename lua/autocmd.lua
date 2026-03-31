@@ -11,3 +11,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 300, priority = 1000 })
 	end,
 })
+
+-- open man page in vertical split for C files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "c",
+	callback = function()
+		vim.keymap.set("n", "<S-k>", function()
+			local word = vim.fn.expand("<cword>")
+			vim.cmd("vertical Man " .. word)
+		end, { buffer = true, desc = "Open man page in vertical split" })
+	end,
+})
