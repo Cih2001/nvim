@@ -135,21 +135,22 @@ return {
 				-- no need to set to `false` to disable an action
 				-- delete or modify is sufficient
 				files = {
-					-- providers that inherit these actions:
-					--   files, git_files, git_status, grep, lsp
-					--   oldfiles, quickfix, loclist, tags, btags
-					--   args
-					-- default action opens a single selection
-					-- or sends multiple selection to quickfix
-					-- replace the default action with the below
-					-- to open all files whether single or multiple
-					-- ["default"]     = actions.file_edit,
-					["default"] = actions.file_edit_or_qf,
-					["ctrl-s"] = actions.file_split,
-					["ctrl-v"] = actions.file_vsplit,
-					["ctrl-t"] = actions.file_tabedit,
-					["ctrl-q"] = actions.file_sel_to_qf,
-					["alt-l"] = actions.file_sel_to_ll,
+					-- true,        -- uncomment to inherit all the below in your custom config
+					-- Pickers inheriting these actions:
+					--   files, git_files, git_status, grep, lsp, oldfiles, quickfix, loclist,
+					--   tags, btags, args, buffers, tabs, lines, blines
+					-- `file_edit_or_qf` opens a single selection or sends multiple selection to quickfix
+					-- replace `enter` with `file_edit` to open all files/bufs whether single or multiple
+					-- replace `enter` with `file_switch_or_edit` to attempt a switch in current tab first
+					["enter"] = FzfLua.actions.file_edit_or_qf,
+					["ctrl-s"] = FzfLua.actions.file_split,
+					["ctrl-v"] = FzfLua.actions.file_vsplit,
+					["ctrl-t"] = FzfLua.actions.file_tabedit,
+					["alt-q"] = FzfLua.actions.file_sel_to_qf,
+					["alt-Q"] = FzfLua.actions.file_sel_to_ll,
+					["ctrl-i"] = FzfLua.actions.toggle_ignore,
+					["alt-h"] = FzfLua.actions.toggle_hidden,
+					["alt-f"] = FzfLua.actions.toggle_follow,
 				},
 				buffers = {
 					-- providers that inherit these actions:
@@ -258,20 +259,31 @@ return {
 				file_icons = true, -- show file icons?
 				color_icons = true, -- colorize file|git icons
 				-- path_shorten   = 1,              -- 'true' or number, shorten path?
+				-- Uncomment for custom vscode-like formatter where the filename is first:
+				-- e.g. "fzf-lua/previewer/fzf.lua" => "fzf.lua previewer/fzf-lua"
+				-- formatter = "path.filename_first",
 				-- executed command priority is 'cmd' (if exists)
 				-- otherwise auto-detect prioritizes `fd`:`rg`:`find`
 				-- default options are controlled by 'fd|rg|find|_opts'
-				-- NOTE: 'find -printf' requires GNU find
-				-- cmd            = "find . -type f -printf '%P\n'",
+				-- cmd            = "rg --files",
 				find_opts = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
-				rg_opts = "--color=never --files --hidden --follow -g '!.git'",
-				fd_opts = "--color=never --type f --hidden --follow --exclude .git",
+				rg_opts = [[--color=never --files -g "!.git" -g "!.jj"]],
+				fd_opts = [[--color=never --type f --type l --exclude .git --exclude .jj]],
 				-- by default, cwd appears in the header only if {opts} contain a cwd
 				-- parameter to a different folder than the current working directory
 				-- uncomment if you wish to force display of the cwd as part of the
 				-- query prompt string (fzf.vim style), header line or both
-				-- show_cwd_prompt = true,
-				-- show_cwd_header = true,
+				-- cwd_header = true,
+				cwd_prompt = true,
+				cwd_prompt_shorten_len = 32, -- shorten prompt beyond this length
+				cwd_prompt_shorten_val = 1, -- shortened path parts length
+				toggle_ignore_flag = "--no-ignore", -- flag toggled in `actions.toggle_ignore`
+				toggle_hidden_flag = "--hidden", -- flag toggled in `actions.toggle_hidden`
+				toggle_follow_flag = "-L", -- flag toggled in `actions.toggle_follow`
+				hidden = true, -- enable hidden files by default
+				follow = false, -- do not follow symlinks by default
+				no_ignore = false, -- respect ".gitignore"  by default
+				absolute_path = false, -- display absolute paths
 				actions = {
 					-- inherits from 'actions.files', here we can override
 					-- or set bind to 'false' to disable a default action
