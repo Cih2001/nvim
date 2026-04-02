@@ -8,7 +8,7 @@ return {
 				javascript = { "prettier" },
 				html = { "prettier" },
 				css = { "prettier" },
-				yaml = { "prettier" },
+				yaml = { vim.fn.executable("helmfmt") == 1 and "helmfmt" or "prettier" },
 				json = { "prettier" },
 				-- Conform will run multiple formatters sequentially
 				go = { "gofumpt", "goimports" },
@@ -20,9 +20,18 @@ return {
 				prettier = {
 					prepend_args = { "--no-bracket-spacing" },
 				},
-
 				goimports = {
 					args = { "-local", "github.com/arabesque-sray", "$FILENAME" },
+				},
+				helmfmt = {
+					command = "sh",
+					args = {
+						"-c",
+						'helmfmt --files "$1" >/dev/null 2>&1',
+						"--",
+						"$FILENAME",
+					},
+					stdin = false,
 				},
 			},
 
