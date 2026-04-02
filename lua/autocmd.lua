@@ -22,3 +22,18 @@ vim.api.nvim_create_autocmd("FileType", {
 		end, { buffer = true, desc = "Open man page in vertical split" })
 	end,
 })
+
+-- delete items from the quickfix window with `dd`
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "qf",
+	callback = function()
+		vim.keymap.set("n", "dd", function()
+			local curqfidx = vim.fn.line(".") - 1
+			local qfall = vim.fn.getqflist()
+			table.remove(qfall, curqfidx + 1)
+			vim.fn.setqflist(qfall, "r")
+			vim.cmd(tostring(curqfidx + 1) .. "cfirst")
+			vim.cmd("copen")
+		end, { buffer = true, noremap = true, silent = true })
+	end,
+})

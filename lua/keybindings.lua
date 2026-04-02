@@ -39,24 +39,11 @@ vim.keymap.set("n", "<leader>w", function()
 	vim.o.wrap = not vim.o.wrap
 end, opts)
 
--- quick fix
---
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "qf", -- only apply to quick fix
-	callback = function()
-		-- delete items from the quick fix window.
-		vim.keymap.set("n", "dd", function()
-			local curqfidx = vim.fn.line(".") - 1 -- Get the current line index in quickfix list
-			local qfall = vim.fn.getqflist() -- Get all items in quickfix list
-			table.remove(qfall, curqfidx + 1) -- Remove the current quickfix item, adjust index for Lua (base-1 index)
-			vim.fn.setqflist(qfall, "r") -- Replace the quickfix list with the modified list
-			vim.cmd(tostring(curqfidx + 1) .. "cfirst")
-			vim.cmd("copen")
-		end, { buffer = true, noremap = true, silent = true })
-	end,
-})
+-- User commands
+vim.api.nvim_create_user_command("W", ":noautocmd w", {})
+vim.api.nvim_create_user_command("Wq", ":wq", {})
 
-local function reletive_norm(count, direction, cmd)
+local function relative_norm(count, direction, cmd)
 	local current_pos = vim.api.nvim_win_get_cursor(0)
 	local c = string.format("keepjumps normal! %d%s%s", count, direction, cmd)
 	vim.cmd(c)
@@ -65,12 +52,10 @@ end
 
 vim.api.nvim_create_user_command("J", function(arg)
 	---@diagnostic disable-next-line: undefined-field
-	---@diagnostic disable-next-line: undefined-field
-	reletive_norm(arg.count, "j", arg.args)
+	relative_norm(arg.count, "j", arg.args)
 end, { range = true, nargs = "+", complete = nil })
 
 vim.api.nvim_create_user_command("K", function(arg)
 	---@diagnostic disable-next-line: undefined-field
-	---@diagnostic disable-next-line: undefined-field
-	reletive_norm(arg.count, "k", arg.args)
+	relative_norm(arg.count, "k", arg.args)
 end, { range = true, nargs = "+", complete = nil })

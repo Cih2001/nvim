@@ -3,7 +3,7 @@ local version = string.format("  NeoVim v%d.%d.%d ", ver.major, ver.minor, ve
 
 local function normalize_path(item)
 	local path = require("plenary.path")
-	return path:new(item):make_relative(vim.loop.cwd())
+	return path:new(item):make_relative(vim.uv.cwd())
 end
 
 local function is_modified(path)
@@ -37,7 +37,7 @@ local function load_colors()
 	}
 end
 
-Colors = load_colors()
+local Colors = load_colors()
 
 local function draw_pane(f, text, fg, bg)
 	f.add({ "", bg = bg, fg = Colors.fill })
@@ -53,21 +53,7 @@ end
 -- 			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
 -- 			text = pane.modified and text .. "" or text
 -- 		end
---
--- 		local fg = Colors.fg
--- 		local bg = Colors.bg
--- 		if pane.selected then
--- 			fg, bg = bg, fg
--- 		end
--- 		if idx == 1 then
--- 			bg = Colors.fill
--- 			fg = Colors.red
--- 		end
--- 		f.add({ "", bg = Colors.fill, fg = bg })
--- 		f.add({ text, bg = bg, fg = fg })
--- 		f.add({ "", bg = Colors.fill, fg = bg })
--- 	end
--- end
+--            
 
 local function get_display_name(filename, panes, idx)
 	-- Get just the filename
@@ -127,7 +113,7 @@ local function get_display_name(filename, panes, idx)
 	return filename
 end
 
-local function create_panes_old(f, panes)
+local function create_panes(f, panes)
 	for idx, pane in ipairs(panes) do
 		local fg = Colors.fg
 		local bg = Colors.bg
@@ -135,9 +121,6 @@ local function create_panes_old(f, panes)
 		if pane.selected then
 			fg, bg = bg, fg
 			gui = "bold"
-		end
-		if f.buf_name then
-			vim.print(f.buf_name)
 		end
 		local text = pane.filename
 		if idx > 1 then
@@ -204,7 +187,7 @@ local function render(f)
 		})
 	end
 
-	create_panes_old(f, panes)
+	create_panes(f, panes)
 	f.add_spacer()
 
 	f.make_tabs(function(info)

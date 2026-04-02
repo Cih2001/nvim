@@ -1,6 +1,6 @@
 local function setup_go_configuration(dap)
 	dap.adapters.go = function(callback, config)
-		local stdout = vim.loop.new_pipe(false)
+		local stdout = vim.uv.new_pipe(false)
 		local handle
 		local pid_or_err
 		local host = config.host or "127.0.0.1"
@@ -11,7 +11,7 @@ local function setup_go_configuration(dap)
 			args = { "dap", "-l", addr },
 			detached = true,
 		}
-		handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
+		handle, pid_or_err = vim.uv.spawn("dlv", opts, function(code)
 			stdout:close()
 			handle:close()
 			if code ~= 0 then
@@ -119,7 +119,6 @@ end
 
 local custom_configs = {
 	esgbook = "dap_configs.esgbook",
-	jiyan = "dap_configs.jiyan",
 }
 
 return {

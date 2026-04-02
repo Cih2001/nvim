@@ -3,7 +3,6 @@ return {
 	config = function()
 		local highlight = {
 			"IblIndent",
-			"IblIndent",
 		}
 		require("ibl").setup({
 			indent = { highlight = highlight, char = "▏" },
