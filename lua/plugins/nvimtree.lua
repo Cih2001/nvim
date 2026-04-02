@@ -4,9 +4,35 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 	config = function(_, opts)
 		require("nvim-tree").setup(opts)
+
+		local saved_width = 30
+		vim.keymap.set("n", "<c-z>", function()
+			local api = require("nvim-tree.api")
+
+			-- If tree is open, save its current width before closing
+			for _, win in ipairs(vim.api.nvim_list_wins()) do
+				local buf = vim.api.nvim_win_get_buf(win)
+				if vim.api.nvim_buf_get_name(buf):match("NvimTree_") then
+					saved_width = vim.api.nvim_win_get_width(win)
+					break
+				end
+			end
+
+			api.tree.toggle()
+
+			vim.schedule(function()
+				for _, win in ipairs(vim.api.nvim_list_wins()) do
+					local buf = vim.api.nvim_win_get_buf(win)
+					if vim.api.nvim_buf_get_name(buf):match("NvimTree_") then
+						vim.api.nvim_win_set_width(win, saved_width)
+						break
+					end
+				end
+			end)
+		end, { silent = true, noremap = true })
 	end,
 	keys = {
-		{ "<c-z>", "<cmd>NvimTreeToggle<cr>" },
+		{ "<c-z>" },
 	},
 	lazy = true,
 	opts = {
