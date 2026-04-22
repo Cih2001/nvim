@@ -19,6 +19,36 @@ return {
 			desc = "Add buffer to prompt",
 		},
 		{ "<leader>os", '<cmd>lua require("opencode").select()<cr>', mode = { "n", "v" }, desc = "Select prompt" },
+		{
+			"<leader>od",
+			function()
+				local node = vim.treesitter.get_node()
+				-- Walk up to find the function node
+				while node do
+					local t = node:type()
+					if t:match("function") or t:match("method") then
+						break
+					end
+					node = node:parent()
+				end
+				if not node then
+					vim.notify("No function found under cursor", vim.log.levels.WARN)
+					return
+				end
+				local start_row = node:start()
+				local end_row = node:end_()
+				local file = vim.fn.expand("%:p")
+				-- Lines are 0-indexed from treesitter, make 1-indexed
+				local ref = file .. ":" .. (start_row + 1) .. "-" .. (end_row + 1)
+				require("opencode").prompt(
+					"Write only the doc comment (no code) for the function at "
+						.. ref
+						.. ". Don't explain the technical steps, just describe the purpose of the function.",
+					{ append = false }
+				)
+			end,
+			desc = "Doc comment for function",
+		},
 	},
 	config = function()
 		---@diagnostic disable-next-line: inject-field
