@@ -68,10 +68,7 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("my.lsp", {}),
 	callback = function(args)
-		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 		lsp_keymaps(args.buf)
-		local ill = require("illuminate")
-		ill.on_attach(client)
 	end,
 })
 
@@ -115,6 +112,16 @@ return {
 	},
 	{
 		"RRethy/vim-illuminate",
+		config = function()
+			require("illuminate").configure({
+				-- providers: provider used to get references in the buffer, ordered by priority
+				providers = {
+					"lsp",
+					"treesitter",
+					"regex",
+				},
+			})
+		end,
 		keys = {
 			-- Illuminate --
 			-- c-[ has the same char code as esc. It can be remapped in neovim, if your terminal
@@ -131,14 +138,14 @@ return {
 			{
 				"<C-]>",
 				function()
-					require("illuminate").next_reference({ wrap = true })
+					require("illuminate").goto_next_reference()
 					vim.cmd(":normal! zz")
 				end,
 			},
 			{
 				"<A-j>",
 				function()
-					require("illuminate").next_reference({ reverse = true, wrap = true })
+					require("illuminate").goto_next_reference({ reverse = true })
 					vim.cmd(":normal! zz")
 				end,
 			},

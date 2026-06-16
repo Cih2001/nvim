@@ -6,7 +6,6 @@ return {
 		{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
 	},
 	keys = {
-		{ "<leader>ot", '<cmd>lua require("opencode").toggle()<cr>', mode = { "n", "v" }, desc = "Toggle embedded" },
 		{
 			"<leader>oa",
 			'<cmd>lua require("opencode").ask()<cr>',
@@ -15,7 +14,7 @@ return {
 		},
 		{
 			"<leader>ob",
-			'<cmd>lua require("opencode").prompt("@buffer", { append = true })<cr>',
+			'<cmd>lua require("opencode").prompt("@buffer", { expr = true })<cr>',
 			desc = "Add buffer to prompt",
 		},
 		{ "<leader>os", '<cmd>lua require("opencode").select()<cr>', mode = { "n", "v" }, desc = "Select prompt" },
