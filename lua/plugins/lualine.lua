@@ -27,6 +27,31 @@ local branch = {
 		end
 		return branch
 	end,
+	on_click = function()
+		if vim.fn.executable("gh") == 0 then
+			vim.notify("gh CLI not found", vim.log.levels.WARN)
+			return
+		end
+		vim.system(
+			{ "gh", "pr", "view", "--json", "number", "--jq", ".number" },
+			{ text = true },
+			vim.schedule_wrap(function(obj)
+				if obj.code ~= 0 then
+					vim.notify("No PR found for current branch", vim.log.levels.WARN)
+					return
+				end
+				local num = (obj.stdout or ""):gsub("%s+", "")
+				if num == "" then
+					vim.notify("No PR found for current branch", vim.log.levels.WARN)
+					return
+				end
+				local pr = "pr-" .. num
+				vim.fn.setreg("+", pr)
+				vim.fn.setreg("*", pr)
+				vim.notify("Copied " .. pr .. " to clipboard")
+			end)
+		)
+	end,
 }
 
 local bitcoin = require("bitcoin")
