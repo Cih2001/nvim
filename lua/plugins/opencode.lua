@@ -8,13 +8,17 @@ return {
 	keys = {
 		{
 			"<leader>oa",
-			'<cmd>lua require("opencode").ask()<cr>',
+			function()
+				require("opencode").ask()
+			end,
 			mode = { "n", "x" },
 			desc = "Ask about this",
 		},
 		{
 			"<leader>ob",
-			'<cmd>lua require("opencode").prompt("@buffer", { expr = true })<cr>',
+			function()
+				require("opencode").prompt("@buffer ")
+			end,
 			desc = "Add buffer to prompt",
 		},
 		{ "<leader>os", '<cmd>lua require("opencode").select()<cr>', mode = { "n", "v" }, desc = "Select prompt" },

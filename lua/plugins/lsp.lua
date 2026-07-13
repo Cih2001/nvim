@@ -138,14 +138,14 @@ return {
 			{
 				"<C-]>",
 				function()
-					require("illuminate").goto_next_reference()
+					require("illuminate").goto_next_reference(true)
 					vim.cmd(":normal! zz")
 				end,
 			},
 			{
 				"<A-j>",
 				function()
-					require("illuminate").goto_next_reference({ reverse = true })
+					require("illuminate").goto_prev_reference(true)
 					vim.cmd(":normal! zz")
 				end,
 			},

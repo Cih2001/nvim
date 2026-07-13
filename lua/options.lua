@@ -1,6 +1,7 @@
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 local options = {
 	autoindent = true,
+	autoread = true,
 	background = "dark", -- set this to dark or light
 	backup = false, -- creates a backup file
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
