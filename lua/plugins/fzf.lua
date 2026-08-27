@@ -123,6 +123,8 @@ return {
 					["ctrl-a"] = "beginning-of-line",
 					["ctrl-e"] = "end-of-line",
 					["alt-a"] = "toggle-all",
+					["tab"] = "toggle+down",
+					["shift-tab"] = "toggle+up",
 					-- Only valid with fzf previewers (bat/cat/git/etc)
 					["f3"] = "toggle-preview-wrap",
 					["f4"] = "toggle-preview",
@@ -148,7 +150,9 @@ return {
 					["ctrl-t"] = actions.file_tabedit,
 					["alt-q"] = actions.file_sel_to_qf,
 					["alt-Q"] = actions.file_sel_to_ll,
-					["ctrl-i"] = actions.toggle_ignore,
+					-- NOTE: don't bind <ctrl-i>; it shares its keycode with <Tab>
+					-- and would hijack multi-select toggle.
+					["alt-i"] = actions.toggle_ignore,
 					["alt-h"] = actions.toggle_hidden,
 					["alt-f"] = actions.toggle_follow,
 				},
@@ -171,6 +175,9 @@ return {
 				["--height"] = "100%",
 				["--layout"] = "reverse",
 				["--border"] = "none",
+				["--multi"] = true,
+				["--marker"] = "▎",
+				["--pointer"] = "▶",
 			},
 			-- Only used when fzf_bin = "fzf-tmux", by default opens as a
 			-- popup 80% width, 80% height (note `-p` requires tmux > 3.2)
