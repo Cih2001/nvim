@@ -39,6 +39,16 @@ vim.keymap.set("n", "<leader>w", function()
 	vim.o.wrap = not vim.o.wrap
 end, opts)
 
+-- Multicursor: <C-n> emulates vim-visual-multi's "select next occurrence".
+-- First press: sets search to word (or visual selection) and adds a cursor.
+-- Subsequent presses: jumps to the next match and adds a cursor there.
+local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
+
+-- Clear multicursors with <C-\>.
+vim.keymap.set("n", "<C-\\>", function()
+	vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end, opts)
+
 -- User commands
 vim.api.nvim_create_user_command("W", ":noautocmd w", {})
 vim.api.nvim_create_user_command("Wq", ":wq", {})

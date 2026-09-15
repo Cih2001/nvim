@@ -82,7 +82,6 @@ Installed parsers: `c`, `lua`, `vim`, `vimdoc`, `cpp`, `python`, `go`, `hcl`, `y
 | Plugin                   | Purpose                             |
 | ------------------------ | ----------------------------------- |
 | `windwp/nvim-autopairs`  | Auto-close brackets, parens, quotes |
-| `mg979/vim-visual-multi` | Multi-cursor editing                |
 | `stevearc/conform.nvim`  | Format on save                      |
 | `mfussenegger/nvim-lint` | Async linting                       |
 

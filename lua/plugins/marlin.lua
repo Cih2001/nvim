@@ -53,7 +53,7 @@ end
 -- 			text = " " .. f.icon(pane.filename) .. " " .. vim.fn.fnamemodify(pane.filename, ":t") .. " "
 -- 			text = pane.modified and text .. "" or text
 -- 		end
---            
+--
 
 local function get_display_name(filename, panes, idx)
 	-- Get just the filename
@@ -306,7 +306,7 @@ return {
 			end,
 		},
 		{
-			"<S-q>",
+			"<C-c>",
 			function()
 				marlin.remove()
 				marlin.prev()
